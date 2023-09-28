@@ -1,62 +1,146 @@
-const admin = require('firebase-admin');
-const AppError = require('../../middlewareAppError')
+const User = require('../../models/User')
+const AppError = require('../../utils/AppError')
+const passport = require('passport');
 
-//POST request from front end with firebase token
-const login = async (req, res) => {
-    // Assuming the token is sent in the Authorization header
-    const idToken = req.headers.authorization;
 
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
+/**
+ * @function login
+ * @description Handles user login functionality.
+ * 
+ * - Retrieves the user's credentials (email and password) from the request payload.
+ * - Verifies the credentials against the stored data in the database.
+ * - If credentials are valid:
+ *   - Initiates a user session.
+ *   - Responds with a success message and user's role.
+ * - If credentials are invalid or user is not found:
+ *   - Responds with an appropriate error message.
+ *
+ * @param {Object} req - Express request object; expected to contain user's credentials in the body.
+ * @param {Object} res - Express response object; used to send the response back to the client.
+ * @returns {JSON} - A JSON response with a success message and user's role on successful login, or an error message on failure.
+ *
+ * @example
+ * // Expected Request Payload:
+ * {
+ *   "email": "user@example.com",
+ *   "password": "userpassword"
+ * }
+ *
+ * // Successful Response Example:
+ * {
+ *   "message": "Login successful",
+ *   "role": "user_role"
+ * }
+ *
+ * // Failure Response Example:
+ * {
+ *   "message": "Incorrect email or password"
+ * }
+ */
+const login = async (req, res, next) => {
 
-    // After verifying the token, you can get the user's UID and other claims
-    const uid = decodedToken.uid;
-    // Here, you can also check the user's role or any other conditions if necessary
-    // TODO Check if role is correct or not
-    // Retrieve the user's role. 
-    // This assumes you have a Firestore collection named 'users' 
-    // where each document's ID is the user's UID and each document 
-    // has a field named 'role' which specifies the user role.
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(new AppError(err.message, 500));
+        }
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'authentication failed', info: info });
+        }
+        req.login(user, (loginErr) => {
+            if (loginErr) {
+                return next(new AppError(loginErr.message, 500));
+            }
+            return res.status(200).json({ success: true, message: 'authentication succeeded', user: req.user });
+        });
+    })(req, res, next);
 
-    const userDoc = await admin.firestore().collection('users').doc(uid).get();
-
-    if (!userDoc.exists) {
-        return next(new AppError('User not found', 404));
-    }
-
-    const { role } = userDoc.data();
-    // Return the role to the frontend
-    res.status(200).json({ message: 'Login successful', role });
 };
 
 
-//POST request from Frontend with email, password and role
-const signup = async (req, res) => {
-    const { email, password, role } = req.body;
-
+/**
+ * @function signup
+ * @description Handles user registration functionality.
+ * 
+ * - Retrieves user's details (email, password, and role) from the request payload.
+ * - Creates a new User instance with the provided details.
+ * - Saves the new user to the database.
+ * - If user registration is successful:
+ *   - Responds with a success message and user details.
+ * - If registration fails (e.g., email already in use):
+ *   - Responds with an appropriate error message.
+ *
+ * @param {Object} req - Express request object; expected to contain user's details in the body.
+ * @param {Object} res - Express response object used to send the response back to the client.
+ * @param {function} next - Express next middleware function.
+ * @returns {JSON} - A JSON response with a success message and user details on successful registration, or an error message on failure.
+ *
+ * @example
+ * // Expected Request Payload:
+ * {
+ *   "email": "user@example.com",
+ *   "password": "userpassword",
+ *   "role": "user_role"
+ * }
+ *
+ * // Successful Response Example:
+ * {
+ *   "message": "User registered successfully",
+ *   "user": {
+ *     "email": "user@example.com",
+ *     "role": "user_role"
+ *     // other user details...
+ *   }
+ * }
+ *
+ * // Failure Response Example:
+ * {
+ *   "message": "Email already in use"
+ * }
+ */
+const signup = async (req, res, next) => {
     try {
-        // Create user in Firebase Authentication
-        const userRecord = await admin.auth().createUser({
-            email: email,
-            password: password
-        });
 
-        // Store additional user data in Firestore 
-        await admin.firestore().collection('users').doc(userRecord.uid).set({
-            role: role,
-            // ... any other data to store ...
-        });
-
-        // Send back a success response
-        res.status(201).json({ message: 'User registered successfully', uid: userRecord.uid });
-
+        const { email, password, role } = req.body;
+        const newUser = new User({ email, password, role });
+        await newUser.save();
+        res.status(201).json({ message: 'User registered successfully', user: newUser });
 
     } catch (error) {
-        res.status(500).json({ message: 'Signup failed', error: error.message });
-    }
-}
 
+        //email has unique tag in database, error code 11000 when duplicate returned by mongo
+        if (error.code && error.code == 11000) {
+            return next(new AppError('Email already in use', 409));
+        }
+        return next(new AppError(error.message, error.statusCode || 500));
+
+    }
+
+};
+
+
+//POST request from frontend with email
+const passwordReset = async (req, res, next) => {
+    const { email } = req.body;
+
+    if (!email) {
+        return next(new AppError('Email is required', 400));
+    }
+
+    // Generate password reset link
+    const link = await admin.auth().generatePasswordResetLink(email);
+
+    // TODO: Send link to user's email address (you might use a package like Nodemailer)
+    // Note: You would typically use an email sending service to send the link to the user.
+    // You should not expose the link in the response for security reasons.
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Password reset link sent to email'
+    });
+};
 
 module.exports = {
     login,
-    signup
+    signup,
+    passwordReset
 }
