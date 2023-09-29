@@ -39,6 +39,7 @@ const passport = require('passport');
  */
 const login = async (req, res, next) => {
 
+    console.log("LOGIN CONTROLLER CALLED")
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(new AppError(err.message, 500));
@@ -98,10 +99,21 @@ const login = async (req, res, next) => {
  * }
  */
 const signup = async (req, res, next) => {
+    console.log("SIGN UP CONTROLLER CALLED")
     try {
 
-        const { email, password, role } = req.body;
-        const newUser = new User({ email, password, role });
+        const { email, password, role, height, weight, specialization } = req.body;
+        const Userobj = { email, password, role }
+        if (Userobj.role.toLowerCase() == 'customer') {
+            Userobj.height = height;
+            Userobj.weight = weight;
+        }
+
+        if (Userobj.role.toLowerCase() == 'professional') {
+            Userobj.specialization = specialization;
+        }
+        console.log({ Userobj });
+        const newUser = new User(Userobj);
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully', user: newUser });
 
@@ -118,6 +130,7 @@ const signup = async (req, res, next) => {
 };
 
 
+// TODO - Password Reset
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
     const { email } = req.body;
@@ -127,7 +140,6 @@ const passwordReset = async (req, res, next) => {
     }
 
     // Generate password reset link
-    const link = await admin.auth().generatePasswordResetLink(email);
 
     // TODO: Send link to user's email address (you might use a package like Nodemailer)
     // Note: You would typically use an email sending service to send the link to the user.

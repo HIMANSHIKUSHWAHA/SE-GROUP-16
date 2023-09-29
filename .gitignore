@@ -1,12 +1,9 @@
 # Node.js dependencies
 node_modules/
 
-# Environment Variables & Configs
-/backend/config/
-/backend/.env
+# Environment Variables
+.env
 
 # Editor & IDE
-.vscode/
+.vscode
 
-#environment variables
-.env

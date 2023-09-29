@@ -5,8 +5,9 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
-const passport = require('passport');
+const passport = require('./config/passport');
 
+console.log('Started backend server')
 
 // Connect to mongoose
 connectDB();
