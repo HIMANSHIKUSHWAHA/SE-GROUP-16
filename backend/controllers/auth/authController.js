@@ -119,6 +119,32 @@ const signup = async (req, res, next) => {
 };
 
 
+
+
+/**
+ * @function passwordReset
+ * @description Handles the password reset process by sending a password reset link to the user's email.
+ *
+ * - Retrieves the user's email from the request payload.
+ * - Verifies if the email exists in the database.
+ * - Generates a reset token and saves it along with its expiry time to the user's record in the database.
+ * - Sends an email containing the reset link to the user.
+ * 
+ * @param {Object} req - Express request object; expected to contain user's email in the body.
+ * @param {Object} res - Express response object; used to send the response back to the client.
+ * @returns {JSON} - A JSON response with a success message on successful link generation, or an error message on failure.
+ *
+ * @example
+ * // Expected Request Payload:
+ * {
+ *   "email": "user@example.com"
+ * }
+ *
+ * // Successful Response Example:
+ * {
+ *   "message": "Password reset link sent to email"
+ * }
+ */
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
     const { email } = req.body;
@@ -150,6 +176,31 @@ const passwordReset = async (req, res, next) => {
         message: 'Password reset link sent to email'
     });
 };
+
+/**
+ * @function updatePassword
+ * @description Updates the user's password using the token sent via email.
+ *
+ * - Retrieves the reset token and new password from the request payload.
+ * - Verifies the reset token and checks its validity.
+ * - If valid, updates the user's password in the database.
+ * 
+ * @param {Object} req - Express request object; expected to contain the reset token and new password in the body.
+ * @param {Object} res - Express response object; used to send the response back to the client.
+ * @returns {JSON} - A JSON response with a success message on successful password update, or an error message on failure.
+ *
+ * @example
+ * // Expected Request Payload:
+ * {
+ *   "token": "some_valid_token",
+ *   "newPassword": "new_user_password"
+ * }
+ *
+ * // Successful Response Example:
+ * {
+ *   "message": "Password updated successfully"
+ * }
+ */
     const updatePassword = async (req, res, next) => {
         try {
             const { token, newPassword } = req.body;
