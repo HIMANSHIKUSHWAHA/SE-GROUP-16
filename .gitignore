@@ -1,9 +1,4 @@
-# Node.js dependencies
-node_modules/
-
-# Environment Variables
-.env
+/node_modules
 
 # Editor & IDE
 .vscode
-

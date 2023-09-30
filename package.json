@@ -1,35 +1,10 @@
 {
-  "name": "team-16-csci-p465-565",
-  "version": "1.0.0",
-  "description": "Fall 2023 CSCI-P465/565 Team 16 Project Repository",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.iu.edu/aveldan/Team-16-CSCI-P465-565.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "firebase-admin": "^11.10.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.5.3",
-    "nodemailer": "^6.9.5",
-    "passport": "^0.6.0",
-    "passport-local": "^1.0.0",
-    "qrcode": "^1.5.3",
-    "speakeasy": "^2.0.0"
+    "concurrently": "^8.2.1"
   },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "start:ui": "cd ui && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:ui\""
   }
 }
