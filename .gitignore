@@ -2,3 +2,5 @@
 
 # Editor & IDE
 .vscode
+
+.env
