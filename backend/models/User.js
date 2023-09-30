@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        lowercase: true,
         enum: ['customer', 'professional', 'admin']
     },
     height: {
@@ -35,6 +34,13 @@ const userSchema = new mongoose.Schema({
         // Required if role is 'professional'
         required: function () { return this.role === 'professional'; }
     },
+    //fields required for password reset.
+    resetPasswordToken: {
+        type: String
+    },
+    resetPasswordExpires: {
+        type: Date
+      
     // key should not be sent with every response
     twoFASecret: {
         type: String,

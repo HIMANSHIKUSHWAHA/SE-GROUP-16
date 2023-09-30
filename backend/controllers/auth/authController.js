@@ -1,8 +1,8 @@
 const User = require('../../models/User')
 const AppError = require('../../utils/AppError')
 const passport = require('passport');
-
-
+const {sendEmail} = require('../../utils/NodeMailer');
+const crypto = require('crypto');
 
 /**
  * @function login
@@ -40,7 +40,6 @@ const passport = require('passport');
  */
 const login = async (req, res, next) => {
 
-    console.log("LOGIN CONTROLLER CALLED")
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(new AppError(err.message, 500));
@@ -100,21 +99,10 @@ const login = async (req, res, next) => {
  * }
  */
 const signup = async (req, res, next) => {
-    console.log("SIGN UP CONTROLLER CALLED")
     try {
 
-        const { email, password, role, height, weight, specialization } = req.body;
-        const Userobj = { email, password, role }
-        if (Userobj.role.toLowerCase() == 'customer') {
-            Userobj.height = height;
-            Userobj.weight = weight;
-        }
-
-        if (Userobj.role.toLowerCase() == 'professional') {
-            Userobj.specialization = specialization;
-        }
-        console.log({ Userobj });
-        const newUser = new User(Userobj);
+        const { email, password, role } = req.body;
+        const newUser = new User({ email, password, role });
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully', user: newUser });
 
@@ -131,7 +119,6 @@ const signup = async (req, res, next) => {
 };
 
 
-// TODO - Password Reset
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
     const { email } = req.body;
@@ -140,20 +127,67 @@ const passwordReset = async (req, res, next) => {
         return next(new AppError('Email is required', 400));
     }
 
-    // Generate password reset link
+    const user = await User.findOne({ email });
+    if (!user) {
+        return next(new AppError('Email address not found', 404));
+    }
 
-    // TODO: Send link to user's email address (you might use a package like Nodemailer)
-    // Note: You would typically use an email sending service to send the link to the user.
-    // You should not expose the link in the response for security reasons.
+    //generate reset token for user.
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpires = Date.now() + (10 * 60 * 1000);
 
+
+    //save this to user's record.
+    user.resetPasswordToken = resetToken;
+    user.resetPasswordExpires = resetTokenExpires;
+
+    //TODO: Figure out what the link actually is when hosting works, front end for this general page.
+    //generate password reset link w/ token
+    const resetLink = `http://your-frontend-app.com/reset-password/${resetToken}`;
+    await sendEmail(email, resetLink);
     res.status(200).json({
         status: 'success',
         message: 'Password reset link sent to email'
     });
 };
+    const updatePassword = async (req, res, next) => {
+        try {
+            const { token, newPassword } = req.body;
 
+            if (!token || !newPassword) {
+                return next(new AppError('Token and new password are required', 400));
+            }
+
+            //verify user token granted by email.
+            const user = await User.findOne({
+                resetPasswordToken: token,
+                resetPasswordExpires: { $gt: Date.now() }
+            });
+
+            if (!user) {
+                return next(new AppError('Token is invalid or has expired', 400));
+            }
+
+            //update user/remove token
+            user.password = newPassword;
+            user.resetPasswordToken = undefined;
+            user.resetPasswordExpires = undefined;
+            await user.save();
+
+
+            res.status(200).json({
+                status: 'success',
+                message: 'Password updated successfully'
+            });
+
+        } catch (error) {
+            return next(new AppError(error.message, error.statusCode || 500));
+        }
+    };
 module.exports = {
     login,
     signup,
-    passwordReset
+    passwordReset,
+    updatePassword
 }
+
