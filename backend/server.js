@@ -3,6 +3,8 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+//2FA still in progress
+//const twoFARoutes = require('./routes/2faRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -32,6 +34,8 @@ app.use(passport.session());
 
 //Routes
 app.use('/api/v1/auth', authRoutes);
+// TODO COmplete 2FA
+//app.use('/api/v1/auth/2fa', twoFARoutes);
 
 
 //error handler to be placed last

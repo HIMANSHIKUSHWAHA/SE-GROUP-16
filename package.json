@@ -23,7 +23,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.3",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "qrcode": "^1.5.3",
+    "speakeasy": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

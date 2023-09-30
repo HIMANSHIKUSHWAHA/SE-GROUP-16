@@ -34,6 +34,16 @@ const userSchema = new mongoose.Schema({
         type: String,
         // Required if role is 'professional'
         required: function () { return this.role === 'professional'; }
+    },
+    // key should not be sent with every response
+    twoFASecret: {
+        type: String,
+        select: false
+    },
+    // Set to false initially, and update it to true once the user sets up 2FA
+    twoFAEnabled: {
+        type: Boolean,
+        default: false
     }
 });
 
