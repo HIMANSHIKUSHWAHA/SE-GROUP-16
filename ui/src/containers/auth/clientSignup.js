@@ -8,6 +8,7 @@ export default function ClientSignup(props) {
     const [formData, setFormData] = useState({
         firstName:"",
         lastName:"",
+        role:"",
         email:"",
         password:"",
         rePassword:""
@@ -81,6 +82,18 @@ export default function ClientSignup(props) {
                         name="lastName"
                         onChange={handleInputChange}
                         />
+                    </div>
+                    <div className="form-group mt-3">
+                        <label>How do you want to Sign Up</label>
+                        <select 
+                          className="form-control mt-1"
+                          name="role"
+                          value={formData.role} 
+                          onChange={handleInputChange}
+                        >
+                          <option value="client">Client</option>
+                          <option value="professional">Professional</option>
+                        </select>
                     </div>
                     <div className="form-group mt-3">
                         <label>Email address</label>
