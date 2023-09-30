@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
+const cors = require('cors');
 
 console.log('Started backend server')
 
@@ -17,6 +18,8 @@ connectDB();
 
 
 // Middleware to parse JSON requests
+// Enable CORS for all routes
+app.use(cors());
 app.use(express.json());
 
 

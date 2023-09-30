@@ -39,7 +39,8 @@ const crypto = require('crypto');
  * }
  */
 const login = async (req, res, next) => {
-
+    console.log("LOGIN CONTROLLER CALLED");
+    console.log(req.body);
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(new AppError(err.message, 500));
@@ -99,7 +100,8 @@ const login = async (req, res, next) => {
  * }
  */
 const signup = async (req, res, next) => {
-    console.log("SIGN UP CONTROLLER CALLED")
+    console.log("SIGN UP CONTROLLER CALLED");
+    console.log(req.body);
     try {
 
         const { email, password, role, height, weight, specialization } = req.body;
