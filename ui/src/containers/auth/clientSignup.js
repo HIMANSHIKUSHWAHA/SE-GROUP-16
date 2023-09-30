@@ -13,43 +13,61 @@ export default function ClientSignup(props) {
         password:"",
         rePassword:""
     });
+    
+    const [err, setErr] = useState({
+        roleErr:null,
+        validEmailErr:null,
+        passStrengthErr: null,
+        samePassErr:null
+    })
 
-    const [strengthMessage, setStrengthMessage] = useState(null);
-    const [samePass, setSamePass] = useState(null);
-    const [validEmail, setValidEmail] = useState(null);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
         setFormData((prevFormData) => {
             return {...prevFormData, [name]: value};
         });
-        setStrengthMessage(null);
-        setSamePass(null);
-        setValidEmail(null);
+        setErr({
+            roleErr:null,
+            validEmailErr:null,
+            passStrengthErr: null,
+            samePassErr:null
+        });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData);     
-
-        if(validator.isEmail(formData.email)){
-            if(validator.isStrongPassword(formData.password, {
-                minLength: 8,
-                minLowercase: 1,
-                minUppercase: 1,
-                minNumbers: 1,
-                minSymbols: 1
-            })){
-                if(formData.password === formData.rePassword){
-                    postClientSignUp(formData);
-                }else{
-                    setSamePass("The passwords does not match");
+        if(formData.role === ""){
+            setErr((prevErr) => {
+                return {...prevErr, "roleErr": "Please select a role"};
+            });
+        }else{
+            if(validator.isEmail(formData.email)){
+                if(validator.isStrongPassword(formData.password, {
+                    minLength: 8,
+                    minLowercase: 1,
+                    minUppercase: 1,
+                    minNumbers: 1,
+                    minSymbols: 1
+                })){
+                    if(formData.password === formData.rePassword){
+                        postClientSignUp(formData);
+                    }else{
+                        setErr((prevErr) => {
+                            return {...prevErr, "samePassErr":"The passwords does not match"};
+                        });
+                    }
+                }else {
+                    setErr((prevErr) => {
+                        return {...prevErr, "passStrengthErr": "Password should contain atleast 8 characters \n 1 lowercase letter \n 1 uppercase letter \n 1 numeric value and 1 symbol"};
+                    });
                 }
             }else {
-                setStrengthMessage("Password should contain atleast 8 characters \n 1 lowercase letter \n 1 uppercase letter \n 1 numeric value and 1 symbol");
+                setErr((prevErr) => {
+                    return {...prevErr, "validEmailErr":"Not a valid email"};
+                });
             }
-        }else {
-            setValidEmail("Not a valid email");
         }
     };
 
@@ -91,10 +109,16 @@ export default function ClientSignup(props) {
                           value={formData.role} 
                           onChange={handleInputChange}
                         >
+                          <option value="">select a role</option>
                           <option value="client">Client</option>
                           <option value="professional">Professional</option>
                         </select>
                     </div>
+                    {err.roleErr === null ? null :
+                    <span style={{
+                        color: 'darkred',
+                        fontSize: 13,
+                    }}>{err.roleErr}</span>}
                     <div className="form-group mt-3">
                         <label>Email address</label>
                         <input
@@ -105,11 +129,11 @@ export default function ClientSignup(props) {
                         onChange={handleInputChange}
                         />
                     </div>
-                    {validEmail === null ? null :
+                    {err.validEmailErr === null ? null :
                     <span style={{
                         color: 'darkred',
                         fontSize: 13,
-                    }}>{validEmail}</span>}
+                    }}>{err.validEmailErr}</span>}
                     <div className="form-group mt-3">
                         <label>New Password</label>
                         <input
@@ -120,11 +144,11 @@ export default function ClientSignup(props) {
                         onChange={handleInputChange}
                         />
                     </div>
-                    {strengthMessage === null ? null :
+                    {err.passStrengthErr === null ? null :
                     <span style={{
                         color: 'darkred',
                         fontSize: 13,
-                    }}>{strengthMessage}</span>}
+                    }}>{err.passStrengthErr}</span>}
                     <div className="form-group mt-3">
                         <label>Confirm Password</label>
                         <input
@@ -135,11 +159,11 @@ export default function ClientSignup(props) {
                         onChange={handleInputChange}
                         />
                     </div>
-                    {samePass === null ? null :
+                    {err.samePassErr === null ? null :
                     <span style={{
                         color: 'darkred',
                         fontSize: 13,
-                    }}>{samePass}</span>}
+                    }}>{err.samePassErr}</span>}
                     <div className="d-grid gap-2 mt-3">
                         <button type="submit" className="btn btn-primary">
                         Sign me up!!
