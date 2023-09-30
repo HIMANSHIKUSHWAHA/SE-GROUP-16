@@ -3,6 +3,7 @@ const AppError = require('../../utils/AppError')
 const passport = require('passport');
 const {sendEmail} = require('../../utils/NodeMailer');
 const crypto = require('crypto');
+
 /**
  * @function login
  * @description Handles user login functionality.
