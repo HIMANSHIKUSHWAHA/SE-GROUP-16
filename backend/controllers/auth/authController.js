@@ -1,7 +1,7 @@
 const User = require('../../models/User')
 const AppError = require('../../utils/AppError')
 const passport = require('passport');
-const {sendEmail} = require('../../utils/NodeMailer');
+const { sendEmail } = require('../../utils/NodeMailer');
 const crypto = require('crypto');
 
 /**
@@ -99,13 +99,23 @@ const login = async (req, res, next) => {
  * }
  */
 const signup = async (req, res, next) => {
+    console.log("SIGN UP CONTROLLER CALLED")
     try {
 
-        const { email, password, role } = req.body;
-        const newUser = new User({ email, password, role });
+        const { email, password, role, height, weight, specialization } = req.body;
+        const Userobj = { email, password, role }
+        if (Userobj.role.toLowerCase() == 'customer') {
+            Userobj.height = height;
+            Userobj.weight = weight;
+        }
+
+        if (Userobj.role.toLowerCase() == 'professional') {
+            Userobj.specialization = specialization;
+        }
+        console.log({ Userobj });
+        const newUser = new User(Userobj);
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully', user: newUser });
-
     } catch (error) {
 
         //email has unique tag in database, error code 11000 when duplicate returned by mongo
@@ -150,40 +160,40 @@ const passwordReset = async (req, res, next) => {
         message: 'Password reset link sent to email'
     });
 };
-    const updatePassword = async (req, res, next) => {
-        try {
-            const { token, newPassword } = req.body;
+const updatePassword = async (req, res, next) => {
+    try {
+        const { token, newPassword } = req.body;
 
-            if (!token || !newPassword) {
-                return next(new AppError('Token and new password are required', 400));
-            }
-
-            //verify user token granted by email.
-            const user = await User.findOne({
-                resetPasswordToken: token,
-                resetPasswordExpires: { $gt: Date.now() }
-            });
-
-            if (!user) {
-                return next(new AppError('Token is invalid or has expired', 400));
-            }
-
-            //update user/remove token
-            user.password = newPassword;
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpires = undefined;
-            await user.save();
-
-
-            res.status(200).json({
-                status: 'success',
-                message: 'Password updated successfully'
-            });
-
-        } catch (error) {
-            return next(new AppError(error.message, error.statusCode || 500));
+        if (!token || !newPassword) {
+            return next(new AppError('Token and new password are required', 400));
         }
-    };
+
+        //verify user token granted by email.
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return next(new AppError('Token is invalid or has expired', 400));
+        }
+
+        //update user/remove token
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+
+        res.status(200).json({
+            status: 'success',
+            message: 'Password updated successfully'
+        });
+
+    } catch (error) {
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
 module.exports = {
     login,
     signup,

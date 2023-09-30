@@ -12,13 +12,14 @@ const sendEmail = async (email, link) => {
             pass: EMAIL_PASS, //google app password
         },
     });
-    const option= {
+
+    const option = {
         from: '"FitFriend" <fitfriendapplication@gmail.com>', //sender address
         to: email,
         subject: "Password Reset Link",
         text: `You have requested a password reset. Click on this link to reset your password: ${link}`,
     };
-    transporter.sendMail(option, function(error, info) {
+    transporter.sendMail(option, function (error, info) {
         if (error) {
             console.log(error, 'error sending email');
         } else {
