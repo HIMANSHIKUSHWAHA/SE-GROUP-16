@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     },
     resetPasswordExpires: {
         type: Date
-      
+    },
     // key should not be sent with every response
     twoFASecret: {
         type: String,
