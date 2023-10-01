@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Header from "../header";
 import validator from "validator";
-import { postClientLogin } from "../api";
+import { postReq } from "../api";
 
 export default function ClientLogin(props){
 
     const [formData, setFormData] = useState({
-        email:"",
-        password:""
+        email:null,
+        password:null
     });
 
     const [validEmail, setValidEmail] = useState(null);
@@ -26,7 +26,13 @@ export default function ClientLogin(props){
         console.log(formData);
         
         if(validator.isEmail(formData.email)){
-            postClientLogin(formData);
+
+            const headers = {};
+            postReq("/auth/login", headers, formData);
+            setFormData({
+                email:null,
+                password:null
+            });
         }else{
             setValidEmail("Not a valid email");
         }
@@ -40,7 +46,7 @@ export default function ClientLogin(props){
                     <h3 className="Auth-form-title">Login</h3>
                     <div className="text-center">
                         Not registered yet?{" "}
-                        <a className="link-primary" onClick={props.changeAuthMode} href="#">Sign Up</a>
+                        <a className="link-primary" onClick={() => props.changeAuthMode("signup")} href="#">Sign Up</a>
                     </div>
                     <div className="form-group mt-3">
                         <label>Email address</label>
@@ -73,7 +79,7 @@ export default function ClientLogin(props){
                         </button>
                     </div>
                     <p className="text-center mt-2">
-                        <a href="#">Forgot Password?</a>
+                        <a className="link-primary" onClick={() => props.changeAuthMode("reset password")} href="#">Forgot Password?</a>
                     </p>
                 </div>
             </form>

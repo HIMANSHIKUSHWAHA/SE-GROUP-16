@@ -25,3 +25,19 @@ export function postClientLogin(formData) {
         console.log(res);
     }).catch((err) => (console.log(err)));
 }
+
+export function postReq (localUrl, headers, data) {
+
+    const fullUrl = "http://localhost:5000/api/v1" + localUrl;
+    axios({
+        url: fullUrl,
+        method: "POST",
+        headers: headers,
+        data: data,
+    }).then((res) => {
+        console.log(res);
+    }).catch((err) => (console.log(err)));
+}
+
+// For email /passwordReset
+// for update /updatePassword

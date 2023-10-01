@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Header from "../header";
 import validator from "validator";
-import { postClientSignUp } from "../api";
+import { postReq } from "../api";
 
 export default function ClientSignup(props) {
 
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
-        role: "client",
+        role: "",
         email: "",
         password: "",
         rePassword: ""
@@ -51,7 +51,10 @@ export default function ClientSignup(props) {
                     minSymbols: 1
                 })) {
                     if (formData.password === formData.rePassword) {
-                        postClientSignUp(formData);
+                        
+                        const headers = {};
+                        postReq("/auth/signup", headers, formData);
+
                     } else {
                         setErr((prevErr) => {
                             return { ...prevErr, "samePassErr": "The passwords does not match" };
@@ -78,7 +81,7 @@ export default function ClientSignup(props) {
                     <h3 className="Auth-form-title">Sign Up</h3>
                     <div className="text-center">
                         Already registered?{" "}
-                        <a className="link-primary" onClick={props.changeAuthMode} href="#">Login</a>
+                        <a className="link-primary" onClick={() => props.changeAuthMode("login")} href="#">Login</a>
                     </div>
                     <div className="form-group mt-3">
                         <label>First Name</label>
@@ -168,9 +171,6 @@ export default function ClientSignup(props) {
                             Sign me up!!
                         </button>
                     </div>
-                    <p className="text-center mt-2">
-                        <a href="#">Forgot Password?</a>
-                    </p>
                 </div>
             </form>
         </div>
