@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Dashboard from "./dashboard.js"
 import PrivateRoute from "./privateRoute"
 import ClientLogin from "./auth/clientLogin.js";
@@ -11,6 +11,7 @@ export default function Router () {
     return (
         <BrowserRouter>
         <Routes>
+            <Route path="/" element={<Navigate to="/login" />} />
             <Route path="/login" element={<ClientLogin />} />
             <Route path="/signup" element={<ClientSignup />} />
             <Route path="/reset-password" element={<ResetPassword />} />
