@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Header from "../header";
 import validator from "validator";
 import { postReq } from "../api";
+import { useNavigate } from "react-router-dom";
 
 export default function ClientLogin(props){
+
+    const nav = useNavigate();
 
     const [formData, setFormData] = useState({
         email:null,
@@ -11,6 +14,7 @@ export default function ClientLogin(props){
     });
 
     const [validEmail, setValidEmail] = useState(null);
+    const [passErr, setPassErr] = useState(null);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -19,6 +23,7 @@ export default function ClientLogin(props){
         });
 
         setValidEmail(null);
+        setPassErr(null);
     };
 
     const handleSubmit = (event) => {
@@ -28,11 +33,17 @@ export default function ClientLogin(props){
         if(validator.isEmail(formData.email)){
 
             const headers = {};
-            postReq("/auth/login", headers, formData);
+            const response = postReq("/auth/login", headers, formData);
             setFormData({
                 email:null,
                 password:null
             });
+
+            if(response.message === "Login successful"){
+                nav("/dashboard");
+            }else if (response.message === "Incorrect email or password"){
+                setPassErr("Incorrect email or password");
+            }
         }else{
             setValidEmail("Not a valid email");
         }
@@ -73,6 +84,11 @@ export default function ClientLogin(props){
                         onChange={handleInputChange}
                         />
                     </div>
+                    {passErr === null ? null :
+                    <span style={{
+                        color: 'darkred',
+                        fontSize: 13,
+                    }}>{passErr}</span>}
                     <div className="d-grid gap-2 mt-3">
                         <button type="submit" className="btn btn-primary">
                         Login!

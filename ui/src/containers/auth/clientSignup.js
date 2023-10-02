@@ -53,7 +53,15 @@ export default function ClientSignup(props) {
                     if (formData.password === formData.rePassword) {
                         
                         const headers = {};
-                        postReq("/auth/signup", headers, formData);
+                        const response = postReq("/auth/signup", headers, formData);
+                        
+                        if(response.message === "User registered successfully"){
+                            props.changeAuthMode("login");
+                        }else if(response.message === "Email already in use"){
+                            setErr((prev) => {
+                                return {...prev, "validEmailErr": "Email already in use"}
+                            })
+                        }
 
                     } else {
                         setErr((prevErr) => {

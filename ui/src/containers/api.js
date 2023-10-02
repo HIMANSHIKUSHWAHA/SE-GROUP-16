@@ -36,6 +36,7 @@ export function postReq (localUrl, headers, data) {
         data: data,
     }).then((res) => {
         console.log(res);
+        return JSON.stringify(res.data)
     }).catch((err) => (console.log(err)));
 }
 
