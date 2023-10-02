@@ -5,20 +5,20 @@ import { postReq } from "../../services/api";
 import { Navigate } from "react-router-dom";
 import { setAuthenticationStat } from "../../services/auth";
 
-export default function ClientLogin(props){
+export default function ClientLogin(props) {
 
     const [formData, setFormData] = useState({
-        email:"",
-        password:""
+        email: "",
+        password: ""
     });
 
     const [validEmail, setValidEmail] = useState(null);
     const [passErr, setPassErr] = useState(null);
 
     const handleInputChange = (event) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         setFormData((prevFormData) => {
-            return {...prevFormData, [name]: value};
+            return { ...prevFormData, [name]: value };
         });
 
         setValidEmail(null);
@@ -28,37 +28,40 @@ export default function ClientLogin(props){
 
     const [nav, setNav] = useState(null);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formData);
-        
-        if(validator.isEmail(formData.email)){
+
+        if (validator.isEmail(formData.email)) {
 
             const headers = {};
-            const response = postReq("/auth/login", headers, formData);
+            const response = await postReq("/auth/login", headers, formData);
+            console.log("----------------------", response);
             setFormData({
-                email:"",
-                password:""
+                email: "",
+                password: ""
             });
-            
-            if(response.message === "Login successful"){
-                
+
+            console.log("MESSAGE IS ", response);
+            if (response.message === "authentication succeeded") {
+
                 setAuthenticationStat(true);
                 setNav("/dashboard");
 
-            }else if (response.message === "Incorrect email or password"){
-               
+            } else if (response.message === "Incorrect email or password") {
+
                 setAuthenticationStat(false);
                 setPassErr("Incorrect email or password");
-            
+
             }
 
-        }else{
+
+        } else {
             setValidEmail("Not a valid email");
         }
     };
 
-    if(nav == null){
+    if (nav == null) {
 
         return (
             <div className="Auth-form-container">
@@ -73,36 +76,36 @@ export default function ClientLogin(props){
                         <div className="form-group mt-3">
                             <label>Email address</label>
                             <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="e.g abcd@example.com"
-                            name="email"
-                            onChange={handleInputChange}
+                                type="text"
+                                className="form-control mt-1"
+                                placeholder="e.g abcd@example.com"
+                                name="email"
+                                onChange={handleInputChange}
                             />
                         </div>
                         {validEmail === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{validEmail}</span>}
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{validEmail}</span>}
                         <div className="form-group mt-3">
                             <label>Password</label>
                             <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Enter password"
-                            name="password"
-                            onChange={handleInputChange}
+                                type="password"
+                                className="form-control mt-1"
+                                placeholder="Enter password"
+                                name="password"
+                                onChange={handleInputChange}
                             />
                         </div>
                         {passErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{passErr}</span>}
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{passErr}</span>}
                         <div className="d-grid gap-2 mt-3">
                             <button type="submit" className="btn btn-primary">
-                            Login!
+                                Login!
                             </button>
                         </div>
                         <p className="text-center mt-2">
@@ -112,7 +115,7 @@ export default function ClientLogin(props){
                 </form>
             </div>
         )
-    }else{
+    } else {
 
         return (
             <Navigate to={nav} />
