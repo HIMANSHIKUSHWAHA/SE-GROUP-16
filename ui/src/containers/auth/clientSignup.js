@@ -38,7 +38,7 @@ export default function ClientSignup(props) {
         setNav(null);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formData);
         if (formData.role === "") {
@@ -57,7 +57,7 @@ export default function ClientSignup(props) {
                     if (formData.password === formData.rePassword) {
                         
                         const headers = {};
-                        const response = postReq("/auth/signup", headers, formData);
+                        const response = await postReq("/auth/signup", headers, formData);
                         
                         if(response.message === "User registered successfully"){
                             

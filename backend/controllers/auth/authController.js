@@ -29,13 +29,13 @@ const crypto = require('crypto');
  *
  * // Successful Response Example:
  * {
- *   "message": "Login successful",
+ *   "message": "authentication succeeded",
  *   "role": "user_role"
  * }
  *
  * // Failure Response Example:
  * {
- *   "message": "Incorrect email or password"
+ *   "message": "authentication failed"
  * }
  */
 const login = async (req, res, next) => {

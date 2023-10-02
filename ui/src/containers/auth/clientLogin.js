@@ -36,19 +36,19 @@ export default function ClientLogin(props) {
 
             const headers = {};
             const response = await postReq("/auth/login", headers, formData);
-            console.log("----------------------", response);
+            
             setFormData({
                 email: "",
                 password: ""
             });
 
-            console.log("MESSAGE IS ", response);
+            
             if (response.message === "authentication succeeded") {
 
                 setAuthenticationStat(true);
                 setNav("/dashboard");
 
-            } else if (response.message === "Incorrect email or password") {
+            } else if (response.message === "authentication failed") {
 
                 setAuthenticationStat(false);
                 setPassErr("Incorrect email or password");
