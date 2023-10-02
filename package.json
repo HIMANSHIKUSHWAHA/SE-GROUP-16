@@ -5,6 +5,7 @@
   "scripts": {
     "start:backend": "cd backend && npm start",
     "start:ui": "cd ui && npm start",
-    "start": "concurrently \"npm run start:backend\" \"npm run start:ui\""
+    "start": "concurrently \"npm run start:backend\" \"npm run start:ui\"",
+    "build": "cd ui && npm install && cd ../backend && npm install && cd .."
   }
 }

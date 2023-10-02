@@ -52,6 +52,7 @@ const login = async (req, res, next) => {
             if (loginErr) {
                 return next(new AppError(loginErr.message, 500));
             }
+            console.log("LOGIN SUCCESS");
             return res.status(200).json({ success: true, message: 'authentication succeeded', user: req.user });
         });
     })(req, res, next);
@@ -106,7 +107,7 @@ const signup = async (req, res, next) => {
 
         const { email, password, role, height, weight, specialization } = req.body;
         const Userobj = { email, password, role }
-        if (Userobj.role.toLowerCase() == 'customer') {
+        if (Userobj.role.toLowerCase() == 'client') {
             Userobj.height = height;
             Userobj.weight = weight;
         }

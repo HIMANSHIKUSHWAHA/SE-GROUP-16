@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const twoFAController = require('../controllers/2faController.js');
+const twoFAController = require('../controllers/2faController');
 
+router.post('/setup', twoFAController.setup2FA);
 
-router.post('/setup', twoFAController.setup);
-
-router.post('/verify', twoFAController.verify);
+router.post('/verify', twoFAController.verify2FAToken);
 
 module.exports = router;
 

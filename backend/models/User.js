@@ -17,22 +17,26 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true,
-        enum: ['customer', 'professional', 'admin']
+        enum: ['client', 'professional', 'admin']
     },
+    // TODO change the fields back to required
     height: {
         type: Number,
         // Required if role is 'customer'
-        required: function () { return this.role === 'customer'; }
+        // required: function () { return this.role === 'client'; }
+        required: false,
     },
     weight: {
         type: Number,
         // Required if role is 'customer'
-        required: function () { return this.role === 'customer'; }
+        // required: function () { return this.role === 'client'; }
+        required: false,
     },
     specialization: {
         type: String,
         // Required if role is 'professional'
-        required: function () { return this.role === 'professional'; }
+        // required: function () { return this.role === 'professional'; }
+        required: false,
     },
     //fields required for password reset.
     resetPasswordToken: {
