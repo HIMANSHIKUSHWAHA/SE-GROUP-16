@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Header from "../header";
 import validator from "validator";
-import { postReq } from "../api";
+import { postReq } from "../../services/api";
+import { Navigate } from "react-router-dom";
 
 export default function ClientSignup(props) {
 
@@ -19,7 +20,9 @@ export default function ClientSignup(props) {
         validEmailErr: null,
         passStrengthErr: null,
         samePassErr: null
-    })
+    });
+
+    const [nav, setNav] = useState(null);
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -32,6 +35,7 @@ export default function ClientSignup(props) {
             passStrengthErr: null,
             samePassErr: null
         });
+        setNav(null);
     }
 
     const handleSubmit = (event) => {
@@ -56,7 +60,9 @@ export default function ClientSignup(props) {
                         const response = postReq("/auth/signup", headers, formData);
                         
                         if(response.message === "User registered successfully"){
-                            props.changeAuthMode("login");
+                            
+                            setNav("/login");
+                            
                         }else if(response.message === "Email already in use"){
                             setErr((prev) => {
                                 return {...prev, "validEmailErr": "Email already in use"}
@@ -81,106 +87,112 @@ export default function ClientSignup(props) {
         }
     };
     
-    return (
-        <div className="Auth-form-container">
-            <Header />
-            <form className="Auth-form" onSubmit={handleSubmit}>
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Sign Up</h3>
-                    <div className="text-center">
-                        Already registered?{" "}
-                        <a className="link-primary" onClick={() => props.changeAuthMode("login")} href="#">Login</a>
+    if (nav == null){
+        return (
+            <div className="Auth-form-container">
+                <Header />
+                <form className="Auth-form" onSubmit={handleSubmit}>
+                    <div className="Auth-form-content">
+                        <h3 className="Auth-form-title">Sign Up</h3>
+                        <div className="text-center">
+                            Already registered?{" "}
+                            <a className="link-primary" onClick={() => setNav("/login")} href="#">Login</a>
+                        </div>
+                        <div className="form-group mt-3">
+                            <label>First Name</label>
+                            <input
+                                type="text"
+                                className="form-control mt-1"
+                                placeholder="e.g Rohit"
+                                name="firstName"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="form-group mt-3">
+                            <label>Last Name</label>
+                            <input
+                                type="text"
+                                className="form-control mt-1"
+                                placeholder="e.g Sharma"
+                                name="lastName"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="form-group mt-3">
+                            <label>How do you want to Sign Up</label>
+                            <select
+                                className="form-control mt-1"
+                                name="role"
+                                value={formData.role}
+                                onChange={handleInputChange}
+                            >
+                                <option value="">select a role</option>
+                                <option value="client">Client</option>
+                                <option value="professional">Professional</option>
+                            </select>
+                        </div>
+                        {err.roleErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.roleErr}</span>}
+                        <div className="form-group mt-3">
+                            <label>Email address</label>
+                            <input
+                                type="text"
+                                className="form-control mt-1"
+                                placeholder="e.g abcd@example.com"
+                                name="email"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {err.validEmailErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.validEmailErr}</span>}
+                        <div className="form-group mt-3">
+                            <label>New Password</label>
+                            <input
+                                type="password"
+                                className="form-control mt-1"
+                                placeholder="Password"
+                                name="password"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {err.passStrengthErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.passStrengthErr}</span>}
+                        <div className="form-group mt-3">
+                            <label>Confirm Password</label>
+                            <input
+                                type="password"
+                                className="form-control mt-1"
+                                placeholder="Comfirm Password"
+                                name="rePassword"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {err.samePassErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.samePassErr}</span>}
+                        <div className="d-grid gap-2 mt-3">
+                            <button type="submit" className="btn btn-primary">
+                                Sign me up!!
+                            </button>
+                        </div>
                     </div>
-                    <div className="form-group mt-3">
-                        <label>First Name</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="e.g Rohit"
-                            name="firstName"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>Last Name</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="e.g Sharma"
-                            name="lastName"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label>How do you want to Sign Up</label>
-                        <select
-                            className="form-control mt-1"
-                            name="role"
-                            value={formData.role}
-                            onChange={handleInputChange}
-                        >
-                            <option value="">select a role</option>
-                            <option value="client">Client</option>
-                            <option value="professional">Professional</option>
-                        </select>
-                    </div>
-                    {err.roleErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.roleErr}</span>}
-                    <div className="form-group mt-3">
-                        <label>Email address</label>
-                        <input
-                            type="text"
-                            className="form-control mt-1"
-                            placeholder="e.g abcd@example.com"
-                            name="email"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    {err.validEmailErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.validEmailErr}</span>}
-                    <div className="form-group mt-3">
-                        <label>New Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Password"
-                            name="password"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    {err.passStrengthErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.passStrengthErr}</span>}
-                    <div className="form-group mt-3">
-                        <label>Confirm Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Comfirm Password"
-                            name="rePassword"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    {err.samePassErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.samePassErr}</span>}
-                    <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary">
-                            Sign me up!!
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    )
+                </form>
+            </div>
+        )
+    }else{
+        return (
+            <Navigate to={nav} />
+        )
+    }
 };

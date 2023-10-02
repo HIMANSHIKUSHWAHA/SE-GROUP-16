@@ -1,13 +1,13 @@
 import React, {useState} from "react";
 import Header from "../header";
 import validator from "validator";
-import { postReq } from "../api";
+import { postReq } from "../../services/api";
 
 export default function UpdatePassword (props) {
     
     const [formData, setFormData]  = useState({
-        newPassword: null,
-        confirmPassword: null
+        newPassword: "",
+        confirmPassword: ""
     });
 
     const [err, setErr] = useState({
