@@ -2,7 +2,7 @@
 Fall 2023 CSCI-P465/565 Team 16 Project Repository
 
 ## Front-End 
-
+```
 Routes 
 -> "/login" for all the login pages for now
     -> Will change to different UI for different roles.
@@ -18,7 +18,9 @@ Routes
 
 -> "/dashboard" for the one and only dashboard as of now.
     -> Protected route.
+```
 
+```
 Structures
 -> login
     --> The form structure
@@ -51,5 +53,5 @@ Structures
             passStrengthErr: null,
             samePassErr: null
         },setErr
-
+```
 ## Back-End
