@@ -1,6 +1,7 @@
 require('dotenv').config();
 const nodeMailer = require('nodemailer');
 
+console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
 // Function to send email
 const sendEmail = async (email, link) => {
     let transporter = nodeMailer.createTransport({
@@ -8,8 +9,8 @@ const sendEmail = async (email, link) => {
         port: 587,
         secure: false,
         auth: {
-            user: EMAIL_USER, //email
-            pass: EMAIL_PASS, //google app password
+            user: "fitfriend10@gmail.com", //email
+            pass: "wysy tszs mirw mnze", //google app password
         },
     });
 
@@ -27,4 +28,4 @@ const sendEmail = async (email, link) => {
         }
     });
 };
-module.exports = sendEmail;
+module.exports = { sendEmail };

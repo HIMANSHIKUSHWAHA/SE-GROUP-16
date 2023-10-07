@@ -3,6 +3,7 @@ const AppError = require('../../utils/AppError')
 const passport = require('passport');
 const { sendEmail } = require('../../utils/NodeMailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 /**
  * @function login
@@ -18,7 +19,7 @@ const crypto = require('crypto');
  *
  * @param {Object} req - Express request object; expected to contain user's credentials in the body.
  * @param {Object} res - Express response object; used to send the response back to the client.
- * @returns {JSON} - A JSON response with a success message and user's role on successful login, or an error message on failure.
+ * @returns {JSON} - A JSON response with a success message and tempToken on successful login, or an error message on failure.
  *
  * @example
  * // Expected Request Payload:
@@ -30,7 +31,7 @@ const crypto = require('crypto');
  * // Successful Response Example:
  * {
  *   "message": "authentication succeeded",
- *   "role": "user_role"
+ *   "tempToken": jsont web token with userId
  * }
  *
  * // Failure Response Example:
@@ -53,7 +54,11 @@ const login = async (req, res, next) => {
                 return next(new AppError(loginErr.message, 500));
             }
             console.log("LOGIN SUCCESS");
-            return res.status(200).json({ success: true, message: 'authentication succeeded', user: req.user });
+
+            // Generate a temporary token
+            const tempToken = jwt.sign({ userId: user._id, temp: true }, process.env.JWT_SECRET, { expiresIn: '15m' });
+
+            return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken });
         });
     })(req, res, next);
 
