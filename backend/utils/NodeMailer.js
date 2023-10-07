@@ -1,31 +1,30 @@
 require('dotenv').config();
 const nodeMailer = require('nodemailer');
 
-console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
-// Function to send email
-const sendEmail = async (email, link) => {
+//send email function
+const sendEmail = async (title, email, link, content) => {
     let transporter = nodeMailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
         secure: false,
         auth: {
-            user: "fitfriend10@gmail.com", //email
-            pass: "wysy tszs mirw mnze", //google app password
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
         },
     });
 
     const option = {
-        from: '"FitFriend" <fitfriendapplication@gmail.com>', //sender address
+        from: '"FitFriend" <fitfriendapplication@gmail.com>',
         to: email,
-        subject: "Password Reset Link",
-        text: `You have requested a password reset. Click on this link to reset your password: ${link}`,
+        subject: title,
+        html: `${content} <a href="${link}">Click here to view</a>`,
     };
-    transporter.sendMail(option, function (error, info) {
-        if (error) {
-            console.log(error, 'error sending email');
-        } else {
-            console.log('email sent successfully')
-        }
-    });
+
+    try {
+        const info = await transporter.sendMail(option);
+        console.log('email sent successfully');
+    } catch (error) {
+        console.log(error, 'error sending email');
+    }
 };
 module.exports = { sendEmail };

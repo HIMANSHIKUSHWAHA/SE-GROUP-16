@@ -162,7 +162,9 @@ const passwordReset = async (req, res, next) => {
     //TODO: Figure out what the link actually is when hosting works, front end for this general page.
     //generate password reset link w/ token
     const resetLink = `http://your-frontend-app.com/reset-password/${resetToken}`;
-    await sendEmail(email, resetLink);
+    const description = "You have requested to reset your password, Please click this link:";
+    const title = "Password Reset";
+    await sendEmail(title, email, resetLink, description);
     res.status(200).json({
         status: 'success',
         message: 'Password reset link sent to email'
