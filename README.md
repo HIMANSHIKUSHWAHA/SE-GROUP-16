@@ -455,62 +455,6 @@ This documentation should provide a complete overview of how the /setup and /ver
 
 
 
-
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-reset password
-three different views
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Search Functionality
 The search functionality allows you to easily find resources, courses, and articles related to your wellness journey.
 Dashboard
@@ -529,8 +473,6 @@ Content Moderation
 User-generated content goes through a moderation process to ensure the integrity and safety of our community.
 Live Streaming
 Join live streaming sessions to participate in live discussions and activities related to wellness.
-
-See our FAQ section for answers to common questions related to account management, features, and troubleshooting.
 
 
 This structure provides a comprehensive guide for users to understand and navigate the Wellness Tracking System. Feel free to expand or modify these sections based on your specific needs.
