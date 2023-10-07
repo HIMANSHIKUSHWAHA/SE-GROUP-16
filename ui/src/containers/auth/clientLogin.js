@@ -4,6 +4,7 @@ import validator from "validator";
 import { postReq } from "../../services/api";
 import { Navigate } from "react-router-dom";
 import { setAuthenticationStat } from "../../services/auth";
+import GoogleOAuth from "./oAuth";
 
 export default function ClientLogin(props) {
 
@@ -42,11 +43,11 @@ export default function ClientLogin(props) {
                 password: ""
             });
 
-            
             if (response.message === "authentication succeeded") {
 
+                localStorage.setItem("token", response.tempToken);
                 setAuthenticationStat(true);
-                setNav("/dashboard");
+                setNav("/2fa")
 
             } else if (response.message === "authentication failed") {
 
@@ -54,8 +55,6 @@ export default function ClientLogin(props) {
                 setPassErr("Incorrect email or password");
 
             }
-
-
         } else {
             setValidEmail("Not a valid email");
         }
@@ -108,6 +107,7 @@ export default function ClientLogin(props) {
                                 Login!
                             </button>
                         </div>
+                        <GoogleOAuth />
                         <p className="text-center mt-2">
                             <a className="link-primary" onClick={() => setNav("/reset-password")} href="#">Forgot Password?</a>
                         </p>
