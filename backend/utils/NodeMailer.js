@@ -17,7 +17,7 @@ const sendEmail = async (title, email, link, content) => {
         from: '"FitFriend" <fitfriendapplication@gmail.com>',
         to: email,
         subject: title,
-        text: `${content} ${link}`,
+        html: `${content} <a href="${link}">Click here</a>`,
     };
 
     try {
