@@ -124,6 +124,13 @@ const signup = async (req, res, next) => {
         const newUser = new User(Userobj);
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully', user: newUser });
+        //OTP generation
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log(otp);
+        Userobj.otp = otp;
+        Userobj.otpExpires = Date.now() + (10 * 60 * 1000);
+        const otpMessage = `Your OTP for registeration is: ${otp}`;
+        await sendEmail(email, otpMessage);
     } catch (error) {
 
         //email has unique tag in database, error code 11000 when duplicate returned by mongo
@@ -136,6 +143,34 @@ const signup = async (req, res, next) => {
 
 };
 
+const verifyOTP = async (req, res, next) => {
+    try {
+        const { userId, otp } = req.body;
+
+        if (!userId || !otp) {
+            return next(new AppError('User ID and OTP are required', 400));
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return next(new AppError('User not found', 404));
+        }
+
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            return next(new AppError('Invalid or expired OTP', 400));
+        }
+
+        // OTP is valid, remove it and complete registration
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        res.status(200).json({ message: 'Registration completed successfully', user });
+    } catch (error) {
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
 
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
@@ -208,6 +243,7 @@ module.exports = {
     login,
     signup,
     passwordReset,
-    updatePassword
+    updatePassword,
+    verifyOTP
 }
 
