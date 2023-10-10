@@ -38,7 +38,7 @@ app.use(passport.session());
 
 //Routes
 app.use('/api/v1/auth', authRoutes);
-// TODO Complete 2FA
+// TODO Complete 2FA testing
 app.use('/api/v1/auth/2fa', twoFARoutes);
 
 

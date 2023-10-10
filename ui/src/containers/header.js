@@ -1,9 +1,10 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-export default function Header(){
-    return(
+export default function Header() {
+    return (
         <div className="header">
-            Fit Friend
+            <div className="header-title">FITFRIEND</div>
+            <div className="user-details">User Details Placeholder</div>
         </div>
-    )
+    );
 }
