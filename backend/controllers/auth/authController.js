@@ -102,7 +102,6 @@ const login = async (req, res, next) => {
  */
 const signup = async (req, res, next) => {
     console.log("SIGN UP CONTROLLER CALLED");
-    console.log(req.body);
     try {
 
         const { email, password, role, height, weight, specialization } = req.body;
@@ -115,9 +114,19 @@ const signup = async (req, res, next) => {
         if (Userobj.role.toLowerCase() == 'professional') {
             Userobj.specialization = specialization;
         }
-        console.log({ Userobj });
         const newUser = new User(Userobj);
         await newUser.save();
+
+        //OTP generation
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        console.log(otp);
+        Userobj.otp = otp;
+        Userobj.otpExpires = Date.now() + (10 * 60 * 1000);
+        const otpMessage = `Your OTP for registeration is: ${otp}`;
+        const title = "OTP verification FITFRIEND";
+
+        await sendEmail(title = title, email = email, content = otpMessage);
+
         res.status(201).json({ message: 'User registered successfully', user: newUser });
     } catch (error) {
 
@@ -163,6 +172,7 @@ const passwordReset = async (req, res, next) => {
         message: 'Password reset link sent to email'
     });
 };
+
 const updatePassword = async (req, res, next) => {
     try {
         const { token, newPassword } = req.body;
@@ -193,6 +203,35 @@ const updatePassword = async (req, res, next) => {
             message: 'Password updated successfully'
         });
 
+    } catch (error) {
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
+
+const verifyOTP = async (req, res, next) => {
+    try {
+        const { userId, otp } = req.body;
+
+        if (!userId || !otp) {
+            return next(new AppError('User ID and OTP are required', 400));
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return next(new AppError('User not found', 404));
+        }
+
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            return next(new AppError('Invalid or expired OTP', 400));
+        }
+
+        // OTP is valid, remove it and complete registration
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        res.status(200).json({ message: 'Registration completed successfully', user });
     } catch (error) {
         return next(new AppError(error.message, error.statusCode || 500));
     }
