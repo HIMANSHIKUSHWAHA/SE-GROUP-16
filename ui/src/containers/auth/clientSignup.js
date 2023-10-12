@@ -55,17 +55,17 @@ export default function ClientSignup(props) {
                     minSymbols: 1
                 })) {
                     if (formData.password === formData.rePassword) {
-                        
+
                         const headers = {};
                         const response = await postReq("/auth/signup", headers, formData);
-                        
-                        if(response.message === "User registered successfully"){
-                            
-                            setNav("/login");
-                            
-                        }else if(response.message === "Email already in use"){
+
+                        if (response.message === "User registered successfully") {
+
+                            setNav("/otp-verification");
+
+                        } else if (response.message === "Email already in use") {
                             setErr((prev) => {
-                                return {...prev, "validEmailErr": "Email already in use"}
+                                return { ...prev, "validEmailErr": "Email already in use" }
                             })
                         }
 
@@ -86,8 +86,8 @@ export default function ClientSignup(props) {
             }
         }
     };
-    
-    if (nav == null){
+
+    if (nav == null) {
         return (
             <div className="Auth-form-container">
                 <Header />
@@ -190,7 +190,7 @@ export default function ClientSignup(props) {
                 </form>
             </div>
         )
-    }else{
+    } else {
         return (
             <Navigate to={nav} />
         )
