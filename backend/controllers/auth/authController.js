@@ -231,7 +231,7 @@ const verifyOTP = async (req, res, next) => {
         user.otpExpires = undefined;
         await user.save();
 
-        res.status(200).json({ message: 'Registration completed successfully', user });
+        res.status(200).json({ message: 'OTP verified', user });
     } catch (error) {
         return next(new AppError(error.message, error.statusCode || 500));
     }
@@ -240,6 +240,7 @@ module.exports = {
     login,
     signup,
     passwordReset,
-    updatePassword
+    updatePassword,
+    verifyOTP
 }
 
