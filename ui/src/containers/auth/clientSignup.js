@@ -55,17 +55,20 @@ export default function ClientSignup(props) {
                     minSymbols: 1
                 })) {
                     if (formData.password === formData.rePassword) {
-                        
+
                         const headers = {};
                         const response = await postReq("/auth/signup", headers, formData);
-                        
-                        if(response.message === "User registered successfully"){
-                            
-                            setNav("/login");
-                            
-                        }else if(response.message === "Email already in use"){
+                        console.log(" RESPONSE IS FROM SUGNUP API- ", response);
+                        if (response.message === "User registered successfully") {
+
+                            setNav({
+                                pathname: "/otp-verification",
+                                state: { userId: response.userId }
+                            });
+
+                        } else if (response.message === "Email already in use") {
                             setErr((prev) => {
-                                return {...prev, "validEmailErr": "Email already in use"}
+                                return { ...prev, "validEmailErr": "Email already in use" }
                             })
                         }
 
@@ -86,8 +89,8 @@ export default function ClientSignup(props) {
             }
         }
     };
-    
-    if (nav == null){
+
+    if (nav == null) {
         return (
             <div className="Auth-form-container">
                 <Header />
@@ -190,9 +193,9 @@ export default function ClientSignup(props) {
                 </form>
             </div>
         )
-    }else{
+    } else {
         return (
-            <Navigate to={nav} />
+            <Navigate to={nav.pathname} state={nav.state} />
         )
     }
 };

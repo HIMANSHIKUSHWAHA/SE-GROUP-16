@@ -2,6 +2,7 @@ const speakeasy = require('speakeasy');
 const qrcode = require('qrcode');
 const User = require('../models/User');
 const AppError = require('../utils/AppError');
+const jwt = require('jsonwebtoken');
 
 /**
  * @function setup2FA
@@ -24,18 +25,18 @@ const setup2FA = async (req, res, next) => {
     console.log("SETTING UP 2 FACTOR CALLED");
     const secret = speakeasy.generateSecret({ length: 20 });
 
-    const { user_id } = req.body;
-    const user = await User.findById(user_id);
+    const { userId } = req.body;
+    const user = await User.findById(userId);
     if (!user) return next(new AppError('User not found', 404));
 
     user.twoFASecret = secret.base32;
-    user.twoFAEnabled = True;
+    user.twoFAEnabled = true;
     await user.save();
 
     //generate QR code for user to scan
     const dataUrl = await qrcode.toDataURL(secret.otpauth_url);
-
-    res.json({ dataUrl });
+    console.log("2FA SETUP IS DONE");
+    res.json({ qrCodeUrl: dataUrl });
 
 };
 
@@ -66,24 +67,46 @@ const setup2FA = async (req, res, next) => {
  */
 const verify2FAToken = async (req, res, next) => {
     console.log("VERIFYING 2 FACTOR CALLED");
-    const { token } = req.body;
+    const { code, token } = req.body;
+    // console.log("THE REQUEST TO VERIFY TOKEN HAS- ", req.body);
+    // Decode the temporary token to get the user ID
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (decoded.temp == false) {
+            return next(new AppError('Invalid token', 400));
+        }
+        // console.log("THE DECODED TEMP TOKOEN IS - ", decoded);
+        const userId = decoded.userId;
 
-    const user = await User.findById(req.user.id);
-    if (!user) return next(new AppError('User not found', 404));
+        const user = await User.findById(userId).select('+twoFASecret');
+        if (!user) return next(new AppError('User not found', 404));
 
-    // Verify the token
-    const verified = speakeasy.totp.verify({
-        secret: user.twoFASecret,
-        encoding: 'base32',
-        token: token
-    });
+        // Verify the token
+        const verified = speakeasy.totp.verify({
+            secret: user.twoFASecret,
+            encoding: 'base32',
+            token: code
+        });
 
-    if (!verified) {
-        return next(new AppError('Invalid token', 400));
+        if (!verified) {
+            return next(new AppError('Invalid code', 400));
+        }
+
+        // Create a full-access token (you might want to include more user information)
+        const fullAccessToken = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Set the full-access token as a cookie
+        res.cookie('access_token', fullAccessToken, {
+            expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+            httpOnly: true,
+            // secure: true, // uncomment this for HTTPS
+        });
+
+        // Send success response
+        res.status(200).json({ message: 'Token verified successfully' });
+    } catch (error) {
+        return next(new AppError('Invalid temporary token', 400));
     }
-
-    // Send success response (you might want to do more here, like logging the user in)
-    res.status(200).json({ message: 'Token verified successfully' });
 };
 module.exports = { setup2FA, verify2FAToken }
 

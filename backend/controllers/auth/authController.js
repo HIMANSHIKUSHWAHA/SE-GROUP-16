@@ -3,6 +3,7 @@ const AppError = require('../../utils/AppError')
 const passport = require('passport');
 const { sendEmail } = require('../../utils/NodeMailer');
 const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 /**
  * @function login
@@ -40,7 +41,6 @@ const crypto = require('crypto');
  */
 const login = async (req, res, next) => {
     console.log("LOGIN CONTROLLER CALLED");
-    console.log(req.body);
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(new AppError(err.message, 500));
@@ -52,8 +52,11 @@ const login = async (req, res, next) => {
             if (loginErr) {
                 return next(new AppError(loginErr.message, 500));
             }
+
+            // Generate a temporary token
+            const tempToken = jwt.sign({ userId: user._id, temp: true }, process.env.JWT_SECRET, { expiresIn: '15m' });
             console.log("LOGIN SUCCESS");
-            return res.status(200).json({ success: true, message: 'authentication succeeded', user: req.user });
+            return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken });
         });
     })(req, res, next);
 
@@ -88,11 +91,7 @@ const login = async (req, res, next) => {
  * // Successful Response Example:
  * {
  *   "message": "User registered successfully",
- *   "user": {
- *     "email": "user@example.com",
- *     "role": "user_role"
- *     // other user details...
- *   }
+ *   "userID": Unique user id
  * }
  *
  * // Failure Response Example:
@@ -102,23 +101,37 @@ const login = async (req, res, next) => {
  */
 const signup = async (req, res, next) => {
     console.log("SIGN UP CONTROLLER CALLED");
-    console.log(req.body);
     try {
 
         const { email, password, role, height, weight, specialization } = req.body;
-        const Userobj = { email, password, role }
+        let Userobj = { email, password, role };
         if (Userobj.role.toLowerCase() == 'client') {
             Userobj.height = height;
             Userobj.weight = weight;
         }
-
         if (Userobj.role.toLowerCase() == 'professional') {
             Userobj.specialization = specialization;
         }
-        console.log({ Userobj });
         const newUser = new User(Userobj);
+
+        //OTP generation
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        newUser.otp = otp;
+        newUser.otpExpires = Date.now() + (10 * 60 * 1000);
+
+        email_func_input = {
+            content: `Your OTP for registeration is: ${otp}`,
+            title: "OTP verification FITFRIEND",
+            email: "rg913000@gmail.com"
+        }
+
+        await sendEmail(email_func_input);
         await newUser.save();
-        res.status(201).json({ message: 'User registered successfully', user: newUser });
+        console.log("SIGNUP SUCCESS");
+        res.status(201).json({
+            message: 'User registered successfully',
+            userId: newUser._id
+        });
     } catch (error) {
 
         //email has unique tag in database, error code 11000 when duplicate returned by mongo
@@ -157,12 +170,20 @@ const passwordReset = async (req, res, next) => {
     //TODO: Figure out what the link actually is when hosting works, front end for this general page.
     //generate password reset link w/ token
     const resetLink = `http://your-frontend-app.com/reset-password/${resetToken}`;
-    await sendEmail(email, resetLink);
+    email_func_input = {
+        content: `Your Password Reset link is : ${otp}`,
+        title: "RESET-PASSWORD FITFRIEND",
+        email: email,
+        link: resetLink
+    }
+
+    await sendEmail(email_func_input);
     res.status(200).json({
         status: 'success',
         message: 'Password reset link sent to email'
     });
 };
+
 const updatePassword = async (req, res, next) => {
     try {
         const { token, newPassword } = req.body;
@@ -197,10 +218,45 @@ const updatePassword = async (req, res, next) => {
         return next(new AppError(error.message, error.statusCode || 500));
     }
 };
+
+const verifyOTP = async (req, res, next) => {
+    console.log("VERIFY OTP CALLED")
+    try {
+        const { userId, otp } = req.body;
+
+        if (!userId || !otp) {
+            return next(new AppError('User ID and OTP are required', 400));
+        }
+
+        const user = await User.findById(userId).select('+otp +otpExpires');;
+
+        if (!user) {
+            return next(new AppError('User not found', 404));
+        }
+
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            return next(new AppError('Invalid or expired OTP', 400));
+        }
+
+        // OTP is valid, remove it and complete registration
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        console.log("VERIFY OTP DONE");
+        res.status(200).json({
+            message: 'OTP verified',
+            userId: userId,
+        });
+    } catch (error) {
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
 module.exports = {
     login,
     signup,
     passwordReset,
-    updatePassword
+    updatePassword,
+    verifyOTP
 }
 
