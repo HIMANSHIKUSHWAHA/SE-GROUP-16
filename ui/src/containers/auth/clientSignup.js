@@ -58,10 +58,13 @@ export default function ClientSignup(props) {
 
                         const headers = {};
                         const response = await postReq("/auth/signup", headers, formData);
-
+                        console.log(" RESPONSE IS FROM SUGNUP API- ", response);
                         if (response.message === "User registered successfully") {
 
-                            setNav("/otp-verification");
+                            setNav({
+                                pathname: "/otp-verification",
+                                state: { userId: response.userId }
+                            });
 
                         } else if (response.message === "Email already in use") {
                             setErr((prev) => {
@@ -192,7 +195,7 @@ export default function ClientSignup(props) {
         )
     } else {
         return (
-            <Navigate to={nav} />
+            <Navigate to={nav.pathname} state={nav.state} />
         )
     }
 };

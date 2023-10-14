@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['client', 'professional', 'admin']
     },
-    // TODO change the fields back to required
+    // TODO change the fields back to required and update forms
     height: {
         type: Number,
         // Required if role is 'customer'
@@ -54,6 +54,14 @@ const userSchema = new mongoose.Schema({
     twoFAEnabled: {
         type: Boolean,
         default: false
+    },
+    otp: {
+        type: String,
+        select: false // To ensure the OTP is not sent in every response
+    },
+    otpExpires: {
+        type: Date,
+        select: false // To ensure the OTP expiration time is not sent in every response
     }
 });
 

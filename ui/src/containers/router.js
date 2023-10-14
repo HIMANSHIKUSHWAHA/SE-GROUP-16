@@ -8,6 +8,7 @@ import ResetPassword from "./auth/resetPassword";
 import OtpVerification from "./auth/otpVerification.js";
 import UpdatePassword from "./auth/updatePassword.js";
 import TwoFactor from "./auth/twoFactor.js";
+import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 
 // user profile 
 export default function Router() {
@@ -18,6 +19,7 @@ export default function Router() {
                 <Route path="/login" element={<ClientLogin />} />
                 <Route path="/signup" element={<ClientSignup />} />
                 <Route path="/otp-verification" element={<OtpVerification />} />
+                <Route path="/2fa-setup" element={<TwoFactorAuthSetup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
                 <Route path="/dashboard" element={
@@ -25,6 +27,7 @@ export default function Router() {
                         <Dashboard />
                     </PrivateRoute>
                 } />
+
                 <Route path="/2fa" element={
                     <PrivateRoute>
                         <TwoFactor />
