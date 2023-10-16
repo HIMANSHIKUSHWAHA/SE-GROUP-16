@@ -45,9 +45,10 @@ export default function ClientLogin(props) {
 
             if (response.message === "authentication succeeded") {
 
-                localStorage.setItem("token", response.tempToken);
-                setAuthenticationStat(true);
-                setNav("/2fa")
+                // localStorage.setItem("token", response.tempToken);
+                // setAuthenticationStat(true);
+                // setNav("/2fa")
+                console.log(response);
 
             } else if (response.message === "authentication failed") {
 
