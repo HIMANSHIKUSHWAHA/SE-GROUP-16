@@ -62,7 +62,35 @@ const userSchema = new mongoose.Schema({
     otpExpires: {
         type: Date,
         select: false
-    }
+    },
+    Subscribers:{
+        type: Array, //array of user ids(email as id)
+        default: []
+    },
+    Subscribing:{
+        type: Array, //array of user ids(amail as id)
+        default: []
+    },
+    ContentCreated:{
+        type: Array, //array of content ids
+        default: [],
+        // Required if role is 'professional'
+        required: function() { return this.role === 'professional'; }
+    },
+    ContentEnrolled:{
+        type: Array, //array of {content ids,progress metrics}
+        default: []
+    },
+    LiveSessionCreated:{
+        type: Array, //array of session ids
+        default: [],
+        // Required if role is 'professional'
+        required: function() { return this.role === 'professional'; }
+    },
+    LiveSessionEnrolled:{
+        type: Array, //array of session ids
+        default: []
+    },
 });
 
 //hashing and salting function using middleware
