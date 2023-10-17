@@ -96,14 +96,14 @@ const verify2FAToken = async (req, res, next) => {
         const fullAccessToken = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         // Set the full-access token as a cookie
-        res.cookie('access_token', fullAccessToken, {
+            res.cookie('access_token', fullAccessToken, {
             expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
             httpOnly: true,
             // secure: true, // uncomment this for HTTPS
         });
 
         // Send success response
-        res.status(200).json({ message: 'Token verified successfully' });
+        res.status(200).json({ message: 'Token verified successfully', token: fullAccessToken });
     } catch (error) {
         return next(new AppError('Invalid temporary token', 400));
     }

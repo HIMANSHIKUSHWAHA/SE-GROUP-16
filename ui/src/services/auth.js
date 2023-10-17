@@ -6,5 +6,10 @@ export function setAuthenticationStat (val) {
 }
 
 export function authencationStat () {
-    return isAuthenticated;
+    if (localStorage.getItem("token") === null){
+        return false;
+    }else{
+        return true;
+    }
+    // return isAuthenticated;
 }

@@ -99,7 +99,10 @@ export default function ClientSignup(props) {
                         <h3 className="Auth-form-title">Sign Up</h3>
                         <div className="text-center">
                             Already registered?{" "}
-                            <a className="link-primary" onClick={() => setNav("/login")} href="#">Login</a>
+                            <a className="link-primary" onClick={() => setNav({
+                                pathname: "/login",
+                                state: null
+                            })} href="#">Login</a>
                         </div>
                         <div className="form-group mt-3">
                             <label>First Name</label>
