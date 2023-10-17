@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Header from "../header";
 import validator from "validator";
 import { postReq } from "../../services/api";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Navigate } from "react-router-dom";
 
 export default function UpdatePassword (props) {
     
@@ -18,6 +18,8 @@ export default function UpdatePassword (props) {
         passStrengthErr: null,
         samePassErr: null
     });
+
+    const [nav, setNav] = useState(null);
 
     const handleInputChange = (event) => {
         
@@ -48,6 +50,8 @@ export default function UpdatePassword (props) {
                 const response = await postReq("/auth/updatePassword", headers, formData);
 
                 console.log(response)
+
+                setNav("/login");
             }else{
                 setErr((prevErr) => {
                     return { ...prevErr, "samePassErr": "The passwords does not match" };
@@ -60,49 +64,55 @@ export default function UpdatePassword (props) {
         }
     }
 
-    return (
-        <div className="Auth-form-container">
-            <Header />
-            <form className="Auth-form" onSubmit={handleSubmit}>
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Update Password</h3>
-                    <div className="form-group mt-3">
-                        <label>New Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Password"
-                            name="newPassword"
-                            onChange={handleInputChange}
-                        />
+    if(nav == null){
+        return (
+            <div className="Auth-form-container">
+                <Header />
+                <form className="Auth-form" onSubmit={handleSubmit}>
+                    <div className="Auth-form-content">
+                        <h3 className="Auth-form-title">Update Password</h3>
+                        <div className="form-group mt-3">
+                            <label>New Password</label>
+                            <input
+                                type="password"
+                                className="form-control mt-1"
+                                placeholder="Password"
+                                name="newPassword"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {err.passStrengthErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.passStrengthErr}</span>}
+                        <div className="form-group mt-3">
+                            <label>Confirm Password</label>
+                            <input
+                                type="password"
+                                className="form-control mt-1"
+                                placeholder="Comfirm Password"
+                                name="confirmPassword"
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        {err.samePassErr === null ? null :
+                            <span style={{
+                                color: 'darkred',
+                                fontSize: 13,
+                            }}>{err.samePassErr}</span>}
+                        <div className="d-grid gap-2 mt-3">
+                            <button type="submit" className="btn btn-primary">
+                                Update!
+                            </button>
+                        </div>
                     </div>
-                    {err.passStrengthErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.passStrengthErr}</span>}
-                    <div className="form-group mt-3">
-                        <label>Confirm Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Comfirm Password"
-                            name="confirmPassword"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    {err.samePassErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.samePassErr}</span>}
-                    <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary">
-                            Update!
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    )
+                </form>
+            </div>
+        )
+    }else{
+        return (
+            <Navigate to={nav} />
+        )
+    }
 }
