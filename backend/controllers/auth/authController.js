@@ -147,6 +147,7 @@ const signup = async (req, res, next) => {
 
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
+    
     const { email } = req.body;
 
     if (!email) {
@@ -166,17 +167,19 @@ const passwordReset = async (req, res, next) => {
     //save this to user's record.
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = resetTokenExpires;
-
+    await user.save();
+    
     //TODO: Figure out what the link actually is when hosting works, front end for this general page.
     //generate password reset link w/ token
-    const resetLink = `http://your-frontend-app.com/reset-password/${resetToken}`;
-    email_func_input = {
-        content: `Your Password Reset link is : ${otp}`,
-        title: "RESET-PASSWORD FITFRIEND",
-        email: email,
-        link: resetLink
-    }
+    const resetLink = `http://localhost:3000/update-password?__upt=${resetToken}`;
 
+    console.log(resetLink);
+
+    email_func_input = {
+        content: `Your link for password reset is: ${resetLink}`,
+        title: "Password Reset FITFRIEND",
+        email: email
+    }
     await sendEmail(email_func_input);
     res.status(200).json({
         status: 'success',
@@ -187,6 +190,8 @@ const passwordReset = async (req, res, next) => {
 const updatePassword = async (req, res, next) => {
     try {
         const { token, newPassword } = req.body;
+        
+        console.log(token);
 
         if (!token || !newPassword) {
             return next(new AppError('Token and new password are required', 400));
