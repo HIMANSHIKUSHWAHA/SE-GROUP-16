@@ -171,7 +171,7 @@ const passwordReset = async (req, res, next) => {
     
     //TODO: Figure out what the link actually is when hosting works, front end for this general page.
     //generate password reset link w/ token
-    const resetLink = `http://localhost:3000/update-password?__upt=${resetToken}`;
+    const resetLink = `http://34.170.53.225:3000/update-password?__upt=${resetToken}`;
 
     console.log(resetLink);
 
