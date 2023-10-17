@@ -2,12 +2,16 @@ import React, {useState} from "react";
 import Header from "../header";
 import validator from "validator";
 import { postReq } from "../../services/api";
+import { useSearchParams } from "react-router-dom";
 
 export default function UpdatePassword (props) {
     
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [formData, setFormData]  = useState({
         newPassword: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        token: searchParams.get("__upt")
     });
 
     const [err, setErr] = useState({
@@ -27,7 +31,7 @@ export default function UpdatePassword (props) {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         
         event.preventDefault();
         console.log(formData);
@@ -41,7 +45,9 @@ export default function UpdatePassword (props) {
             if(formData.newPassword === formData.confirmPassword){
 
                 const headers = {};
-                postReq("/auth/updatePassword", headers, formData);
+                const response = await postReq("/auth/updatePassword", headers, formData);
+
+                console.log(response)
             }else{
                 setErr((prevErr) => {
                     return { ...prevErr, "samePassErr": "The passwords does not match" };

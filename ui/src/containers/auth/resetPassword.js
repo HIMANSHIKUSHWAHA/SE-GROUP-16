@@ -6,24 +6,34 @@ import { Navigate } from "react-router-dom";
 
 export default function ResetPassword(props) {
     
-    const [email, setEmail] = useState("");
+    const [formData, setFormData] = useState({
+        email: ""
+    });
     const [validEmailErr, setValidEmailErr] = useState(null);
     const [nav, setNav] = useState(null);
 
     const handleInputChange = (event) => {
-        setEmail(event.target.value);
+        const { name, value } = event.target;
+        setFormData((prevFormData) => {
+            return { ...prevFormData, [name]: value };
+        });
         setValidEmailErr(null);
         setNav(null);
     }
     
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if(validator.isEmail(email)){
+        if(validator.isEmail(formData.email)){
             
-            console.log(email);
+            console.log(formData.email);
             const headers = {};
-            postReq("/auth/passwordReset", headers, email);
-            setEmail(null);
+            const response = await postReq("/auth/passwordReset", headers, formData);
+            console.log(response);
+            setFormData({
+                email: ""
+            });
+
+            // Put on a page to saying check email
             
         }else{
             setValidEmailErr("Not a valid email");

@@ -17,8 +17,8 @@ const sendEmail = async ({ title, email, content, link }) => {
     const option = {
         from: '"FitFriend" <fitfriendapplication@gmail.com>',
         to: email,
-        subject: "Password Reset Link",
-        text: `You have requested a password reset. Click on this link to reset your password: ${link}`,
+        subject: title,
+        html: link ? `${content} <a href="${link}">Click here</a>` : content
     };
 
     try {
