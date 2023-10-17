@@ -16,7 +16,7 @@ console.log('Started backend server');
 connectDB();
 
 // Enable CORS for all routes
-app.use(cors());
+app.use("*",cors());
 // Middleware to parse JSON requests
 app.use(express.json());
 // Use cookie-parser middleware
@@ -42,7 +42,8 @@ app.use(passport.session());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/auth/2fa', twoFARoutes);
 
-// Error handler to be placed last
+
+//error handler to be placed last
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;

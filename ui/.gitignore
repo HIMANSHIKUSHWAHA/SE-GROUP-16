@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+#files
+/src/services/api.js
+
 # production
 /build
 
