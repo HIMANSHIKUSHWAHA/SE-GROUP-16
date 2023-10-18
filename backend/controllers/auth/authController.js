@@ -122,7 +122,7 @@ const signup = async (req, res, next) => {
         email_func_input = {
             content: `Your OTP for registeration is: ${otp}`,
             title: "OTP verification FITFRIEND",
-            email: "rg913000@gmail.com"
+            email: email
         }
 
         await sendEmail(email_func_input);
