@@ -147,6 +147,7 @@ const signup = async (req, res, next) => {
 
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
+    console.log("PASSWORD RESET CALLED")
     const { email } = req.body;
 
     if (!email) {
@@ -171,7 +172,7 @@ const passwordReset = async (req, res, next) => {
     //generate password reset link w/ token
     const resetLink = `http://your-frontend-app.com/reset-password/${resetToken}`;
     email_func_input = {
-        content: `Your Password Reset link is : ${otp}`,
+        content: `Your Password Reset link is : ${resetLink}`,
         title: "RESET-PASSWORD FITFRIEND",
         email: email,
         link: resetLink
