@@ -3,8 +3,9 @@ import axios from "axios";
 // // hosting
 // axios.defaults.baseURL = "http://34.170.53.225:5000"
 
+// TODO update env variable in hosting
 // testing
-axios.defaults.baseURL = "http://localhost:5000"
+axios.defaults.baseURL = baseURL;
 
 export async function postReq(localUrl, headers, data) {
 
