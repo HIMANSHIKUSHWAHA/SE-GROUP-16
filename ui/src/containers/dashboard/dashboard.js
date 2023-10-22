@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Header from "./header";
-import FilterSearchSection from "./searchbar";
+import Header from "../header";
+import FilterSearchSection from "../searchbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
-import CalendarView from "./dashboard/CalendarViewComponent/CalendarView";
+import CalendarView from "./CalendarViewComponent/CalendarView";
 
 // Secondary Navbar Component
 const SecondaryNavbar = ({ setActiveContent }) => (
@@ -57,7 +57,7 @@ const Dashboard = () => {
   const [activeContent, setActiveContent] = useState('videos'); // Default content
   return (
     <div>
-      <Header />
+      <Header auth={true} />
       <FilterSearchSection />
       <SecondaryNavbar setActiveContent={setActiveContent} />
       <ContentArea activeContent={activeContent} />

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import Dashboard from "./dashboard.js"
+import Dashboard from "./dashboard/dashboard.js"
 import PrivateRoute from "./privateRoute"
-import ClientLogin from "./auth/clientLogin.js";
-import ClientSignup from "./auth/clientSignup.js";
+import Login from "./auth/login.js";
+import Signup from "./auth/signup/signup.js";
 import ResetPassword from "./auth/resetPassword";
 import OtpVerification from "./auth/otpVerification.js";
 import UpdatePassword from "./auth/updatePassword.js";
@@ -16,8 +16,8 @@ export default function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
-                <Route path="/login" element={<ClientLogin />} />
-                <Route path="/signup" element={<ClientSignup />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
                 <Route path="/otp-verification" element={<OtpVerification />} />
                 <Route path="/2fa-setup" element={<TwoFactorAuthSetup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
