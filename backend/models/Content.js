@@ -1,6 +1,12 @@
 const mongoose = require('mongoose');
 
 const contentSchema = new mongoose.Schema({
+    title: {
+        type: String
+    },
+    description : {
+        type: String
+    },
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
