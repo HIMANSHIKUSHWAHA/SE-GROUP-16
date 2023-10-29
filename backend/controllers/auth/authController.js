@@ -1,5 +1,6 @@
-const User = require('../../models/User')
-const AppError = require('../../utils/AppError')
+const User = require('../../models/User');
+const { Calendar, createDefaultCalendar } = require('../../models/Calendar');
+const AppError = require('../../utils/AppError');
 const passport = require('passport');
 const { sendEmail } = require('../../utils/NodeMailer');
 const crypto = require('crypto');
@@ -119,6 +120,8 @@ const signup = async (req, res, next) => {
         newUser.otp = otp;
         newUser.otpExpires = Date.now() + (10 * 60 * 1000);
 
+
+
         email_func_input = {
             content: `Your OTP for registeration is: ${otp}`,
             title: "OTP verification FITFRIEND",
@@ -127,6 +130,9 @@ const signup = async (req, res, next) => {
 
         await sendEmail(email_func_input);
         await newUser.save();
+
+        createDefaultCalendar(newUser._id);
+
         console.log("SIGNUP SUCCESS");
         res.status(201).json({
             message: 'User registered successfully',

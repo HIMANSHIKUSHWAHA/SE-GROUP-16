@@ -102,11 +102,12 @@ const verify2FAToken = async (req, res, next) => {
             // secure: true, // uncomment this for HTTPS
         });
 
+        console.log("VERIFYING 2 FACTOR FINISHED");
         // Send success response
-        res.status(200).json({ message: 'Token verified successfully' });
+        // Send userId as well
+        res.status(200).json({ message: 'Token verified successfully', userId: userId });
     } catch (error) {
         return next(new AppError('Invalid temporary token', 400));
     }
 };
 module.exports = { setup2FA, verify2FAToken }
-

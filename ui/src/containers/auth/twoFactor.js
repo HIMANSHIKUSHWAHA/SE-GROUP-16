@@ -108,6 +108,7 @@ export default function TwoFactor(props) {
 
         if (response.message === "Token verified successfully") {
             setNav("/dashboard");
+            localStorage.setItem("UserId", response.userId);
         } else {
             console.log("Error");
         }
