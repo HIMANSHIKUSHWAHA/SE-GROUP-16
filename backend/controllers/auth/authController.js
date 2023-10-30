@@ -20,7 +20,7 @@ const jwt = require('jsonwebtoken');
  *
  * @param {Object} req - Express request object; expected to contain user's credentials in the body.
  * @param {Object} res - Express response object; used to send the response back to the client.
- * @returns {JSON} - A JSON response with a success message and user's role on successful login, or an error message on failure.
+ * @returns {JSON} - A JSON response with a success message and tempToken on successful login, or an error message on failure.
  *
  * @example
  * // Expected Request Payload:
@@ -32,7 +32,7 @@ const jwt = require('jsonwebtoken');
  * // Successful Response Example:
  * {
  *   "message": "authentication succeeded",
- *   "role": "user_role"
+ *   "tempToken": jsont web token with userId
  * }
  *
  * // Failure Response Example:
@@ -150,6 +150,34 @@ const signup = async (req, res, next) => {
 
 };
 
+const verifyOTP = async (req, res, next) => {
+    try {
+        const { userId, otp } = req.body;
+
+        if (!userId || !otp) {
+            return next(new AppError('User ID and OTP are required', 400));
+        }
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return next(new AppError('User not found', 404));
+        }
+
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            return next(new AppError('Invalid or expired OTP', 400));
+        }
+
+        // OTP is valid, remove it and complete registration
+        user.otp = undefined;
+        user.otpExpires = undefined;
+        await user.save();
+
+        res.status(200).json({ message: 'Registration completed successfully', user });
+    } catch (error) {
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
 
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
@@ -232,39 +260,6 @@ const updatePassword = async (req, res, next) => {
     }
 };
 
-const verifyOTP = async (req, res, next) => {
-    console.log("VERIFY OTP CALLED")
-    try {
-        const { userId, otp } = req.body;
-
-        if (!userId || !otp) {
-            return next(new AppError('User ID and OTP are required', 400));
-        }
-
-        const user = await User.findById(userId).select('+otp +otpExpires');;
-
-        if (!user) {
-            return next(new AppError('User not found', 404));
-        }
-
-        if (user.otp !== otp || user.otpExpires < Date.now()) {
-            return next(new AppError('Invalid or expired OTP', 400));
-        }
-
-        // OTP is valid, remove it and complete registration
-        user.otp = undefined;
-        user.otpExpires = undefined;
-        await user.save();
-
-        console.log("VERIFY OTP DONE");
-        res.status(200).json({
-            message: 'OTP verified',
-            userId: userId,
-        });
-    } catch (error) {
-        return next(new AppError(error.message, error.statusCode || 500));
-    }
-};
 module.exports = {
     login,
     signup,
