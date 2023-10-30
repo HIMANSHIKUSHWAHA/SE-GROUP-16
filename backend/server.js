@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
-//2FA still in progress
 const twoFARoutes = require('./routes/2faRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
@@ -19,7 +18,7 @@ connectDB();
 
 // Middleware to parse JSON requests
 // Enable CORS for all routes
-app.use("*",cors());
+app.use("*", cors());
 app.use(express.json());
 
 
@@ -38,7 +37,6 @@ app.use(passport.session());
 
 //Routes
 app.use('/api/v1/auth', authRoutes);
-// TODO Complete 2FA testing
 app.use('/api/v1/auth/2fa', twoFARoutes);
 
 app.get('/', (req, res) => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
-import ClientLogin from "./clientLogin"
-import ClientSignup from "./clientSignup"
+import Login from "./login"
+import Signup from "./signup/signup"
 import ResetPassword from "./resetPassword"
 import UpdatePassword from "./updatePassword"
 
@@ -13,17 +13,17 @@ export default function (props) {
 
   if (authMode === "login") {
     return (
-      <ClientLogin changeAuthMode={changeAuthMode} />
+      <Login changeAuthMode={changeAuthMode} />
     )
-  }else if(authMode === "signup"){
+  } else if (authMode === "signup") {
     return (
-      <ClientSignup changeAuthMode={changeAuthMode} />
+      <Signup changeAuthMode={changeAuthMode} />
     )
-  }else if(authMode === "reset password"){
+  } else if (authMode === "reset password") {
     return (
       <ResetPassword changeAuthMode={changeAuthMode} />
     )
-  }else if(authMode === "update password"){
+  } else if (authMode === "update password") {
     return (
       <UpdatePassword />
     )

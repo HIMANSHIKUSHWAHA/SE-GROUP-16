@@ -147,7 +147,7 @@ const signup = async (req, res, next) => {
 
 //POST request from frontend with email
 const passwordReset = async (req, res, next) => {
-    
+    console.log("PASSWORD RESET CALLED")
     const { email } = req.body;
 
     if (!email) {
@@ -172,13 +172,15 @@ const passwordReset = async (req, res, next) => {
     //TODO: Figure out what the link actually is when hosting works, front end for this general page.
     //generate password reset link w/ token
     const resetLink = `http://34.170.53.225:3000/update-password?__upt=${resetToken}`;
+    // const resetLink = `http://localhost:3000/update-password?__upt=${resetToken}`;
 
     console.log(resetLink);
 
     email_func_input = {
-        content: `Your link for password reset is: ${resetLink}`,
-        title: "Password Reset FITFRIEND",
-        email: email
+        content: `Your Password Reset link is : ${resetLink}`,
+        title: "RESET-PASSWORD FITFRIEND",
+        email: email,
+        link: resetLink
     }
     await sendEmail(email_func_input);
     res.status(200).json({
