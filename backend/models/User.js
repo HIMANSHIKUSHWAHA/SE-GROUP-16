@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: ['client', 'professional', 'admin']
     },
-    // TODO change the fields back to required and update forms
+    // TODO change the fields back to required
     height: {
         type: Number,
         // Required if role is 'customer'
@@ -57,12 +57,40 @@ const userSchema = new mongoose.Schema({
     },
     otp: {
         type: String,
-        select: false // To ensure the OTP is not sent in every response
+        select: false
     },
     otpExpires: {
         type: Date,
-        select: false // To ensure the OTP expiration time is not sent in every response
-    }
+        select: false
+    },
+    Subscribers: {
+        type: Array, //array of user ids(email as id)
+        default: []
+    },
+    Subscribing: {
+        type: Array, //array of user ids(amail as id)
+        default: []
+    },
+    ContentCreated: {
+        type: Array, //array of content ids
+        default: [],
+        // Required if role is 'professional'
+        required: function () { return this.role === 'professional'; }
+    },
+    ContentEnrolled: {
+        type: Array, //array of {content ids,progress metrics}
+        default: []
+    },
+    LiveSessionCreated: {
+        type: Array, //array of session ids
+        default: [],
+        // Required if role is 'professional'
+        required: function () { return this.role === 'professional'; }
+    },
+    LiveSessionEnrolled: {
+        type: Array, //array of session ids
+        default: []
+    },
 });
 
 //hashing and salting function using middleware

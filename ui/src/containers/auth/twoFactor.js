@@ -110,6 +110,7 @@ export default function TwoFactor(props) {
             localStorage.removeItem("token");
             localStorage.setItem("token", response.token)
             setNav("/dashboard");
+            localStorage.setItem("UserId", response.userId);
         } else {
             console.log("Error");
         }

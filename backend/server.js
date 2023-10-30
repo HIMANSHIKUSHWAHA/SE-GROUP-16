@@ -4,10 +4,12 @@ const app = express();
 const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const twoFARoutes = require('./routes/2faRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes')
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 console.log('Started backend server')
 
@@ -20,6 +22,7 @@ connectDB();
 // Enable CORS for all routes
 app.use("*", cors());
 app.use(express.json());
+app.use(cookieParser());
 
 
 // Session Middleware Initialization
@@ -38,6 +41,7 @@ app.use(passport.session());
 //Routes
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/auth/2fa', twoFARoutes);
+app.use('/api/v1/dashboard', dashboardRoutes)
 
 app.get('/', (req, res) => {
     res.send('Hello, World!');
