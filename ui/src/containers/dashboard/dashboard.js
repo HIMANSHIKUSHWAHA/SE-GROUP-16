@@ -4,6 +4,7 @@ import FilterSearchSection from "../searchbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
+import MediaCard from "./videoCards";
 
 // Secondary Navbar Component
 const SecondaryNavbar = ({ setActiveContent }) => (
@@ -44,7 +45,7 @@ const SecondaryNavbar = ({ setActiveContent }) => (
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
   <div className="ContentArea">
-    {activeContent === 'videos' && <p>Workout Video Cards will be displayed here</p>}
+    {activeContent === 'videos' && <MediaCard />}
     {activeContent === 'routines' && <CalendarView />}
     {activeContent === 'workout-programs' && <p>workout programs data</p>}
     {activeContent === 'meal-plans' && <p>meal plans data</p>}

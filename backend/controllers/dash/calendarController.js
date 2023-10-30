@@ -1,4 +1,4 @@
-const { Calendar } = require('../../models/Calendar')
+const { Calendar, createDefaultCalendar } = require('../../models/Calendar')
 const AppError = require('../../utils/AppError')
 const User = require('../../models/User');
 
@@ -23,7 +23,8 @@ const calendarData = async (req, res, next) => {
 
         if (!userCalendarData) {
             // Handle the case where no calendar data is found for the user
-            return res.status(404).send({ error: 'No calendar data found for the user' });
+            // return res.status(404).send({ error: 'No calendar data found for the user' });
+            createDefaultCalendar(userId);
         }
 
         //TODO add live session part -> Fetch live session part from user model
