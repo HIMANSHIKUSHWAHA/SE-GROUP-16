@@ -23,6 +23,29 @@ export default function MediaCard() {
             description: "Video Description",
             image: img2,
             expanded: false
+        },
+        {
+            title: "Exercise video 3",
+            description: "Video Description",
+            image: img1,
+            expanded: false
+        },
+        {
+            title: "Exercise video 4",
+            description: "Video Description",
+            image: img2,
+            expanded: false
+        },{
+            title: "Exercise video 5",
+            description: "Video Description",
+            image: img1,
+            expanded: false
+        },
+        {
+            title: "Exercise video 6",
+            description: "Video Description",
+            image: img2,
+            expanded: false
         }
     ]);
 
