@@ -6,8 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { CardActionArea, Collapse } from '@mui/material';
-import img1 from "/home/vav/Documents/Fall23/SE/project/SE-GROUP-16/ui/src/containers/dashboard/v1.jpg";
-import img2 from "/home/vav/Documents/Fall23/SE/project/SE-GROUP-16/ui/src/containers/dashboard/v2.jpg";
+import img1 from "./v1.jpg";
+import img2 from "./v2.jpg";
 
 export default function MediaCard() {
 
