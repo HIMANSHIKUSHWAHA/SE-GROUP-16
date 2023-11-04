@@ -2,19 +2,24 @@
 ```
  (User Context to solve our conditional rendering)
 Profesh
---> Settings
---> Upload Vids
+--> Settings   - ANKITH
+--> Upload Vids - NATHAN
 --> Separate Dashboard
---> Live Sessions
---> Edit subscriber plan
---> Create new plans
+--> Live Sessions   - NATHAN
+--> Edit subscriber plan   - RAHUL
+--> Create new plans   - RAHUL
 --> manage subscribers
---> Profile page
+--> Profile page   - JUNTAO
 
 Users
---> Settings
---> rating (almost everthing)
+--> Settings     - ANKITH
+--> rating (almost everything)
 --> meal tabs
 --> workout tabs
---> Profile page
+--> Profile page   - JUNTAO
+
+ADMIN -- HIMANSHI
+--> Login, AUTH
+--> Data Model
+--> Separate dashboard to Approve content
 ```
