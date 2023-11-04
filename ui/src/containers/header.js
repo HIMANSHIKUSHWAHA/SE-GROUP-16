@@ -20,6 +20,11 @@ export default function Header({ auth = false }) {
         setAnchorEl(null);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        window.location.reload();
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -70,6 +75,7 @@ export default function Header({ auth = false }) {
                             >
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleLogout}>logout</MenuItem>
                             </Menu>
                         </div>
                     )}

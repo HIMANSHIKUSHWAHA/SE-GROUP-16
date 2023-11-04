@@ -14,7 +14,7 @@ export async function postReq(localUrl, headers, data) {
             headers: headers,
             data: data,
         });
-
+                
         return response.data;
     } catch (error) {
         console.log(error);

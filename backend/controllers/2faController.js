@@ -3,8 +3,11 @@ const qrcode = require('qrcode');
 const User = require('../models/User');
 const AppError = require('../utils/AppError');
 const jwt = require('jsonwebtoken');
+const { sendEmail } = require('../utils/NodeMailer');
+
 
 /**
+ *  route -> /api/v1/auth/2fa/setup
  * @function setup2FA
  * @description Initiates the setup process for 2FA for a user.
  * Generates a 2FA secret and QR code URL for the user to scan.
@@ -41,18 +44,25 @@ const setup2FA = async (req, res, next) => {
 };
 
 /**
+ * ROUTE -> /api/v1/auth/2fa/verify
  * @function verify2FAToken
- * @description Verifies the 2FA token provided by the user.
- * 
- * @param {Object} req - Express request object, expected to contain the token and the authenticated user's ID.
- * @param {Object} res - Express response object.
- * @param {function} next - Express next middleware function.
- * @returns {JSON} - A JSON response indicating whether the token is verified or not.
+ * @description 
+ * This function verifies the 2FA token provided by the user during the login process. 
+ * It decodes a temporary JWT sent by the user to extract their ID, retrieves the user's 
+ * details from the database, and verifies the 2FA token against the user's secret. 
+ * If the verification is successful, it creates a full-access token and sends it back to the user as a cookie.
+ *
+ * @param {Object} req - Express request object; expected to contain:
+ *   @property {String} token - The 2FA token provided by the user.
+ *   @property {String} tempToken - A temporary JWT containing the user's ID.
+ * @param {Object} res - Express response object; used to send the response back to the client.
+ * @param {Function} next - Express next middleware function.
  *
  * @example
- * // Request Payload Example:
+ * // Expected Request Payload:
  * {
- *   "token": "123456"
+ *   "token": "123456",
+ *   "tempToken": "eyJhbGci...<truncated>...ybGciOi"
  * }
  *
  * // Successful Response Example:
@@ -60,10 +70,8 @@ const setup2FA = async (req, res, next) => {
  *   "message": "Token verified successfully"
  * }
  *
- * // Failure Response Example:
- * {
- *   "message": "Invalid token"
- * }
+ * // Failure Response Example (sent through next middleware with an AppError object):
+ * "Invalid token", "User not found", "Invalid temporary token"
  */
 const verify2FAToken = async (req, res, next) => {
     console.log("VERIFYING 2 FACTOR CALLED");
@@ -96,7 +104,7 @@ const verify2FAToken = async (req, res, next) => {
         const fullAccessToken = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         // Set the full-access token as a cookie
-        res.cookie('access_token', fullAccessToken, {
+            res.cookie('access_token', fullAccessToken, {
             expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
             httpOnly: true,
             // secure: true, // uncomment this for HTTPS

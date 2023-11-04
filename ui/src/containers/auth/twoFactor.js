@@ -107,11 +107,15 @@ export default function TwoFactor(props) {
         const response = await postReq("/auth/2fa/verify", headers, data);
 
         if (response.message === "Token verified successfully") {
+            localStorage.removeItem("token");
+            localStorage.setItem("token", response.token)
             setNav("/dashboard");
             localStorage.setItem("UserId", response.userId);
         } else {
             console.log("Error");
         }
+
+        console.log(response)
     }
 
     if (nav) {

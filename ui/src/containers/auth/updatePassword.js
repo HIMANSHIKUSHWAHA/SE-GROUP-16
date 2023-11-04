@@ -1,19 +1,31 @@
 import React, {useState} from "react";
 import Header from "../header";
 import validator from "validator";
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 import { postReq } from "../../services/api";
+import { useSearchParams, Navigate } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import { Box, Container, CssBaseline, Typography, createTheme } from "@mui/material";
+
+const defaultTheme = createTheme()
 
 export default function UpdatePassword (props) {
     
+    const [searchParams, setSearchParams] = useSearchParams();
+
     const [formData, setFormData]  = useState({
         newPassword: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        token: searchParams.get("__upt")
     });
 
     const [err, setErr] = useState({
         passStrengthErr: null,
         samePassErr: null
     });
+
+    const [nav, setNav] = useState(null);
 
     const handleInputChange = (event) => {
         
@@ -27,7 +39,7 @@ export default function UpdatePassword (props) {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         
         event.preventDefault();
         console.log(formData);
@@ -41,7 +53,11 @@ export default function UpdatePassword (props) {
             if(formData.newPassword === formData.confirmPassword){
 
                 const headers = {};
-                postReq("/auth/updatePassword", headers, formData);
+                const response = await postReq("/auth/updatePassword", headers, formData);
+
+                console.log(response)
+
+                setNav("/login");
             }else{
                 setErr((prevErr) => {
                     return { ...prevErr, "samePassErr": "The passwords does not match" };
@@ -54,49 +70,69 @@ export default function UpdatePassword (props) {
         }
     }
 
+    if (nav) {
+        return <Navigate to={nav} />
+    }
+
     return (
-        <div className="Auth-form-container">
+        <ThemeProvider theme={defaultTheme}>
             <Header />
-            <form className="Auth-form" onSubmit={handleSubmit}>
-                <div className="Auth-form-content">
-                    <h3 className="Auth-form-title">Update Password</h3>
-                    <div className="form-group mt-3">
-                        <label>New Password</label>
-                        <input
-                            type="password"
-                            className="form-control mt-1"
-                            placeholder="Password"
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography component="h1" variant="h5">
+                        Update Password
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="newPassword"
+                            label="New Password"
                             name="newPassword"
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    {err.passStrengthErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.passStrengthErr}</span>}
-                    <div className="form-group mt-3">
-                        <label>Confirm Password</label>
-                        <input
+                            autoComplete="newPassword"
                             type="password"
-                            className="form-control mt-1"
-                            placeholder="Comfirm Password"
-                            name="confirmPassword"
+                            autoFocus
+                            value={formData.newPassword}
                             onChange={handleInputChange}
+                            error={err.passStrengthErr !== null}
+                            helperText={err.passStrengthErr}
                         />
-                    </div>
-                    {err.samePassErr === null ? null :
-                        <span style={{
-                            color: 'darkred',
-                            fontSize: 13,
-                        }}>{err.samePassErr}</span>}
-                    <div className="d-grid gap-2 mt-3">
-                        <button type="submit" className="btn btn-primary">
-                            Update!
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="confirmPassword"
+                            label="Confirm Password"
+                            name="confirmPassword"
+                            autoComplete="confirmPassword"
+                            type="password"
+                            autoFocus
+                            value={formData.confirmPassword}
+                            onChange={handleInputChange}
+                            error={err.samePassErr !== null}
+                            helperText={err.samePassErr}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Change Password
+                        </Button>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
     )
 }

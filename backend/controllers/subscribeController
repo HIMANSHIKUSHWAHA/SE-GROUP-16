@@ -1,0 +1,81 @@
+const User = require('../models/User');
+
+const subscriberController = {
+
+    // Subscribe to a User
+    subscribe: async (req, res) => {
+        try {
+            const subscriberId = req.user._id; // Assuming you have user info in req.user
+            const subscribeToUserId = req.params.userId; // Assuming you pass the user ID to subscribe to in the URL
+
+            // Check if already subscribed
+            const user = await User.findById(subscriberId);
+            if (user.Subscribing.includes(subscribeToUserId)) {
+                return res.status(400).json({ message: 'You are already subscribed to this user.' });
+            }
+
+            // Add to subscriber's Subscribing list
+            user.Subscribing.push(subscribeToUserId);
+            await user.save();
+
+            // Add to the subscribed user's Subscribers list
+            const subscribedUser = await User.findById(subscribeToUserId);
+            subscribedUser.Subscribers.push(subscriberId);
+            await subscribedUser.save();
+
+            res.status(200).json({ message: 'Subscribed successfully.' });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error subscribing to user.', error });
+        }
+    },
+
+    // Unsubscribe from a User
+    unsubscribe: async (req, res) => {
+        try {
+            const subscriberId = req.user._id;
+            const unsubscribeFromUserId = req.params.userId;
+
+            // Remove from subscriber's Subscribing list
+            const user = await User.findById(subscriberId);
+            user.Subscribing = user.Subscribing.filter(id => !id.equals(unsubscribeFromUserId));
+            await user.save();
+
+            // Remove from the unsubscribed user's Subscribers list
+            const unsubscribedUser = await User.findById(unsubscribeFromUserId);
+            unsubscribedUser.Subscribers = unsubscribedUser.Subscribers.filter(id => !id.equals(subscriberId));
+            await unsubscribedUser.save();
+
+            res.status(200).json({ message: 'Unsubscribed successfully.' });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error unsubscribing from user.', error });
+        }
+    },
+
+    // View Subscribers
+    viewSubscribers: async (req, res) => {
+        try {
+            const userId = req.user._id;
+            const user = await User.findById(userId).populate('Subscribers', 'email'); // Only fetching email for simplicity
+            res.status(200).json({ subscribers: user.Subscribers });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching subscribers.', error });
+        }
+    },
+
+    // View Subscribed Users
+    viewSubscribedUsers: async (req, res) => {
+        try {
+            const userId = req.user._id;
+            const user = await User.findById(userId).populate('Subscribing', 'email'); // Only fetching email for simplicity
+            res.status(200).json({ subscribedTo: user.Subscribing });
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching subscribed users.', error });
+        }
+    }
+};
+
+module.exports = subscriberController;

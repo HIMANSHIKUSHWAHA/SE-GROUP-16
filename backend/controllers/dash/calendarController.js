@@ -1,4 +1,4 @@
-const { Calendar } = require('../../models/Calendar')
+const { Calendar, createDefaultCalendar } = require('../../models/Calendar')
 const AppError = require('../../utils/AppError')
 const User = require('../../models/User');
 
