@@ -52,36 +52,36 @@ const TaskCard = ({ title, content }) => (
 );
 
 //Cards for LIVE SESSIONS AND EVENTS
-const LiveSessionCard = ({ sessions, date }) => (
-    <TaskCard
-        title="Live Sessions"
-        content={
-            sessions && sessions.length > 0 ? (
-                <ul>
-                    {sessions.map((session, index) => {
-                        const sessionDate = new Date(session.date);
-                        if (
-                            sessionDate.getDate() === date.date &&
-                            sessionDate.getMonth() + 1 === date.month
-                        ) {
-                            return (
-                                <li key={index}>
-                                    Title: {session.title} <br />
-                                    Time: {session.startTime} <br />
-                                    Duration: {session.duration} <br />
-                                    Description: {session.description}
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                </ul>
-            ) : (
-                <Typography variant="body2">No Live Sessions</Typography>
-            )
-        }
-    />
-);
+// const LiveSessionCard = ({ sessions, date }) => (
+//     <TaskCard
+//         title="Live Sessions"
+//         content={
+//             sessions && sessions.length > 0 ? (
+//                 <ul>
+//                     {sessions.map((session, index) => {
+//                         const sessionDate = new Date(session.date);
+//                         if (
+//                             sessionDate.getDate() === date.date &&
+//                             sessionDate.getMonth() + 1 === date.month
+//                         ) {
+//                             return (
+//                                 <li key={index}>
+//                                     Title: {session.title} <br />
+//                                     Time: {session.startTime} <br />
+//                                     Duration: {session.duration} <br />
+//                                     Description: {session.description}
+//                                 </li>
+//                             );
+//                         }
+//                         return null;
+//                     })}
+//                 </ul>
+//             ) : (
+//                 <Typography variant="body2">No Live Sessions</Typography>
+//             )
+//         }
+//     />
+// );
 
 //FOR COLUMNS OF CALENDAR
 const DayColumn = ({ day, date, month, isToday, dayData, event_list }) => {
@@ -174,24 +174,27 @@ const DayColumn = ({ day, date, month, isToday, dayData, event_list }) => {
 const WeeklyCalendar = () => {
     const today = new Date();
     const weekDates = generateWeekDates(today);
-    const [calendarData, setCalendarData] = useState(null);
-    const [liveSessions, setLiveSessions] = useState([]);
+    const [calendarData, setCalendarData] = useState({});
 
     useEffect(() => {
         const userId = localStorage.getItem("UserId");
         // Define the request, if necessary
         const params = { userId: userId };
-        const headers = {}
+        const headers = {};
         getReq('/dashboard/calendar_data', headers, params)
             .then(response => {
+                // Handle the structured data for each day
                 const weeklyData = response.data.data;
-                setLiveSessions(response.data.event_list);
-                const transformedData = weeklyData.reduce((acc, dayData) => {
-                    acc[dayData.day.toLowerCase()] = dayData;
-                    return acc;
-                }, {});
-                setCalendarData(transformedData); // Update the state with the transformed data
+                const transformedData = {};
 
+                // Assuming backend sends the data in the same structure
+                // as it is structured in the frontend
+                weekDates.forEach(dateInfo => {
+                    const day = dateInfo.day.toLowerCase();
+                    transformedData[day] = weeklyData[day];
+                });
+
+                setCalendarData(transformedData);
             })
             .catch(error => {
                 console.error("There was an error fetching the calendar data!", error);
@@ -211,7 +214,6 @@ const WeeklyCalendar = () => {
                             month={month}
                             isToday={today.getDate() === date && today.getMonth() + 1 === month}
                             dayData={calendarData[day.toLowerCase()]}
-                        // liveSessions={liveSessions}
                         />
                     ))}
                 </Grid>
