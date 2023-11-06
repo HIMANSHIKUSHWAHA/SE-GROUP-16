@@ -1,17 +1,44 @@
 require('dotenv').config({ path: '../.env' });
 const mongoose = require('mongoose');
 
-// Import the models 
+// Import the models
 const ExercisePlan = require('../models/Exerciseplan');
 const SleepPlan = require('../models/Sleepplan');
 const MealPlan = require('../models/Mealplan');
-
+const AsyncVideo = require('../models/AsyncVideo');
+const Ratings = require("../models/Ratings")
 // MongoDB connection URI
 const mongoURI = process.env.DB_STRING;
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
+
+const createDefaultAsyncVideo = async () => {
+    let asyncVideo = await AsyncVideo.findOne({ title: "Default Video" });
+
+    if (!asyncVideo) {
+        // Create a new Ratings document
+        const newRatings = new Ratings({ ratings: new Map() }); // Assuming you have a map structure in Ratings
+        await newRatings.save();
+
+        asyncVideo = new AsyncVideo({
+            title: "Default Video",
+            ratings: newRatings._id, // Set the Object ID of the new Ratings document
+            viewCount: 0,
+            tags: ["default", "video"],
+            description: "This is a default video.",
+            link: "https://www.youtube.com/watch?v=cIwTYL1fwJk&ab_channel=freshvids123"
+        });
+
+        await asyncVideo.save();
+        console.log('Default AsyncVideo created successfully.');
+    } else {
+        console.log('Default AsyncVideo already exists.');
+    }
+
+    return asyncVideo._id;
+};
 
 const createDefaultExercisePlan = async () => {
     // Check for an existing default ExercisePlan
@@ -121,9 +148,12 @@ const setupDefaultPlans = async () => {
         const exercisePlanId = await createDefaultExercisePlan();
         const sleepPlanId = await createDefaultSleepPlan();
         const mealPlanId = await createDefaultMealPlan();
+        const asyncVideoId = await createDefaultAsyncVideo();
         console.log(`Default MealPlan ID: ${mealPlanId}`);
         console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
         console.log(`Default SleepPlan ID: ${sleepPlanId}`);
+        console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
+
     } catch (err) {
         console.error('Error setting up default plans:', err);
     } finally {

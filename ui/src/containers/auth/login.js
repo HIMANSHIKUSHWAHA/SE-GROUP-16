@@ -67,7 +67,7 @@ export default function Login(props) {
 
             localStorage.setItem("token", response.tempToken);
             setAuthenticationStat(true);
-            setNav("/2fa")
+            setNav("/2fa");
 
         } else if (response.message === "authentication failed") {
 
