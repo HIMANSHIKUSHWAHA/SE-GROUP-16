@@ -1,7 +1,7 @@
 const { Calendar, createDefaultCalendar } = require('../../models/Calendar')
 const AppError = require('../../utils/AppError')
 const User = require('../../models/User');
-
+const { videoCards } = require("../../models/AsyncVideo")
 
 // The data needs to go in the form of {monday:{sleep:seep_data, }}
 /*
@@ -51,4 +51,25 @@ const calendarData = async (req, res, next) => {
     }
 };
 
-module.exports = { calendarData };
+const videoCardData = async (req, res, next) => {
+    try {
+
+        // const userId = req.query.userId; // Will use this in future for video recommendation
+        // if (!userId) {
+        //     return res.status(400).send({ error: 'User ID is required' });
+        // }
+
+        const allVids = await videoCards.find();
+        
+        res.status(200).json({
+            data: allVids
+        });
+
+    }catch (error){
+
+        return next(new AppError(error.message, error.statusCode || 500));
+
+    }
+};
+
+module.exports = { calendarData, videoCardData};
