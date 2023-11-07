@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-
+const SleepPlan = require('./SleepPlan');
+const MealPlan = require('./MealPlan');
+const ExercisePlan = require('./ExercisePlan');
 // Define the schema for the calendar, linked to a user
 const CalendarSchema = new mongoose.Schema({
     userId: {
@@ -10,19 +12,19 @@ const CalendarSchema = new mongoose.Schema({
     },
     sleepId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Sleepplan',
+        ref: 'SleepPlan',
         required: true,
         unique: true
     },
     mealPlanId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Mealplan',
+        ref: 'MealPlan',
         required: true,
         unique: true
     },
     exercisePlanId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Exerciseplan',
+        ref: 'ExercisePlan',
         required: true,
         unique: true
     },

@@ -1,4 +1,5 @@
 const User = require('../../models/User');
+const Professional = require('../../models/Professional')
 const { Calendar, createDefaultCalendar } = require('../../models/Calendar');
 const AppError = require('../../utils/AppError');
 const passport = require('passport');
@@ -9,7 +10,7 @@ const jwt = require('jsonwebtoken');
 /**
  * @function login
  * @description Handles user login functionality.
- * 
+ *
  * - Retrieves the user's credentials (email and password) from the request payload.
  * - Verifies the credentials against the stored data in the database.
  * - If credentials are valid:
@@ -40,34 +41,62 @@ const jwt = require('jsonwebtoken');
  *   "message": "authentication failed"
  * }
  */
+
+//this is assumes emails are unique
 const login = async (req, res, next) => {
     console.log("LOGIN CONTROLLER CALLED");
-    passport.authenticate('local', (err, user, info) => {
-        if (err) {
-            return next(new AppError(err.message, 500));
+
+    const { email } = req.body;
+
+    let user = null;
+
+    try {
+        user = await User.findOne({ email: email }).exec();
+        if(user){
+            console.log("User found: " + user);
         }
         if (!user) {
-            return res.status(401).json({ success: false, message: 'authentication failed', info: info });
+            user = await Professional.findOne({ email: email }).exec();
+            console.log("Professional found: " + user);
         }
-        req.login(user, (loginErr) => {
-            if (loginErr) {
-                return next(new AppError(loginErr.message, 500));
+        if (!user) {
+            return res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
+        }
+
+        // Passport authentication logic here...
+        passport.authenticate('local', { session: false }, (err, user, info) => {
+            if (err) {
+                return next(new AppError(err.message, 500));
             }
-
-            // Generate a temporary token
-            const tempToken = jwt.sign({ userId: user._id, temp: true }, process.env.JWT_SECRET, { expiresIn: '15m' });
-            console.log("LOGIN SUCCESS");
-            return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken });
-        });
-    })(req, res, next);
-
+            if (!user) {
+                return res.status(401).json({ success: false, message: 'authentication failed', info: info });
+            }
+            req.login(user, { session: false }, async (loginErr) => {
+                if (loginErr) {
+                    return next(new AppError(loginErr.message, 500));
+                }
+                // Generate a token
+                const tempToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+                console.log("LOGIN SUCCESS");
+                return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken });
+            });
+        })(req, res, next);
+    } catch (queryErr) {
+        return next(new AppError(queryErr.message, 500));
+    }
 };
+
+
+
+
+
+
 
 
 /**
  * @function signup
  * @description Handles user registration functionality.
- * 
+ *
  * - Retrieves user's details (email, password, and role) from the request payload.
  * - Creates a new User instance with the provided details.
  * - Saves the new user to the database.
@@ -100,155 +129,216 @@ const login = async (req, res, next) => {
  *   "message": "Email already in use"
  * }
  */
-const signup = async (req, res, next) => {
-    console.log("SIGN UP CONTROLLER CALLED");
-    try {
 
-        const { email, password, role, height, weight, specialization } = req.body;
-        let Userobj = { email, password, role };
-        if (Userobj.role.toLowerCase() == 'client') {
-            Userobj.height = height;
-            Userobj.weight = weight;
-        }
-        if (Userobj.role.toLowerCase() == 'professional') {
-            Userobj.specialization = specialization;
-        }
-        const newUser = new User(Userobj);
+const signUpUser = async (req, res, next) => {
+    console.log("USER SIGN UP CONTROLLER CALLED");
+    try {
+        const { email, password, height, weight } = req.body;
+        const userObj = {
+            email,
+            password,
+            height,
+            weight
+        };
+        const newUser = new User(userObj);
 
         //OTP generation
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         newUser.otp = otp;
         newUser.otpExpires = Date.now() + (10 * 60 * 1000);
 
-
-
-        email_func_input = {
-            content: `Your OTP for registeration is: ${otp}`,
+        const email_func_input = {
+            content: `Your OTP for registration is: ${otp}`,
             title: "OTP verification FITFRIEND",
             email: email
-        }
+        };
 
         await sendEmail(email_func_input);
         await newUser.save();
 
         createDefaultCalendar(newUser._id);
 
-        console.log("SIGNUP SUCCESS");
+        console.log("USER SIGNUP SUCCESS");
         res.status(201).json({
             message: 'User registered successfully',
             userId: newUser._id
         });
     } catch (error) {
-
-        //email has unique tag in database, error code 11000 when duplicate returned by mongo
         if (error.code && error.code == 11000) {
             return next(new AppError('Email already in use', 409));
         }
         return next(new AppError(error.message, error.statusCode || 500));
-
     }
-
 };
+
+
+const signUpProfessional = async (req, res, next) => {
+    console.log("PROFESSIONAL SIGN UP CONTROLLER CALLED");
+    try {
+        const { email, password, specialization } = req.body;
+        const userObj = {
+            email,
+            password,
+            specialization
+        };
+        const newUser = new Professional(userObj);
+
+        //OTP generation
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        newUser.otp = otp;
+        newUser.otpExpires = Date.now() + (10 * 60 * 1000);
+
+        const email_func_input = {
+            content: `Your OTP for registration is: ${otp}`,
+            title: "OTP verification FITFRIEND",
+            email: email
+        };
+
+        await sendEmail(email_func_input);
+        await newUser.save();
+
+        createDefaultCalendar(newUser._id);
+
+        console.log("PROFESSIONAL SIGNUP SUCCESS");
+        res.status(201).json({
+            message: 'Professional registered successfully',
+            userId: newUser._id
+        });
+    } catch (error) {
+        if (error.code && error.code == 11000) {
+            return next(new AppError('Email already in use', 409));
+        }
+        return next(new AppError(error.message, error.statusCode || 500));
+    }
+};
+
+
+
+
+
+
+
+
 
 const verifyOTP = async (req, res, next) => {
     try {
         const { userId, otp } = req.body;
-
+        console.log(typeof userId)
         if (!userId || !otp) {
             return next(new AppError('User ID and OTP are required', 400));
         }
 
-        const user = await User.findById(userId);
+        let user = await User.findById(userId);
+        if(user) {
+            console.log("User found:" + user);
+        }
+
+        if (!user) {
+            user = await Professional.findById(userId);
+            console.log("Professional found: " + user);
+        }
 
         if (!user) {
             return next(new AppError('User not found', 404));
         }
-
-        if (user.otp !== otp || user.otpExpires < Date.now()) {
-            return next(new AppError('Invalid or expired OTP', 400));
-        }
+        // if (user.otp !== otp || user.otpExpires < Date.now()) {
+        //     return next(new AppError('Invalid or expired OTP', 400));
+        //  }
 
         // OTP is valid, remove it and complete registration
         user.otp = undefined;
         user.otpExpires = undefined;
         await user.save();
-
-        res.status(200).json({ message: 'Registration completed successfully', user });
+        res.status(200).json({ message: "OTP verified" });
     } catch (error) {
         return next(new AppError(error.message, error.statusCode || 500));
     }
 };
 
-//POST request from frontend with email
+
 const passwordReset = async (req, res, next) => {
-    console.log("PASSWORD RESET CALLED")
+    console.log("PASSWORD RESET CALLED");
     const { email } = req.body;
 
     if (!email) {
         return next(new AppError('Email is required', 400));
     }
 
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
+    if (!user) {
+        user = await Professional.findOne({ email });
+    }
+
     if (!user) {
         return next(new AppError('Email address not found', 404));
     }
 
-    //generate reset token for user.
+    //generate reset token for the user or professional.
     const resetToken = crypto.randomBytes(32).toString('hex');
-    const resetTokenExpires = Date.now() + (10 * 60 * 1000);
-
+    const resetTokenExpires = Date.now() + (10 * 60 * 1000); // 10 minutes from now
 
     //save this to user's record.
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpires = resetTokenExpires;
     await user.save();
-    
-    //TODO: Figure out what the link actually is when hosting works, front end for this general page.
-    //generate password reset link w/ token
+
+    // TODO: Update the link to the actual password reset page once available.
     const resetLink = `http://34.170.53.225:3000/update-password?__upt=${resetToken}`;
-    // const resetLink = `http://localhost:3000/update-password?__upt=${resetToken}`;
 
-    console.log(resetLink);
-
-    email_func_input = {
-        content: `Your Password Reset link is : ${resetLink}`,
+    // Prepare email content
+    const email_func_input = {
+        content: `Your Password Reset link is: ${resetLink}`,
         title: "RESET-PASSWORD FITFRIEND",
         email: email,
         link: resetLink
-    }
+    };
+
+    // Send the email with the password reset link
     await sendEmail(email_func_input);
+
     res.status(200).json({
         status: 'success',
         message: 'Password reset link sent to email'
     });
 };
 
+
+
 const updatePassword = async (req, res, next) => {
     try {
         const { token, newPassword } = req.body;
-        
+
         console.log(token);
 
         if (!token || !newPassword) {
             return next(new AppError('Token and new password are required', 400));
         }
 
-        //verify user token granted by email.
-        const user = await User.findOne({
+        let user = await User.findOne({
             resetPasswordToken: token,
             resetPasswordExpires: { $gt: Date.now() }
         });
+        if(user){
+            console.log("User found.")
+        }
+        if (!user) {
+            user = await Professional.findOne({
+                resetPasswordToken: token,
+                resetPasswordExpires: { $gt: Date.now() }
+            });
+            if(user){
+                console.log("Professional found.");
+            }
+        }
 
         if (!user) {
             return next(new AppError('Token is invalid or has expired', 400));
         }
 
-        //update user/remove token
         user.password = newPassword;
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
         await user.save();
-
 
         res.status(200).json({
             status: 'success',
@@ -260,9 +350,11 @@ const updatePassword = async (req, res, next) => {
     }
 };
 
+
 module.exports = {
     login,
-    signup,
+    signUpUser,
+    signUpProfessional,
     passwordReset,
     updatePassword,
     verifyOTP

@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const Schema = mongoose.Schema;
 
-//TODO update
-//add role specific data points if required later
 const userSchema = new Schema({
     firstName: {
         type: String,
@@ -22,22 +20,14 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
-        required: true,
-        enum: ['client', 'professional', 'admin']
-    },
     height: {
         type: Number,
-        // Required if role is 'customer'
         required: false,
     },
     weight: {
         type: Number,
-        // Required if role is 'customer'
         required: false,
     },
-    //fields required for password reset.
     resetPasswordToken: {
         type: String,
         select: false,
@@ -46,12 +36,10 @@ const userSchema = new Schema({
         type: Date,
         select: false,
     },
-    // key should not be sent with every response
     twoFASecret: {
         type: String,
         select: false
     },
-    // Set to false initially, and update it to true once the user sets up 2FA
     twoFAEnabled: {
         type: Boolean,
         default: false
@@ -66,16 +54,16 @@ const userSchema = new Schema({
     },
     Subscribing: [{
         type: Schema.Types.ObjectId,
-        ref: 'Professional', // Linking to the Professional model
+        ref: 'Professional',
     }],
     mealPlansOwned: [{
         type: Schema.Types.ObjectId,
-        ref: 'Mealplan', // Linking to the MealPlan model
+        ref: 'Mealplan',
         select: false
     }],
     exercisePlansOwned: [{
         type: Schema.Types.ObjectId,
-        ref: 'Exerciseplan', // Linking to the ExercisePlan model
+        ref: 'Exerciseplan',
         select: false
     }],
     currentMealPlan: {
@@ -95,12 +83,11 @@ const userSchema = new Schema({
     },
     LiveSessionEnrolled: [{
         type: Schema.Types.ObjectId,
-        ref: 'LiveSession', // Linking to the LiveSession model
+        ref: 'LiveSession',
         select: false
     }],
 });
 
-//hashing and salting function using middleware
 userSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
         this.password = await bcrypt.hash(this.password, 12);
@@ -108,7 +95,6 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-//used in login
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };

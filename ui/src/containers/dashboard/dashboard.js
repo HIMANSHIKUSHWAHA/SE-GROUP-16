@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Header from "../header";
-import FilterSearchSection from "../searchbar/searchbar";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import VideoSearch  from "./VideoSearchTab/videoSearchTab";
+import VideoSearch  from "./VideoTab/videoSearchTab";
 // Secondary Navbar Component
 const SecondaryNavbar = ({ setActiveContent }) => (
     <div className="SecondaryNavbar">
@@ -58,7 +57,6 @@ const Dashboard = () => {
     return (
         <div>
             <Header auth={true} />
-            <FilterSearchSection />
             <SecondaryNavbar setActiveContent={setActiveContent} />
             <ContentArea activeContent={activeContent} />
         </div>

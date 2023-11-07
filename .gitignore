@@ -3,4 +3,4 @@
 # Editor & IDE
 .vscode
 
-.env
+backend/.env

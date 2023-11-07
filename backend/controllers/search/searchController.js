@@ -1,6 +1,23 @@
-const User = require('../../../../../SE-GROUP-16/backend/models/User');
-const AsyncVideo = require('../../../../../SE-GROUP-16/backend/models/AsyncVideo');
-const LiveSession = require('../../../../../SE-GROUP-16/backend/models/LiveSession');
+const User = require('../../models/User');
+const AsyncVideo = require('../../models/AsyncVideo');
+const LiveSession = require('../../models/LiveSession');
+const { Trie, buildTrieFromDatabase } = require('../search/autoComplete');
+
+let trie;
+
+const autocompleteSearch = async (req, res) => {
+    if (!trie) {
+        trie = await buildTrieFromDatabase(AsyncVideo);
+    }
+    const { prefix } = req.query;
+    try {
+        const suggestions = trie.autocomplete(prefix.toLowerCase());
+        res.json(suggestions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 
 const searchVideos = async (req, res, next) => {
     let { title, tags, description } = req.query;
@@ -85,8 +102,61 @@ const searchProfessionals = async (req, res, next) => {
     }
 };
 
+
+const searchExercisePlans = async (req, res, next) => {
+    let { title, description, cost } = req.query;
+    let queryObject = {};
+
+    if (title) {
+        queryObject['title'] = { $regex: title, $options: 'i' };
+    }
+    if (description) {
+        queryObject['description'] = { $regex: description, $options: 'i' };
+    }
+    if (cost) {
+        queryObject['cost'] = cost;
+    }
+
+    try {
+        const exercisePlans = await ExercisePlan.find(queryObject);
+        res.json(exercisePlans);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+const searchMealPlans = async (req, res, next) => {
+    let { title, calories, cost } = req.query;
+    let queryObject = {};
+
+    if (title) {
+        queryObject['title'] = { $regex: title, $options: 'i' };
+    }
+    if (calories) {
+        queryObject['calories'] = calories;
+    }
+    if (cost) {
+        queryObject['cost'] = cost;
+    }
+
+    try {
+        const mealPlans = await MealPlan.find(queryObject);
+        res.json(mealPlans);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
+
+
 module.exports = {
     searchVideos,
     searchLiveSessions,
-    searchProfessionals
+    searchProfessionals,
+    searchExercisePlans,
+    searchMealPlans,
+    autocompleteSearch
 };

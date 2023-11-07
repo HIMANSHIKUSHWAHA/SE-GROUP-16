@@ -37,7 +37,7 @@ const verify2FAToken = async (req, res, next) => {
         // Verification bypassed for testing purposes
         const verified = true; // Verification always succeeds
 
-        const fullAccessToken = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const fullAccessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         res.cookie('access_token', fullAccessToken, {
             expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour

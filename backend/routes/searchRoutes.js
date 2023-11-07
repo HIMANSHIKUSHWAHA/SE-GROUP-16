@@ -2,13 +2,31 @@ const express = require('express');
 const router = express.Router();
 
 
-const { searchVideos, searchLiveSessions, searchProfessionals } = require('../controllers/search/searchController');
-const { getAllVideos } = require("../controllers/search/getAllVideos");
+const { searchVideos, searchLiveSessions, searchProfessionals, searchExercisePlans, searchMealPlans, autocompleteSearch  } = require('../controllers/search/searchController');
+const {
+    getAllAsyncVideos,
+    getAllLiveSessions,
+    getAllUsers,
+    getAllExercisePlans,
+    getAllMealPlans
+} = require('../controllers/search/aggregatesController');
 
-router.get('/search/searchvideos', searchVideos);
-router.get('/search/sessions', searchLiveSessions);
-router.get('/search/professionals', searchProfessionals);
-router.get('/search/allvideos', getAllVideos);
 
+//search functions
+router.get('/autocomplete/title', autocompleteSearch);
+//autocomplete functionality
+router.get('/videos', searchVideos);
+router.get('/sessions', searchLiveSessions);
+router.get('/professionals', searchProfessionals);
+router.get('/exercisePlans', searchExercisePlans);
+router.get('/mealPlans', searchMealPlans);
+
+
+//initial rendering functions
+router.get('/allVideos', getAllAsyncVideos);
+router.get('/allLivesessions', getAllLiveSessions);
+router.get('/allUsers', getAllUsers);
+router.get('/allExercisePlans', getAllExercisePlans);
+router.get('/allMealPlans', getAllMealPlans);
 
 module.exports = router;

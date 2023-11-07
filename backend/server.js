@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const twoFARoutes = require('./routes/2faRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes')
+const searchRoutes = require('./routes/searchRoutes')
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -41,7 +42,7 @@ app.use(passport.session());
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/auth/2fa', twoFARoutes);
 app.use('/api/v1/dashboard', dashboardRoutes)
-
+app.use('/api/v1/search', searchRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

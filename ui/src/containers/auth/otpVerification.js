@@ -103,14 +103,18 @@ export default function OtpVerification() {
         event.preventDefault();
 
         const headers = {};
-        const response = await postReq("/auth/verify-otp", headers, { userId, otp });
+        try {
+            const response = await postReq("/auth/verify-otp", headers, { userId, otp });
 
-        if (response.message === "OTP verified") {
-            setNav({
-                pathname: "/2fa-setup",
-                state: { userId: response.userId }
-            });
-        } else {
+            if (response.message === "OTP verified") {
+                setNav({
+                    pathname: "/2fa-setup",
+                    state: { userId: response.userId }
+                });
+            } else {
+                setError("Invalid OTP. Please try again.");
+            }
+        } catch (error) {
             setError("Invalid OTP. Please try again.");
         }
     };

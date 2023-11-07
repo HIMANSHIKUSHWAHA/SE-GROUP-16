@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 // Import the models
 const ExercisePlan = require('../models/Exerciseplan');
-const SleepPlan = require('../models/Sleepplan');
+const SleepPlan = require('../models/SleepPlan');
 const MealPlan = require('../models/Mealplan');
 const AsyncVideo = require('../models/AsyncVideo');
 const Ratings = require("../models/Ratings")

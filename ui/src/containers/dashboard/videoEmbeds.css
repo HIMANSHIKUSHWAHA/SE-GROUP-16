@@ -1,0 +1,11 @@
+.video-preview .thumbnail {
+    transition: transform 0.3s ease, border 0.3s ease;
+    width: 300px; /* Your desired width */
+    height: 200px; /* Your desired height */
+}
+
+.video-preview .thumbnail:hover {
+    transform: scale(1.05); /* Slightly grow the image */
+    border: 3px solid #blue; /* Add a blue highlight border */
+    cursor: pointer;
+}

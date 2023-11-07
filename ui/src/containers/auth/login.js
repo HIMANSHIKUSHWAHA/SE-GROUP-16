@@ -16,11 +16,9 @@ import { Navigate } from "react-router-dom";
 import { setAuthenticationStat } from "../../services/auth";
 import GoogleOAuth from "./oAuth";
 import Paper from '@mui/material/Paper';
-
 const defaultTheme = createTheme();
 
 export default function Login(props) {
-
     const [formData, setFormData] = useState({
         email: "",
         password: ""
@@ -47,8 +45,6 @@ export default function Login(props) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
-
         // Email validation
         if (!validator.isEmail(formData.email)) {
             setValidEmail("Not a valid email");
@@ -56,24 +52,37 @@ export default function Login(props) {
         }
 
         const headers = {};
-        const response = await postReq("/auth/login", headers, formData);
+        try {
+            const response = await postReq("/auth/login", headers, formData);
+            console.log(response);
+            setFormData({
+                email: "",
+                password: ""
+            });
 
-        setFormData({
-            email: "",
-            password: ""
-        });
-
-        if (response.message === "authentication succeeded") {
-
-            localStorage.setItem("token", response.tempToken);
-            setAuthenticationStat(true);
-            setNav("/2fa");
-
-        } else if (response.message === "authentication failed") {
-
+            if (response.status === 200) { // Assuming 200 is the success code for authentication
+                localStorage.setItem("token", response.tempToken);
+                setAuthenticationStat(true);
+                console.log('Redirecting to 2 Factor')
+                setNav("/2fa");
+            } else if (response.status === 401) { // Unauthorized or incorrect credentials
+                console.log("Authentication failed!");
+                setAuthenticationStat(false);
+                setPassErr("Incorrect email or password");
+            } else if (response.status === 404) { // User not found
+                console.log("User not found!");
+                setAuthenticationStat(false);
+                setPassErr("User not found");
+            } else {
+                // Handle other statuses or general error message
+                setAuthenticationStat(false);
+                console.log("Unexpected status code: " + response.status);
+                setPassErr("An error occurred. Please try again.");
+            }
+        } catch (error) {
+            console.error("Login request failed:", error);
             setAuthenticationStat(false);
-            setPassErr("Incorrect email or password");
-
+            setPassErr("Failed to connect. Please check your internet connection and try again.");
         }
     };
 

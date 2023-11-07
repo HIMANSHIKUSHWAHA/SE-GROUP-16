@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VideoPreview from '../../../../../../SE-GROUP-16/ui/src/containers/dashboard/videoEmbeds';
-
+import TitleAutocomplete from "./TitleAutoComplete";
+import { jwtDecode } from 'jwt-decode';
 const VideoSearch = () => {
+
     const [searchParams, setSearchParams] = useState({
         title: '',
         tags: '',
@@ -11,13 +13,17 @@ const VideoSearch = () => {
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
+
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(token);
         fetchAllVideos();
     }, []);
 
+
     const fetchAllVideos = async () => {
         try {
-            const response = await axios.get('/search/allvideos');
+            const response = await axios.get('/api/v1/search/allvideos');
             setResults(response.data);
             console.log(response);
         } catch (error) {
@@ -34,13 +40,14 @@ const VideoSearch = () => {
         e.preventDefault();
         setErrorMessage('');
         try {
-            const response = await axios.get('/search/searchvideos', { params: searchParams });
+            const response = await axios.get('/api/v1/search/searchvideos', { params: searchParams });
+            setResults(response.data); // This will trigger the useEffect if the array is empty
             if (response.data.length === 0) {
+                setResults([]);
                 setErrorMessage('No videos found.');
-            } else {
-                setResults(response.data);
             }
         } catch (error) {
+            setResults([]);
             setErrorMessage('An error occurred while searching for videos.');
             console.error('Search error', error);
         }
@@ -56,18 +63,23 @@ const VideoSearch = () => {
                 value={searchParams.title}
                 onChange={handleInputChange}
             />
+
             <input
                 type="text"
                 name="tags"
                 placeholder="Tags (comma-separated)"
-                value={searchParams.tags} // This is where the error was, it should be {searchParams.tags}
+                value={searchParams.tags}
                 onChange={handleInputChange}
+            />
+            <TitleAutocomplete
+                searchParams={searchParams}
+                setSearchParams={setSearchParams}
             />
             <input
                 type="text"
                 name="description"
                 placeholder="Description"
-                value={searchParams.description} // Ensure this is also within curly braces
+                value={searchParams.description}
                 onChange={handleInputChange}
             />
             <button onClick={handleSearch}>Search</button>
@@ -77,9 +89,8 @@ const VideoSearch = () => {
             {results.map((result, index) => (
                 <div key={index}>
                     <div>{result.title}</div>
-                    <div>{result.description}</div>
                     <VideoPreview link={result.link} />
-                    <button onClick={() => window.open(result.link, '_blank')}>Watch Video</button>
+                    <div>{result.description}</div>
                 </div>
             ))}
         </div>

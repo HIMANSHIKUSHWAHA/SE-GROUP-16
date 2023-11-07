@@ -78,9 +78,9 @@ export default function Signup() {
             return;
         }
 
-        // TODO: work on backend data models
+        const endpoint = formData.role === "professional" ? "/signup/professional" : "/signup/user";
         const headers = {};
-        const response = await postReq("/auth/signup", headers, formData);
+        const response = await postReq(`/auth${endpoint}`, headers, formData);
         console.log("RESPONSE IS FROM SIGNUP API- ", response);
 
         if (response.message === "User registered successfully") {
@@ -92,7 +92,6 @@ export default function Signup() {
             setErr(prev => ({ ...prev, validEmailErr: "Email already in use" }));
         }
     };
-
 
     return (
         <ThemeProvider theme={defaultTheme}>
