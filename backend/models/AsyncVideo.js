@@ -9,24 +9,22 @@ const AsyncVideo = new mongoose.schema({
     },
     title: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     ratings: Ratings,
-    ViewCount: {
+    viewCount: {
         type: Number,
         required: true,
     },
-    Tags: {
+    tags: {
         type: [String],
         required: true,
     },
-    Description: {
+    description: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
-    Link: {
+    link: {
         type: String,
         required: true,
         unique: true
