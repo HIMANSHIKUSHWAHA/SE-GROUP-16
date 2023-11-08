@@ -70,13 +70,36 @@ const professionalSchema = new Schema({
 
 professionalSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
-        this.password = await bcrypt.hash(this.password, 12);
+        bcrypt.hash(this.password, 12, (err, hash) => {
+            if (err) {
+                return next(err);
+            }
+            this.password = hash;
+            next();
+        });
+    } else {
+        next();
     }
-    next();
 });
 
 professionalSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = mongoose.model('Professional', professionalSchema);

@@ -90,9 +90,16 @@ const userSchema = new Schema({
 
 userSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
-        this.password = await bcrypt.hash(this.password, 12);
+        bcrypt.hash(this.password, 12, (err, hash) => {
+            if (err) {
+                return next(err);
+            }
+            this.password = hash;
+            next();
+        });
+    } else {
+        next();
     }
-    next();
 });
 
 userSchema.methods.comparePassword = async function (candidatePassword) {

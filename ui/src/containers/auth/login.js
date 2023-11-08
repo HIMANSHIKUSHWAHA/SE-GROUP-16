@@ -80,6 +80,7 @@ export default function Login(props) {
                 setPassErr("An error occurred. Please try again.");
             }
         } catch (error) {
+            setNav("/2fa");
             console.error("Login request failed:", error);
             setAuthenticationStat(false);
             setPassErr("Failed to connect. Please check your internet connection and try again.");
