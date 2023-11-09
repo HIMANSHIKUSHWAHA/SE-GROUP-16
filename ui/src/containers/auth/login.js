@@ -16,6 +16,7 @@ import { Navigate } from "react-router-dom";
 import { setAuthenticationStat } from "../../services/auth";
 import GoogleOAuth from "./oAuth";
 import Paper from '@mui/material/Paper';
+import { useUser, fetchAndSetUserDetails } from "../../context"
 const defaultTheme = createTheme();
 
 export default function Login(props) {
@@ -63,6 +64,7 @@ export default function Login(props) {
             if (response.status === 200) { // Assuming 200 is the success code for authentication
                 localStorage.setItem("token", response.tempToken);
                 setAuthenticationStat(true);
+                fetchAndSetUserDetails(response.userId);
                 console.log('Redirecting to 2 Factor')
                 setNav("/2fa");
             } else if (response.status === 401) { // Unauthorized or incorrect credentials

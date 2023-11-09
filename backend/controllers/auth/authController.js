@@ -45,8 +45,8 @@ const jwt = require('jsonwebtoken');
 //this is assumes emails are unique
 const login = async (req, res, next) => {
     console.log("LOGIN CONTROLLER CALLED");
-
-    const { email } = req.body;
+    const userId = null;
+    const { email, password } = req.body;
 
     let user = null;
 
@@ -63,6 +63,7 @@ const login = async (req, res, next) => {
             return res.status(401).json({ success: false, message: 'Authentication failed. User not found.' });
         }
 
+        //console.log(password);
         // Passport authentication logic here...
         passport.authenticate('local', { session: false }, (err, user, info) => {
             if (err) {
@@ -78,7 +79,7 @@ const login = async (req, res, next) => {
                 // Generate a token
                 const tempToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
                 console.log("LOGIN SUCCESS");
-                return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken });
+                return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken, userId: user._id});
             });
         })(req, res, next);
     } catch (queryErr) {
@@ -156,12 +157,15 @@ const signUpUser = async (req, res, next) => {
         await sendEmail(email_func_input);
         await newUser.save();
 
+        const tempToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
         createDefaultCalendar(newUser._id);
-
+        console.log("Generating temp token");
+        console.log("TEMP TOKEN GENERATED: " + tempToken);
         console.log("USER SIGNUP SUCCESS");
         res.status(201).json({
             message: 'User registered successfully',
-            userId: newUser._id
+            userId: newUser._id,
+            tempToken: tempToken
         });
     } catch (error) {
         if (error.code && error.code == 11000) {
@@ -197,12 +201,16 @@ const signUpProfessional = async (req, res, next) => {
         await sendEmail(email_func_input);
         await newUser.save();
 
+        const tempToken = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+        console.log("Generating temp token");
+        console.log("TEMP TOKEN GENERATED: " + tempToken);
         createDefaultCalendar(newUser._id);
 
         console.log("PROFESSIONAL SIGNUP SUCCESS");
         res.status(201).json({
             message: 'Professional registered successfully',
-            userId: newUser._id
+            userId: newUser._id,
+            tempToken: tempToken
         });
     } catch (error) {
         if (error.code && error.code == 11000) {
@@ -223,33 +231,37 @@ const signUpProfessional = async (req, res, next) => {
 const verifyOTP = async (req, res, next) => {
     try {
         const { userId, otp } = req.body;
-        console.log(typeof userId)
+        console.log("USER ID: " + userId);
+        console.log("OTP: " + otp);
         if (!userId || !otp) {
             return next(new AppError('User ID and OTP are required', 400));
         }
 
-        let user = await User.findById(userId);
+        let user = await User.findById(userId).select('+otp +otpExpires');
         if(user) {
-            console.log("User found:" + user);
+            console.log("User found:", user.toObject());
         }
 
         if (!user) {
-            user = await Professional.findById(userId);
-            console.log("Professional found: " + user);
+            user = await Professional.findById(userId).select('+otp +otpExpires');
+            console.log("Professional found:", user.toObject());
         }
 
         if (!user) {
             return next(new AppError('User not found', 404));
         }
-        // if (user.otp !== otp || user.otpExpires < Date.now()) {
-        //     return next(new AppError('Invalid or expired OTP', 400));
-        //  }
+        console.log("USEROTP: " + user.otp);
+        console.log("OTP: " + otp);
+         if (user.otp !== otp || user.otpExpires < Date.now()) {
+             return next(new AppError('Invalid or expired OTP', 400));
+          }
 
         // OTP is valid, remove it and complete registration
         user.otp = undefined;
         user.otpExpires = undefined;
-        await user.save();
-        res.status(200).json({ message: "OTP verified" });
+        const savedUser = await user.save();
+        console.log("OTP PROCESS SUCCEEDED");
+        res.status(200).json({ message: "OTP verified", userId: user._id });
     } catch (error) {
         return next(new AppError(error.message, error.statusCode || 500));
     }

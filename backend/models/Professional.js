@@ -19,7 +19,7 @@ const professionalSchema = new Schema({
     password: {
         type: String,
         required: true,
-        select: false,
+        select: true,
     },
     specialization: {
         type: String,
@@ -45,11 +45,11 @@ const professionalSchema = new Schema({
     },
     otp: {
         type: String,
-        select: false
+        select: true
     },
     otpExpires: {
         type: Date,
-        select: false
+        select: true
     },
     Subscribers: [{
         type: Schema.Types.ObjectId,
@@ -70,16 +70,9 @@ const professionalSchema = new Schema({
 
 professionalSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
-        bcrypt.hash(this.password, 12, (err, hash) => {
-            if (err) {
-                return next(err);
-            }
-            this.password = hash;
-            next();
-        });
-    } else {
-        next();
+        this.password = await bcrypt.hash(this.password, 12);
     }
+    next();
 });
 
 professionalSchema.methods.comparePassword = async function(candidatePassword) {

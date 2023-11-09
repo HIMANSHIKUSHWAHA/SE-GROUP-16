@@ -99,14 +99,14 @@ export default function TwoFactor(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            code: code,
             token: localStorage.getItem("token")
         }
 
         const headers = {};
         const response = await postReq("/auth/2fa/verify", headers, data);
 
-        if (response.message === "Token verified successfully") {
+        if (response.status === 200) {
+            console.log("Token decoded successfully");
             localStorage.removeItem("token");
             localStorage.setItem("token", response.token)
             localStorage.setItem("UserId", response.userId);

@@ -15,7 +15,7 @@ export async function postReq(localUrl, headers, data) {
             data: data,
         });
                 
-        return response.data;
+        return { data: response.data, status: response.status };
     } catch (error) {
         console.log(error);
     }
@@ -32,7 +32,7 @@ export async function getReq(localUrl, headers, params) {
             // withCredentials: true
         });
 
-        return response.data;
+        return { data: response.data, status: response.status };
     } catch (error) {
         console.log(error);
         throw new Error("error in get request");

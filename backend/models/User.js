@@ -18,7 +18,8 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        select: true,
     },
     height: {
         type: Number,
@@ -46,7 +47,7 @@ const userSchema = new Schema({
     },
     otp: {
         type: String,
-        select: false
+        select: true
     },
     otpExpires: {
         type: Date,
@@ -90,16 +91,9 @@ const userSchema = new Schema({
 
 userSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
-        bcrypt.hash(this.password, 12, (err, hash) => {
-            if (err) {
-                return next(err);
-            }
-            this.password = hash;
-            next();
-        });
-    } else {
-        next();
+        this.password = await bcrypt.hash(this.password, 12);
     }
+    next();
 });
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
