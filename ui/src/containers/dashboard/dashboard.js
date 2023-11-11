@@ -3,7 +3,8 @@ import Header from "../header";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import VideoSearch  from "./VideoTab/videoSearchTab";
+import VideoSearch from "./VideoTab/videoSearchTab";
+
 // Secondary Navbar Component
 const SecondaryNavbar = ({ setActiveContent }) => (
     <div className="SecondaryNavbar">

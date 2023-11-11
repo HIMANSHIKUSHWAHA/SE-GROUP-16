@@ -55,16 +55,16 @@ export default function Login(props) {
         const headers = {};
         try {
             const response = await postReq("/auth/login", headers, formData);
-            console.log(response);
+            console.log("RESPONSESESESEE ", response);
             setFormData({
                 email: "",
                 password: ""
             });
 
             if (response.status === 200) { // Assuming 200 is the success code for authentication
-                localStorage.setItem("token", response.tempToken);
+                localStorage.setItem("token", response.data.tempToken);
                 setAuthenticationStat(true);
-                fetchAndSetUserDetails(response.userId);
+
                 console.log('Redirecting to 2 Factor')
                 setNav("/2fa");
             } else if (response.status === 401) { // Unauthorized or incorrect credentials

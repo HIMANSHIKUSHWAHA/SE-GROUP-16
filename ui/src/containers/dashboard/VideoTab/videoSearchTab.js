@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import VideoPreview from '../../../../../../SE-GROUP-16/ui/src/containers/dashboard/videoEmbeds';
+import VideoPreview from './../videoEmbeds';
 import TitleAutocomplete from "./TitleAutoComplete";
 import { jwtDecode } from 'jwt-decode';
 const VideoSearch = () => {

@@ -99,7 +99,8 @@ export default function TwoFactor(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {
-            token: localStorage.getItem("token")
+            token: localStorage.getItem("token"),
+            code: code
         }
 
         const headers = {};
@@ -108,8 +109,8 @@ export default function TwoFactor(props) {
         if (response.status === 200) {
             console.log("Token decoded successfully");
             localStorage.removeItem("token");
-            localStorage.setItem("token", response.token)
-            localStorage.setItem("UserId", response.userId);
+            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("UserId", response.data.userId);
             setNav("/dashboard");
         } else {
             console.log("Error");

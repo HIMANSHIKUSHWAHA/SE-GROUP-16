@@ -52,7 +52,7 @@ const login = async (req, res, next) => {
 
     try {
         user = await User.findOne({ email: email }).exec();
-        if(user){
+        if (user) {
             console.log("User found: " + user);
         }
         if (!user) {
@@ -65,7 +65,7 @@ const login = async (req, res, next) => {
 
         //console.log(password);
         // Passport authentication logic here...
-        passport.authenticate('local', { session: false }, (err, user, info) => {
+        passport.authenticate('local', (err, user, info) => {
             if (err) {
                 return next(new AppError(err.message, 500));
             }
@@ -79,7 +79,7 @@ const login = async (req, res, next) => {
                 // Generate a token
                 const tempToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
                 console.log("LOGIN SUCCESS");
-                return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken, userId: user._id});
+                return res.status(200).json({ success: true, message: 'authentication succeeded', tempToken: tempToken, userId: user._id });
             });
         })(req, res, next);
     } catch (queryErr) {
@@ -238,7 +238,7 @@ const verifyOTP = async (req, res, next) => {
         }
 
         let user = await User.findById(userId).select('+otp +otpExpires');
-        if(user) {
+        if (user) {
             console.log("User found:", user.toObject());
         }
 
@@ -252,9 +252,9 @@ const verifyOTP = async (req, res, next) => {
         }
         console.log("USEROTP: " + user.otp);
         console.log("OTP: " + otp);
-         if (user.otp !== otp || user.otpExpires < Date.now()) {
-             return next(new AppError('Invalid or expired OTP', 400));
-          }
+        if (user.otp !== otp || user.otpExpires < Date.now()) {
+            return next(new AppError('Invalid or expired OTP', 400));
+        }
 
         // OTP is valid, remove it and complete registration
         user.otp = undefined;
@@ -330,7 +330,7 @@ const updatePassword = async (req, res, next) => {
             resetPasswordToken: token,
             resetPasswordExpires: { $gt: Date.now() }
         });
-        if(user){
+        if (user) {
             console.log("User found.")
         }
         if (!user) {
@@ -338,7 +338,7 @@ const updatePassword = async (req, res, next) => {
                 resetPasswordToken: token,
                 resetPasswordExpires: { $gt: Date.now() }
             });
-            if(user){
+            if (user) {
                 console.log("Professional found.");
             }
         }

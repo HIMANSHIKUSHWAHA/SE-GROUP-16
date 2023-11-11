@@ -13,8 +13,8 @@ const setup2FA = async (req, res, next) => {
     const { userId } = req.body;
     console.log("UserId passed into setup : " + userId)
     let user = await User.findById(userId);
-    if(!user){
-         user = await Professional.findById(userId);
+    if (!user) {
+        user = await Professional.findById(userId);
     }
     if (!user) return next(new AppError('User not found', 404));
 
@@ -29,20 +29,29 @@ const setup2FA = async (req, res, next) => {
 
 const verify2FAToken = async (req, res, next) => {
     console.log("VERIFYING 2 FACTOR CALLED");
-    const { token } = req.body;
+    const { token, code } = req.body;
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (decoded.temp == false) {
             return next(new AppError('Invalid token', 400));
         }
         const userId = decoded.userId;
-        console.log("Decoded user id: " + userId);
         let user = await User.findById(userId).select('+twoFASecret');
-        if(!user) {
+        if (!user) {
             user = await Professional.findById(userId).select('+twoFASecret');
         }
         if (!user) return next(new AppError('User not found', 404));
 
+
+        const verified = speakeasy.totp.verify({
+            secret: user.twoFASecret,
+            encoding: 'base32',
+            token: code
+        });
+
+        if (!verified) {
+            return next(new AppError('Invalid code', 400));
+        }
 
         const fullAccessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
@@ -55,6 +64,7 @@ const verify2FAToken = async (req, res, next) => {
         console.log("VERIFYING 2 FACTOR FINISHED");
         res.status(200).json({ message: 'Token verified successfully', userId: userId });
     } catch (error) {
+        console.error(error.message);
         return next(new AppError('Invalid temporary token', 400));
     }
 };

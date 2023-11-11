@@ -75,24 +75,8 @@ professionalSchema.pre('save', async function (next) {
     next();
 });
 
-professionalSchema.methods.comparePassword = async function(candidatePassword) {
+professionalSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = mongoose.model('Professional', professionalSchema);

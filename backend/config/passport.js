@@ -18,10 +18,9 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, passwor
             }
         }
 
-        console.log(`User found. Comparing password for user: ${email}`);
-        console.log(password)
-        //const isMatch = await user.comparePassword(password);
-        const isMatch = user.password === password;
+
+        const isMatch = await user.comparePassword(password);
+        // const isMatch = user.password === password;
         if (!isMatch) {
             console.log('Password does not match.');
             return done(new AppError('Incorrect password.', 401));
