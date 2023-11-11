@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // Define the Meal schema
 const mealSchema = new Schema({
-    mealItems: [String], // An array of strings representing meal items
+    mealItems: [String],
     calories: Number,
     carbs: Number,
     fats: Number,
@@ -46,6 +46,7 @@ const mealPlanDaySchema = new mongoose.Schema({
 const mealPlanSchema = new mongoose.Schema({
     cost: Number,
     title: String,
+    isDefault: { type: Boolean, default: false },
     Monday: mealPlanDaySchema,
     Tuesday: mealPlanDaySchema,
     Wednesday: mealPlanDaySchema,

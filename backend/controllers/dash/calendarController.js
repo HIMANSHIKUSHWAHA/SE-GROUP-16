@@ -11,23 +11,28 @@ const calendarData = async (req, res, next) => {
         }
 
         // Fetch and populate the calendar data for the user
-        const userCalendarData = await Calendar.findOne({ userId: userId })
-            .populate({
-                path: 'sleepId',
-                model: 'Sleepplan'
-            })
+        let userCalendarData = await Calendar.findOne({ userId: userId })
+
+        if (!userCalendarData) {
+            createDefaultCalendar(userId);
+        }
+
+        userCalendarData = await Calendar.findOne({ userId: userId }).populate({
+            path: 'sleepId',
+            model: 'SleepPlan'
+        })
             .populate({
                 path: 'mealPlanId',
-                model: 'Mealplan'
+                model: 'MealPlan'
             })
             .populate({
                 path: 'exercisePlanId',
-                model: 'Exerciseplan'
+                model: 'ExercisePlan'
             })
-            .populate({
-                path: 'liveSessionList',
-                model: 'LiveSession'
-            });
+        // .populate({
+        //     path: 'liveSessionList',
+        //     model: 'LiveSession'
+        // });
 
         if (!userCalendarData) {
             return res.status(404).send({ error: 'No calendar data found for the user' });
@@ -49,7 +54,6 @@ const calendarData = async (req, res, next) => {
                 exercises: userCalendarData.exercisePlanId[day]
             };
         });
-
         // Format the data for the response
         const formattedCalendarData = {
             ...planData,
@@ -59,13 +63,13 @@ const calendarData = async (req, res, next) => {
         // //TODO add live session part -> Fetch live session part from user model
         // const user = await User.findById(userId);
         // const eventList = user.LiveSessionEnrolled;
-
         console.log("CALENDAR DATA BACKEND DONE");
         res.status(201).json({
             data: formattedCalendarData,
             // event_list: eventList
         });
     } catch (error) {
+        console.log(error);
         return next(new AppError(error.message, error.statusCode || 500));
     }
 };

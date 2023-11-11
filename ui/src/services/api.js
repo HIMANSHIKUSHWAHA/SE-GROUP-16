@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// axios.defaults.baseURL = "http://34.170.53.225:5000";
+axios.defaults.baseURL = "http://34.170.53.225:5000";
 // console.log("HIHHIHIHHI - ", process.env);
 
-axios.defaults.baseURL = "http://localhost:5000";
+// axios.defaults.baseURL = "http://localhost:5000";
 
 export async function postReq(localUrl, headers, data) {
     const fullUrl = "/api/v1" + localUrl;
@@ -14,7 +14,7 @@ export async function postReq(localUrl, headers, data) {
             headers: headers,
             data: data,
         });
-                
+
         return response.data;
     } catch (error) {
         console.log(error);

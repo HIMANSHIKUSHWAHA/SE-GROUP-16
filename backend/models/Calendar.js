@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+const SleepPlan = require('./Sleepplan');
+const MealPlan = require('./Mealplan');
+const ExercisePlan = require('./Exerciseplan');
+
 
 // Define the schema for the calendar, linked to a user
 const CalendarSchema = new mongoose.Schema({
@@ -36,9 +40,9 @@ const CalendarSchema = new mongoose.Schema({
 const createDefaultCalendar = async (userId) => {
     try {
         // Retrieve the default IDs from the database
-        const defaultSleepPlan = await SleepPlan.findOne({ default: true });
-        const defaultMealPlan = await MealPlan.findOne({ default: true });
-        const defaultExercisePlan = await ExercisePlan.findOne({ default: true });
+        const defaultSleepPlan = await SleepPlan.findOne({ isDefault: true });
+        const defaultMealPlan = await MealPlan.findOne({ isDefault: true });
+        const defaultExercisePlan = await ExercisePlan.findOne({ isDefault: true });
         //const defaultLiveSessions = await LiveSession.find({ default: true });
 
         // Check if defaults exist

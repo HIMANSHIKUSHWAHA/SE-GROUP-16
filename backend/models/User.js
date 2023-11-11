@@ -70,17 +70,17 @@ const userSchema = new Schema({
     }],
     mealPlansOwned: [{
         type: Schema.Types.ObjectId,
-        ref: 'Mealplan', // Linking to the MealPlan model
+        ref: 'MealPlan', // Linking to the MealPlan model
         select: false
     }],
     exercisePlansOwned: [{
         type: Schema.Types.ObjectId,
-        ref: 'Exerciseplan', // Linking to the ExercisePlan model
+        ref: 'ExercisePlan', // Linking to the ExercisePlan model
         select: false
     }],
     currentMealPlan: {
         type: Schema.Types.ObjectId,
-        ref: 'Mealplan',
+        ref: 'MealPlan',
         select: false,
     },
     currentExercisePlan: {
@@ -90,7 +90,7 @@ const userSchema = new Schema({
     },
     currentSleepPlan: {
         type: Schema.Types.ObjectId,
-        ref: 'Sleepplan',
+        ref: 'SleepPlan',
         required: false
     },
     LiveSessionEnrolled: [{

@@ -19,6 +19,7 @@ const exerciseDaySchema = new mongoose.Schema({
 const exercisePlanSchema = new mongoose.Schema({
     cost: Number,
     title: String,
+    isDefault: { type: Boolean, default: false },
     Monday: exerciseDaySchema,
     Tuesday: exerciseDaySchema,
     Wednesday: exerciseDaySchema,
