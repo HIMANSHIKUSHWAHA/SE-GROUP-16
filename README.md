@@ -2,13 +2,13 @@
 ```
  (User Context to solve our conditional rendering)
 Profesh
---> Settings   - ANKITH
---> Upload Vids - NATHAN
---> Separate Dashboard
+--> Settings   - NATHAN
+--> Upload Vids - ANKITH
+--> Separate Dashboard - ANKITH
 --> Live Sessions   - NATHAN
---> Edit subscriber plan   - RAHUL
---> Create new plans   - RAHUL
---> manage subscribers
+--> Edit subscriber plan   - ANKITH
+--> Create new plans   - ANKITH
+--> Manage subscribers - RAHUL
 --> Profile page   - JUNTAO
 
 Users
