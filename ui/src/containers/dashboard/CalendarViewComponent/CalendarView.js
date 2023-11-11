@@ -1,21 +1,15 @@
-
-// /* 
-// BACKEND ENDPOINT IS - /api/v1/dashboard/calendar_data
-// TODO Define get request body and headers if needed
-// TODO Define how to load data in cards
-// */
-
-
 import React, { useEffect, useState } from 'react';
 import {
     Container,
     Grid,
     CardContent,
     Typography,
-    Accordion, AccordionSummary, AccordionDetails
+    Accordion,
+    AccordionSummary,
+    AccordionDetails
 } from '@mui/material';
-import { getReq } from '../../../services/api';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { getReq } from '../../../services/api';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -33,7 +27,7 @@ const generateWeekDates = (today) => {
     });
 };
 
-//BASE CARD FOR EVENTS
+// BASE CARD FOR EVENTS
 const TaskCard = ({ title, content }) => (
     <Accordion sx={{ marginBottom: 2 }}>
         <AccordionSummary
@@ -51,47 +45,10 @@ const TaskCard = ({ title, content }) => (
     </Accordion>
 );
 
-//Cards for LIVE SESSIONS AND EVENTS
-const LiveSessionCard = ({ sessions, date }) => (
-    <TaskCard
-        title="Live Sessions"
-        content={
-            sessions && sessions.length > 0 ? (
-                <ul>
-                    {sessions.map((session, index) => {
-                        const sessionDate = new Date(session.date);
-                        if (
-                            sessionDate.getDate() === date.date &&
-                            sessionDate.getMonth() + 1 === date.month
-                        ) {
-                            return (
-                                <li key={index}>
-                                    Title: {session.title} <br />
-                                    Time: {session.startTime} <br />
-                                    Duration: {session.duration} <br />
-                                    Description: {session.description}
-                                </li>
-                            );
-                        }
-                        return null;
-                    })}
-                </ul>
-            ) : (
-                <Typography variant="body2">No Live Sessions</Typography>
-            )
-        }
-    />
-);
-
-//FOR COLUMNS OF CALENDAR
-const DayColumn = ({ day, date, month, isToday, dayData, event_list }) => {
-    // console.log("YOYOYOOYOYOYOYOY ", day, date, month, isToday, dayData, event_list);
-
-    // const todaysEvents = event_list.filter(event => {
-    //     const eventDate = new Date(event.date);
-    //     return eventDate.getDate() === date &&
-    //         eventDate.getMonth() + 1 === month;
-    // });
+// COLUMN FOR EACH DAY OF CALENDAR
+const DayColumn = ({ day, date, month, isToday, dayData }) => {
+    const meals = dayData?.meals;
+    const exercises = dayData?.exercises?.exercises;
 
     return (
         <Grid
@@ -100,109 +57,110 @@ const DayColumn = ({ day, date, month, isToday, dayData, event_list }) => {
             xs
             style={{
                 minWidth: '150px',
-                backgroundColor: isToday ? '#f8d7da' : 'transparent', // Highlight current day column
-                borderRadius: '10px', // Optional: for rounded corners
-                padding: '10px', // Some internal padding
+                backgroundColor: isToday ? '#f8d7da' : 'transparent',
+                borderRadius: '10px',
+                padding: '10px',
             }}
         >
             <Typography
                 variant="h6"
                 align="center"
                 style={{
-                    backgroundColor: '#4a90e2', // Blue background
-                    color: '#ffffff', // White text
-                    padding: '10px', // Some padding
-                    borderRadius: '5px', // Rounded corners
-                    marginBottom: '20px', // Some space below the header
+                    backgroundColor: '#4a90e2',
+                    color: '#ffffff',
+                    padding: '10px',
+                    borderRadius: '5px',
+                    marginBottom: '20px',
                 }}
             >
                 {day} <br /> {month}/{date}
             </Typography>
+
+            {/* Sleep Data */}
             <TaskCard
                 title="Sleep"
                 content={
                     <Typography variant="body2">
-                        Start Time: {dayData?.sleep?.startTime || 'No Data'} <br />
-                        End Time: {dayData?.sleep?.endTime || 'No Data'} <br />
-                        Total Hours: {dayData?.sleep?.totalHours || 'No Data'}
+                        Start Time: {dayData.sleep.startTime} <br />
+                        End Time: {dayData.sleep.endTime} <br />
+                        Total Hours: {dayData.sleep.totalHours}
                     </Typography>
                 }
             />
 
-            <TaskCard
-                title="Meal Plan"
-                content={
-                    dayData?.mealPlan && dayData.mealPlan.length > 0 ? (
-                        <ul>
-                            {dayData.mealPlan.map((meal, index) => (
-                                <li key={index}>
-                                    Type: {meal.mealType} <br />
-                                    Calories: {meal.calories} <br />
-                                    Macronutrients: Protein {meal.macronutrients.protein}, Carbs {meal.macronutrients.carbs}, Fats {meal.macronutrients.fats}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <Typography variant="body2">No Data</Typography>
-                    )
-                }
-            />
+            {/* Meal Plan Data */}
+            {meals && (
+                <TaskCard
+                    title="Meal Plan"
+                    content={
+                        <>
+                            <Typography variant="body2">
+                                <strong>Breakfast:</strong> {meals.breakfast.mealItems.join(', ')} <br />
+                                Calories: {meals.breakfast.calories} | Carbs: {meals.breakfast.carbs} | Proteins: {meals.breakfast.proteins} | Fats: {meals.breakfast.fats}
+                            </Typography>
+                            <Typography variant="body2">
+                                <strong>Lunch:</strong> {meals.lunch.mealItems.join(', ')} <br />
+                                Calories: {meals.lunch.calories} | Carbs: {meals.lunch.carbs} | Proteins: {meals.lunch.proteins} | Fats: {meals.lunch.fats}
+                            </Typography>
+                            <Typography variant="body2">
+                                <strong>Dinner:</strong> {meals.dinner.mealItems.join(', ')} <br />
+                                Calories: {meals.dinner.calories} | Carbs: {meals.dinner.carbs} | Proteins: {meals.dinner.proteins} | Fats: {meals.dinner.fats}
+                            </Typography>
+                            <Typography variant="body2">
+                                Total Daily Intake: Calories: {meals.calories} | Carbs: {meals.carbs} | Proteins: {meals.proteins} | Fats: {meals.fats}
+                            </Typography>
+                        </>
+                    }
+                />
+            )}
 
-            <TaskCard
-                title="Workouts"
-                content={
-                    dayData?.workouts && dayData.workouts.length > 0 ? (
+            {/* Exercise Plan Data */}
+            {exercises && exercises.length > 0 ? (
+                <TaskCard
+                    title="Exercises"
+                    content={
                         <ul>
-                            {dayData.workouts.map((workout, index) => (
+                            {exercises.map((exercise, index) => (
                                 <li key={index}>
-                                    Exercise: {workout.exercise} <br />
-                                    Duration: {workout.duration} <br />
-                                    Repetitions: {workout.repetitions}
+                                    <strong>{exercise.title}</strong> <br />
+                                    Description: {exercise.description} <br />
+                                    Reps: {exercise.reps} | Sets: {exercise.sets} <br />
+                                    Reference Video: <a href={exercise.referenceVideo} target="_blank">Watch Here</a>
                                 </li>
                             ))}
                         </ul>
-                    ) : (
-                        <Typography variant="body2">No Data</Typography>
-                    )
-                }
-            />
-            {/* <LiveSessionCard sessions={event_list} date={{ date, month }} /> */}
+                    }
+                />
+            ) : (
+                <Typography variant="body2">No Exercises Planned</Typography>
+            )}
         </Grid>
     );
 };
 
+// WEEKLY CALENDAR COMPONENT
 const WeeklyCalendar = () => {
     const today = new Date();
     const weekDates = generateWeekDates(today);
-    const [calendarData, setCalendarData] = useState(null);
-    const [liveSessions, setLiveSessions] = useState([]);
+    const [calendarData, setCalendarData] = useState({});
 
     useEffect(() => {
         const userId = localStorage.getItem("UserId");
-        // Define the request, if necessary
         const params = { userId: userId };
-        const headers = {}
+        const headers = {};
         getReq('/dashboard/calendar_data', headers, params)
             .then(response => {
-                const weeklyData = response.data.data;
-                setLiveSessions(response.data.event_list);
-                const transformedData = weeklyData.reduce((acc, dayData) => {
-                    acc[dayData.day.toLowerCase()] = dayData;
-                    return acc;
-                }, {});
-                setCalendarData(transformedData); // Update the state with the transformed data
-
+                setCalendarData(response.data);
             })
             .catch(error => {
                 console.error("There was an error fetching the calendar data!", error);
             });
-
     }, []);
 
     return (
-        <Container style={{ backgroundColor: '#E0F7FA', padding: '40px', borderRadius: '10px', maxWidth: '90%' }}> {/* Light blue background */}
-            {calendarData ? (
-                <Grid container spacing={4} justifyContent="center" style={{ overflowX: 'auto' }}> {/* Increased spacing */}
+        <Container style={{ backgroundColor: '#E0F7FA', padding: '40px', borderRadius: '10px', maxWidth: '90%' }}>
+            {Object.keys(calendarData).length > 0 ? (
+                <Grid container spacing={4} justifyContent="center" style={{ overflowX: 'auto' }}>
                     {weekDates.map(({ day, date, month }, index) => (
                         <DayColumn
                             key={day}
@@ -210,13 +168,12 @@ const WeeklyCalendar = () => {
                             date={date}
                             month={month}
                             isToday={today.getDate() === date && today.getMonth() + 1 === month}
-                            dayData={calendarData[day.toLowerCase()]}
-                        // liveSessions={liveSessions}
+                            dayData={calendarData[day]}
                         />
                     ))}
                 </Grid>
             ) : (
-                <Typography variant="h6" align="center">Loading...</Typography> // Placeholder while data is being fetched
+                <Typography variant="h6" align="center">Loading...</Typography>
             )}
         </Container>
     );

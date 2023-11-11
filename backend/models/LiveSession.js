@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const LiveSession = new Schema({
+const LiveSessionSchema = new Schema({
     // ID of the creator
     title: {
         type: String,
         required: true
     },
     creator: {
-        type: Schema.types.objectId,
+        type: Schema.Types.ObjectId,
         ref: 'Professional',
         select: false
     },
     // IDs of those attending the live session
     enrolled: [{
-        type: Schema.types.objectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
         select: false
     }],
@@ -31,4 +31,5 @@ const LiveSession = new Schema({
     },
 });
 
-module.exports = mongoose.model('LiveSession', liveSessionSchema);
+LiveSession = mongoose.model('LiveSession', LiveSessionSchema);
+module.exports = LiveSession;

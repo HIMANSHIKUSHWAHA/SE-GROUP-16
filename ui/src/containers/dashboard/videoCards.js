@@ -1,4 +1,4 @@
-import {React, useState} from 'react';
+import { React, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -35,7 +35,7 @@ export default function MediaCard() {
             description: "Video Description",
             image: img2,
             expanded: false
-        },{
+        }, {
             title: "Exercise video 5",
             description: "Video Description",
             image: img1,
@@ -63,40 +63,40 @@ export default function MediaCard() {
 
     const dataItems = videos.map((video, idx) => (
         <li key={idx} style={{ display: 'inline-block', margin: '10px' }} >
-        <Card sx={{ width: 345 }}>
-            <CardActionArea>
-            <CardMedia
-                sx={{ height: 140 }}
-                component="img"
-                src={video.image}
-                title={video.title}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                {video.title}
-                </Typography>
-            </CardContent>
-            <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small" onClick={() => handleExpand(idx)} >Learn More</Button>
-            </CardActions>
-            <Collapse in={video.expanded} timeout="auto" unmountOnExit>
-                <CardContent>
-                <Typography paragraph>
-                    {video.description}
-                </Typography>
-                </CardContent>
-            </Collapse>
-            </CardActionArea>
-        </Card>
+            <Card sx={{ width: 345 }}>
+                <CardActionArea>
+                    <CardMedia
+                        sx={{ height: 140 }}
+                        component="img"
+                        src={video.image}
+                        title={video.title}
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="div">
+                            {video.title}
+                        </Typography>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Share</Button>
+                        <Button size="small" onClick={() => handleExpand(idx)} >Learn More</Button>
+                    </CardActions>
+                    <Collapse in={video.expanded} timeout="auto" unmountOnExit>
+                        <CardContent>
+                            <Typography paragraph>
+                                {video.description}
+                            </Typography>
+                        </CardContent>
+                    </Collapse>
+                </CardActionArea>
+            </Card>
         </li>
     ))
 
-  return (
-    <div>
-        <ul style={{listStyleType: 'none'}}>
-            {dataItems}
-        </ul>
-    </div>
-  );
+    return (
+        <div>
+            <ul style={{ listStyleType: 'none' }}>
+                {dataItems}
+            </ul>
+        </div>
+    );
 }
