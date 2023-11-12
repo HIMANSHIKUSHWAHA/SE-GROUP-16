@@ -11,7 +11,9 @@ const { populate } = require("dotenv");
 //for the purpose of returning all content upon initially visiting a page.
 const getAllAsyncVideos = async (req, res) => {
     try {
-        const videos = await AsyncVideo.find().populate('ratings');
+        const videos = await AsyncVideo.find()
+            .populate('ratings')
+            .populate('creator', 'firstName lastName');
         res.json(videos);
     } catch (error) {
         res.status(500).json({ message: error.message });

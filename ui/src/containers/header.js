@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
-import { AppBar, Box, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
+import React, {useState} from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { useNavigate } from "react-router-dom";
-
-export default function Header({ auth = false, navbarData, setActiveContent, activeContent }) {
-    const navigate = useNavigate();
+import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import { useNavigate } from 'react-router-dom';
+export default function Header({ auth = false }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
-
+    const navigate = useNavigate();
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };

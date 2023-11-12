@@ -27,7 +27,7 @@ app.use("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Session Middleware Initialization with secure cookie settings
+// Session Middleware Initialization with secure cookie settingsTab
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
