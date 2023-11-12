@@ -1,31 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
-import TitleAutocomplete from "./TitleAutoComplete";
-import { jwtDecode } from 'jwt-decode';
+import './videoSearchTab.css';
 const VideoSearch = () => {
-
-    const [searchParams, setSearchParams] = useState({
-        title: '',
-        tags: '',
-        description: '',
-    });
+    const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-
+    const [suggestions, setSuggestions] = useState([]);
+    const [showSuggestions, setShowSuggestions] = useState(false);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        console.log(token);
         fetchAllVideos();
     }, []);
 
+    useEffect(() => {
+        loadSuggestions();
+    }, [searchTerm]);
+
+    const loadSuggestions = async () => {
+        if (searchTerm.length > 0) {
+            try {
+                const response = await axios.get(`/api/v1/search/autocomplete/title?prefix=${searchTerm}`);
+                setSuggestions(response.data);
+                setShowSuggestions(true);
+            } catch (error) {
+                console.error('Error loading title suggestions', error);
+            }
+        } else {
+            setSuggestions([]);
+            setShowSuggestions(false);
+        }
+    };
+
+    const handleSuggestionClick = (title) => {
+        setSearchTerm(title);
+        setSuggestions([]);
+        setShowSuggestions(false);
+    };
 
     const fetchAllVideos = async () => {
         try {
             const response = await axios.get('/api/v1/search/allvideos');
             setResults(response.data);
-            console.log(response);
         } catch (error) {
             setErrorMessage('An error occurred while fetching videos.');
             console.error('Fetch all videos error', error);
@@ -33,66 +49,62 @@ const VideoSearch = () => {
     };
 
     const handleInputChange = (e) => {
-        setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
+        setSearchTerm(e.target.value);
     };
 
     const handleSearch = async (e) => {
         e.preventDefault();
+        setShowSuggestions(false);
         setErrorMessage('');
         try {
-            const response = await axios.get('/api/v1/search/searchvideos', { params: searchParams });
-            setResults(response.data); // This will trigger the useEffect if the array is empty
+            const response = await axios.get('/api/v1/search/videos', { params: { searchTerm } });
+            setResults(response.data);
             if (response.data.length === 0) {
-                setResults([]);
                 setErrorMessage('No videos found.');
             }
         } catch (error) {
-            setResults([]);
             setErrorMessage('An error occurred while searching for videos.');
             console.error('Search error', error);
         }
     };
-
     return (
         <div>
-            <h1>Video Search</h1>
-            <input
-                type="text"
-                name="title"
-                placeholder="Title"
-                value={searchParams.title}
-                onChange={handleInputChange}
-            />
+            <h1>Search Videos</h1>
+            <div className="search-container">
+                <input
+                    type="text"
+                    className="searchInput"
+                    placeholder="Search by title, tags, description..."
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    autoComplete="off"
+                />
+                <button className="searchButton" onClick={handleSearch}>Search</button>
+            </div>
+            {showSuggestions && suggestions.length > 0 && (
+                <ul className="suggestions-container">
+                    {suggestions.map((suggestion, index) => (
+                        <li key={index} onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
+                            {suggestion}
+                        </li>
+                    ))}
+                </ul>
+            )}
 
-            <input
-                type="text"
-                name="tags"
-                placeholder="Tags (comma-separated)"
-                value={searchParams.tags}
-                onChange={handleInputChange}
-            />
-            <TitleAutocomplete
-                searchParams={searchParams}
-                setSearchParams={setSearchParams}
-            />
-            <input
-                type="text"
-                name="description"
-                placeholder="Description"
-                value={searchParams.description}
-                onChange={handleInputChange}
-            />
-            <button onClick={handleSearch}>Search</button>
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-            {errorMessage && <div>{errorMessage}</div>}
-
-            {results.map((result, index) => (
-                <div key={index}>
-                    <div>{result.title}</div>
-                    <VideoPreview link={result.link} />
-                    <div>{result.description}</div>
-                </div>
-            ))}
+            <div>
+                {results.map((result, index) => (
+                    <div key={index} className="video-result-container">
+                        <div className="video-title">{result.title}</div>
+                        <div className="video-preview">
+                            <VideoPreview link={result.link} />
+                        </div>
+                        <div className="video-description">{result.description}</div>
+                        <div className="video-tags">Tags: {result.tags}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };

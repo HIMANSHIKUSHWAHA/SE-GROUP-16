@@ -1,11 +1,10 @@
 .video-preview .thumbnail {
-    transition: transform 0.3s ease, border 0.3s ease;
+    transition: transform 0.50s ease, border 0.3s ease;
     width: 300px; /* Your desired width */
-    height: 200px; /* Your desired height */
+    height: auto; /* Your desired height */
+    padding: 30px;
+    border-radius: 40px; /* Adjust as needed */
 }
-
-.video-preview .thumbnail:hover {
-    transform: scale(1.05); /* Slightly grow the image */
-    border: 3px solid #blue; /* Add a blue highlight border */
-    cursor: pointer;
+.thumbnail {
+    border-radius: 50%;
 }

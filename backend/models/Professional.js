@@ -5,9 +5,13 @@ const Schema = mongoose.Schema;
 const professionalSchema = new Schema({
     firstName: {
         type: String,
+        select: true,
+        required: true,
     },
     lastName: {
         type: String,
+        select: true,
+        required: true,
     },
     email: {
         type: String,
@@ -23,8 +27,8 @@ const professionalSchema = new Schema({
     },
     specialization: {
         type: String,
-        required: false,
-        select: false,
+        required: true,
+        select: true,
     },
     resetPasswordToken: {
         type: String,

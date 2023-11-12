@@ -1,32 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
-const TitleAutocomplete = ({ searchParams, setSearchParams }) => {
-    const [suggestions, setSuggestions] = useState([]);
-    const [showSuggestions, setShowSuggestions] = useState(false);
-
-    useEffect(() => {
-        const loadSuggestions = async () => {
-            if (searchParams.title.length > 0) {
-                try {
-                    const response = await axios.get(`/api/v1/search/autocomplete/title?prefix=${searchParams.title}`);
-                    setSuggestions(response.data);
-                    setShowSuggestions(true);
-                } catch (error) {
-                    console.error('Error loading title suggestions', error);
-                }
-            }
-        };
-
-        loadSuggestions();
-    }, [searchParams.title]);
-
-    const handleSuggestionClick = (title) => {
-        setSearchParams({ ...searchParams, title });
-        setSuggestions([]);
-        setShowSuggestions(false);
-    };
-
+const TitleAutocomplete = ({ searchParams, setSearchParams, suggestions, handleSuggestionClick }) => {
     return (
         <div>
             <input
@@ -37,7 +11,7 @@ const TitleAutocomplete = ({ searchParams, setSearchParams }) => {
                 onChange={(e) => setSearchParams({ ...searchParams, title: e.target.value })}
                 autoComplete="off"
             />
-            {showSuggestions && suggestions.length > 0 && (
+            {suggestions.length > 0 && (
                 <ul style={{ listStyleType: 'none', padding: 0 }}>
                     {suggestions.map((suggestion, index) => (
                         <li key={index} onClick={() => handleSuggestionClick(suggestion)} style={{ cursor: 'pointer' }}>

@@ -1,7 +1,7 @@
 const User = require('../../models/User');
 const AsyncVideo = require('../../models/AsyncVideo');
 const LiveSession = require('../../models/LiveSession');
-const { Trie, buildTrieFromDatabase } = require('../search/autoComplete');
+const { buildTrieFromDatabase } = require('../search/autoComplete');
 
 let trie;
 
@@ -19,23 +19,21 @@ const autocompleteSearch = async (req, res) => {
     }
 };
 
-const searchVideos = async (req, res, next) => {
-    let { title, tags, description } = req.query;
+const searchVideos = async (req, res) => {
+    let { searchTerm } = req.query;
     let queryObject = {};
 
-    if (title) {
-        queryObject['title'] = { $regex: title, $options: 'i' };
-    }
-    if (tags) {
-        const tagsArray = tags.split(',').map(tag => new RegExp(tag.trim(), 'i'));
-        queryObject['Tags'] = { $all: tagsArray };
-    }
-    if (description) {
-        queryObject['Description'] = { $regex: description, $options: 'i' };
+    if (searchTerm) {
+        // Search in title, tags, or description
+        queryObject['$or'] = [
+            { title: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } },
+            { description: { $regex: searchTerm, $options: 'i' } }
+        ];
     }
 
     try {
-        const videos = await AsyncVideo.find(queryObject).populate('creator');
+        const videos = await AsyncVideo.find(queryObject);
         res.json(videos);
     } catch (error) {
         console.error(error);

@@ -55,7 +55,7 @@ export default function Login(props) {
         const headers = {};
         try {
             const response = await postReq("/auth/login", headers, formData);
-            console.log("RESPONSESESESEE ", response);
+            console.log("RESPONSE ", response);
             setFormData({
                 email: "",
                 password: ""

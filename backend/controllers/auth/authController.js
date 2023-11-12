@@ -134,16 +134,18 @@ const login = async (req, res, next) => {
 const signUpUser = async (req, res, next) => {
     console.log("USER SIGN UP CONTROLLER CALLED");
     try {
-        const { email, password, height, weight } = req.body;
+        const { email, password, firstName, lastName, height, weight } = req.body;
         const userObj = {
             email,
             password,
+            firstName,
+            lastName,
             height,
             weight
         };
         const newUser = new User(userObj);
 
-        //OTP generation
+        // OTP generation
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
         newUser.otp = otp;
         newUser.otpExpires = Date.now() + (10 * 60 * 1000);
@@ -179,8 +181,10 @@ const signUpUser = async (req, res, next) => {
 const signUpProfessional = async (req, res, next) => {
     console.log("PROFESSIONAL SIGN UP CONTROLLER CALLED");
     try {
-        const { email, password, specialization } = req.body;
+        const { email, password, firstName, lastName,  specialization } = req.body;
         const userObj = {
+            firstName,
+            lastName,
             email,
             password,
             specialization
