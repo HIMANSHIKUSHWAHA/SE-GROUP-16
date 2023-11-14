@@ -9,7 +9,7 @@ import OtpVerification from "./auth/otpVerification.js";
 import UpdatePassword from "./auth/updatePassword.js";
 import TwoFactor from "./auth/twoFactor.js";
 import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
-import PDashboard from "./dashboard/pDashboard.js";
+import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 
 // user profile 
 export default function Router() {
