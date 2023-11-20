@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const LiveSessionSchema = new Schema({
+const { ObjectId } = mongoose.Schema.Types;
+const LiveSession = new Schema({
     // ID of the creator
     title: {
         type: String,
@@ -31,5 +32,4 @@ const LiveSessionSchema = new Schema({
     },
 });
 
-LiveSession = mongoose.model('LiveSession', LiveSessionSchema);
-module.exports = LiveSession;
+module.exports = mongoose.model('LiveSession', LiveSession);

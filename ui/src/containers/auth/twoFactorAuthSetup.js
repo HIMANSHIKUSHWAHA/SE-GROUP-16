@@ -62,15 +62,15 @@ export default function TwoFactorAuthSetup() {
     const location = useLocation();
     const [qrCodeUrl, setQrCodeUrl] = useState("");
     const [error, setError] = useState(null);
-
     const userId = location.state.userId;
-
+    console.log("location state userid:" + userId);
     useEffect(() => {
         const fetchQrCode = async () => {
             try {
                 const headers = {};
                 const response = await postReq("/auth/2fa/setup", headers, { userId: userId });
-                setQrCodeUrl(response.qrCodeUrl);
+
+                setQrCodeUrl(response.data.qrCodeUrl);
             } catch (error) {
                 setError("Failed to fetch QR code.");
             }
@@ -80,7 +80,7 @@ export default function TwoFactorAuthSetup() {
     }, []);
 
     const handleVerification = async () => {
-        navigate("/login");
+        navigate("/2fa");
     };
 
     return (

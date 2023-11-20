@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,10 +8,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
+import { useNavigate } from 'react-router-dom';
 export default function Header({ auth = false }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const navigate = useNavigate();
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -20,6 +20,9 @@ export default function Header({ auth = false }) {
         setAnchorEl(null);
     };
 
+    const handleSettings = () => {
+        navigate("/settings");
+    };
     const handleLogout = () => {
         localStorage.removeItem('token');
         window.location.reload();
@@ -75,6 +78,7 @@ export default function Header({ auth = false }) {
                             >
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleSettings}>Settings</MenuItem>
                                 <MenuItem onClick={handleLogout}>logout</MenuItem>
                             </Menu>
                         </div>

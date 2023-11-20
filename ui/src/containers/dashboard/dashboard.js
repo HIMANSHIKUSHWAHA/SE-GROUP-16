@@ -9,13 +9,13 @@ import SecondaryNavbar from "../secondaryNavbar";
 
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
-  <div className="ContentArea">
-    {activeContent === 'videos' && <MediaCard />}
-    {activeContent === 'routines' && <CalendarView />}
-    {activeContent === 'workout-programs' && <p>workout programs data</p>}
-    {activeContent === 'meal-plans' && <p>meal plans data</p>}
-    {activeContent === 'custom-workouts' && <p>custom workouts data</p>}
-  </div>
+    <div className="ContentArea">
+        {activeContent === 'videos' && <VideoSearch />}
+        {activeContent === 'routines' && <CalendarView />}
+        {activeContent === 'workout-programs' && <p>workout programs data</p>}
+        {activeContent === 'meal-plans' && <p>meal plans data</p>}
+        {activeContent === 'custom-workouts' && <p>custom workouts data</p>}
+    </div>
 );
 
 // Dashboard Component

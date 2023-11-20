@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const { Ratings } = require('../models/Ratings');
-const AsyncVideo = new mongoose.schema({
+const Ratings = require('../models/Ratings').schema; // Assuming you export schema from Ratings
+
+const asyncVideoSchema = new Schema({
     creator: {
-        type: Schema.types.objectId,
+        type: Schema.Types.ObjectId,
         ref: 'Professional',
         select: false
     },
@@ -11,10 +12,14 @@ const AsyncVideo = new mongoose.schema({
         type: String,
         required: true
     },
-    ratings: Ratings,
+    ratings: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ratings'
+    },
     viewCount: {
         type: Number,
         required: true,
+        default: 0
     },
     tags: {
         type: [String],
@@ -26,8 +31,8 @@ const AsyncVideo = new mongoose.schema({
     },
     link: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }
-});
-export default AsyncVideo
+}, { timestamps: true });
+
+module.exports = mongoose.model('AsyncVideo', asyncVideoSchema);

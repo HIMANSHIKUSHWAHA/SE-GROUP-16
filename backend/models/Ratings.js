@@ -2,20 +2,17 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const rating = new Schema({
+const ratingSchema = new Schema({
     ratings: {
         type: Map,
-        of: {
-            type: Number,
-            enum: [1, 2, 3, 4, 5],
-            required: true
-        },
-        keyType: String
+        of: Number,
+        keyType: String,
+        default: {}
     }
 });
 
 // Add an instance method to compute the average rating
-rating.methods.getAverageRating = function() {
+ratingSchema.methods.getAverageRating = function() {
     let total = 0;
     let count = 0;
 
@@ -29,6 +26,6 @@ rating.methods.getAverageRating = function() {
     return count === 0 ? 0 : total / count;
 };
 
-const Ratings = mongoose.model('Ratings', rating);
+const Ratings = mongoose.model('Ratings', ratingSchema);
 
 module.exports = Ratings;
