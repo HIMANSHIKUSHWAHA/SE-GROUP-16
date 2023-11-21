@@ -9,15 +9,26 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 
-export default function Header({ auth = false }) {
+export default function Header({ auth = false, navbarData, setActiveContent }) {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
+    const handleNavbarMenu = (event) => {
+        setMenuAnchorEl(event.currentTarget);
+    };
+
+    const handleContentChange = (content) => {
+        setActiveContent(content);
+        handleClose();
+    };
+
     const handleClose = () => {
         setAnchorEl(null);
+        setMenuAnchorEl(null);
     };
 
     const handleLogout = () => {
@@ -37,7 +48,7 @@ export default function Header({ auth = false }) {
                                 color="inherit"
                                 aria-label="menu"
                                 sx={{ mr: 2 }}
-                                onClick={handleMenu}
+                                onClick={handleNavbarMenu}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -76,6 +87,28 @@ export default function Header({ auth = false }) {
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
                                 <MenuItem onClick={handleLogout}>logout</MenuItem>
+                            </Menu>
+                            <Menu
+                                id="secondary-navbar-menu"
+                                anchorEl={menuAnchorEl}
+                                open={Boolean(menuAnchorEl)}
+                                onClose={handleClose}
+
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                            >
+
+                                {navbarData.map((item) => (
+                                    <MenuItem key={item.content} onClick={() => handleContentChange(item.content)}>
+                                        {item.name}
+                                    </MenuItem>
+                                ))}
                             </Menu>
                         </div>
                     )}

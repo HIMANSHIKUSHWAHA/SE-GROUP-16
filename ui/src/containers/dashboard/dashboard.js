@@ -23,32 +23,36 @@ const Dashboard = () => {
   const [activeContent, setActiveContent] = useState('videos'); // Default content
 
   const navbarData = [
-    {name: "Workout Videos",
-     icon: faVideo,
-     content: 'videos'
+    {
+      name: "Workout Videos",
+      icon: faVideo,
+      content: 'videos'
     },
-    {name: "Workout Programs",
-     icon: faRunning,
-     content: 'workout-programs'
+    {
+      name: "Workout Programs",
+      icon: faRunning,
+      content: 'workout-programs'
     },
-    {name: "Meal Plans",
-     icon: faUtensils,
-     content: 'meal-plans'
+    {
+      name: "Meal Plans",
+      icon: faUtensils,
+      content: 'meal-plans'
     },
-    {name: "Custom Workouts",
-     icon: faDumbbell,
-     content: 'workout-programs'
+    {
+      name: "Custom Workouts",
+      icon: faDumbbell,
+      content: 'workout-programs'
     },
-    {name: "Routines",
-     icon: faCalendarCheck,
-     content: 'routines'
+    {
+      name: "Routines",
+      icon: faCalendarCheck,
+      content: 'routines'
     }
   ]
   return (
     <div>
-      <Header auth={true} />
+      <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} />
       <FilterSearchSection />
-      <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent}/>
       <ContentArea activeContent={activeContent} />
     </div>
   );
