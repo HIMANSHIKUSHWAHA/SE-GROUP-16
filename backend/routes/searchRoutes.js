@@ -2,18 +2,20 @@ const express = require('express');
 const router = express.Router();
 
 
-const { searchVideos, searchLiveSessions, searchProfessionals, searchExercisePlans, searchMealPlans, autocompleteSearch  } = require('../controllers/search/searchController');
+const { searchVideos, searchLiveSessions, searchProfessionals, searchExercisePlans, searchMealPlans, autocompleteSearchVideos, autocompleteSearchProfessionals  } = require('../controllers/search/searchController');
 const {
     getAllAsyncVideos,
     getAllLiveSessions,
     getAllUsers,
     getAllExercisePlans,
-    getAllMealPlans
+    getAllMealPlans,
+    getAllProfessionals
 } = require('../controllers/search/aggregatesController');
 
 
 //search functions
-router.get('/autocomplete/title', autocompleteSearch);
+router.get('/autocomplete/video', autocompleteSearchVideos);
+router.get('/autocomplete/professional', autocompleteSearchProfessionals);
 //autocomplete functionality
 router.get('/videos', searchVideos);
 router.get('/sessions', searchLiveSessions);
@@ -28,5 +30,5 @@ router.get('/allLivesessions', getAllLiveSessions);
 router.get('/allUsers', getAllUsers);
 router.get('/allExercisePlans', getAllExercisePlans);
 router.get('/allMealPlans', getAllMealPlans);
-
+router.get('/allProfessionals', getAllProfessionals);
 module.exports = router;

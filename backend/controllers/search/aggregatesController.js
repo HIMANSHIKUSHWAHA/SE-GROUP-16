@@ -4,6 +4,7 @@ const AsyncVideo = require('../../models/AsyncVideo');
 const LiveSession = require('../../models/LiveSession');
 const ExercisePlan = require('../../models/ExercisePlan');
 const MealPlan = require('../../models/MealPlan');
+const Professional = require('../../models/Professional');
 const {populate} = require("dotenv");
 
 
@@ -37,6 +38,14 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+const getAllProfessionals = async (req, res) => {
+    try {
+        const professionals = await Professional.find();
+        res.json(professionals);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 const getAllExercisePlans = async (req, res) => {
     try {
         const exercisePlans = await ExercisePlan.find();
@@ -60,5 +69,6 @@ module.exports = {
     getAllLiveSessions,
     getAllUsers,
     getAllExercisePlans,
-    getAllMealPlans
+    getAllMealPlans,
+    getAllProfessionals
 };

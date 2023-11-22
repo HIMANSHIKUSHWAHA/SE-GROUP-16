@@ -68,7 +68,7 @@ class Trie {
 }
 
 //function to populate trie with titles from database
-async function buildTrieFromDatabase(AsyncVideo) {
+async function buildTrieFromVideos(AsyncVideo) {
     const trie = new Trie();
     try {
         const videos = await AsyncVideo.find({});
@@ -83,8 +83,31 @@ async function buildTrieFromDatabase(AsyncVideo) {
     return trie;
 }
 
+
+async function buildTrieFromProfessionals(Professional) {
+    const trie = new Trie();
+    try {
+        const professionals = await Professional.find({});
+        for (const professional of professionals) {
+            // Insert first name, last name, and specialization into the trie
+            const firstName = professional.firstName.toLowerCase();
+            const lastName = professional.lastName.toLowerCase();
+            const specialization = professional.specialization.toLowerCase();
+
+            trie.insert(firstName);
+            trie.insert(lastName);
+            trie.insert(specialization);
+        }
+    } catch (error) {
+        console.error("Error populating trie from professionals database:", error);
+    }
+    return trie;
+}
+
+
 //exporting the necessary functions
 module.exports = {
     Trie,
-    buildTrieFromDatabase,
+    buildTrieFromVideos,
+    buildTrieFromProfessionals
 };

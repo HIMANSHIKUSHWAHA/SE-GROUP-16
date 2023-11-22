@@ -1,0 +1,79 @@
+.searchInput {
+    border: 2px solid #1976d2; /* Blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Some padding inside the input */
+    font-size: 16px; /* Font size */
+    outline: none; /* Removes the default focus outline */
+    width: 600px;
+}
+
+.searchInput:focus {
+    border-color: #115293; /* Darker border color on focus */
+}
+
+.searchButton {
+    border: 2px solid #1976d2; /* Blue border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Some padding inside the button */
+    font-size: 16px; /* Font size */
+    outline: none; /* Removes the default focus outline */
+    background-color: lightsteelblue; /* Blue background color */
+    color: white; /* White text color */
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.searchButton:hover {
+    background-color: #115293; /* Darker blue background color on hover */
+}
+
+.suggestions-container {
+    position: absolute;
+    z-index: 1000;
+    outline: 2px solid #1976d2; /* Blue outline for the suggestion box */
+    background-color: white; /* White background for the suggestion box */
+    width: auto; /* Auto width to adjust to content */
+    max-width: 600px; /* Maximum width to match the search input */
+    border-radius: 4px; /* Rounded corners */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for a floating effect */
+    list-style-type: none; /* Remove default list bullet points */
+    padding: 0; /* Remove default padding */
+    margin-top: 2px; /* Small gap between the search box and suggestion box */
+}
+
+.suggestion-item {
+    padding: 8px 12px; /* Padding for each suggestion item */
+    cursor: pointer; /* Change cursor to pointer to indicate clickable items */
+    border-bottom: 1px solid #eee; /* Optional: add a separator between items */
+}
+
+.suggestion-item:last-child {
+    border-bottom: none; /* Remove bottom border for the last item */
+}
+
+.suggestion-item:hover {
+    background-color: #cbe2f8; /* Change background on hover */
+}
+
+.professional-result-container {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjusted to fit the container */
+}
+
+.professional-firstname, .professional-lastname, .professional-specialization {
+    font-size: 18px; /* Adjusted font size */
+    color: #333; /* Dark grey color for text */
+    margin-bottom: 10px; /* Spacing below each item */
+}
+
+.error-message {
+    color: #ff6b6b; /* Red color for errors */
+    margin: 20px 0;
+    text-align: center;
+}

@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import Header from "../header";
 import FilterSearchSection from "../searchbar";
-import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
 import MediaCard from "./videoCards";
 import SecondaryNavbar from "../secondaryNavbar";
-
+import VideoSearch from "./VideoTab/videoSearchTab";
+import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
 
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
     <div className="ContentArea">
         {activeContent === 'videos' && <VideoSearch />}
         {activeContent === 'routines' && <CalendarView />}
+        {activeContent === 'professionals' && <ProfessionalSearch />}
         {activeContent === 'workout-programs' && <p>workout programs data</p>}
         {activeContent === 'meal-plans' && <p>meal plans data</p>}
         {activeContent === 'custom-workouts' && <p>custom workouts data</p>}
+        {activeContent === 'messages' && <p>messaging data</p>}
     </div>
 );
 
@@ -42,7 +45,11 @@ const Dashboard = () => {
     {name: "Routines",
      icon: faCalendarCheck,
      content: 'routines'
-    }
+    },
+      {name: "Professionals",
+      icon: faUser,
+      content: 'professionals'
+    },
   ]
   return (
     <div>

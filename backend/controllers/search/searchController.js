@@ -1,13 +1,14 @@
 const User = require('../../models/User');
 const AsyncVideo = require('../../models/AsyncVideo');
 const LiveSession = require('../../models/LiveSession');
-const { buildTrieFromDatabase } = require('../search/autoComplete');
-
+const { buildTrieFromVideos } = require('../search/autoComplete');
+const Professional = require('../../models/Professional');
+const {buildTrieFromProfessionals} = require("./autoComplete");
 let trie;
 
-const autocompleteSearch = async (req, res) => {
+const autocompleteSearchVideos = async (req, res) => {
     if (!trie) {
-        trie = await buildTrieFromDatabase(AsyncVideo);
+        trie = await buildTrieFromVideos(AsyncVideo);
     }
     const { prefix } = req.query;
     try {
@@ -19,6 +20,19 @@ const autocompleteSearch = async (req, res) => {
     }
 };
 
+const autocompleteSearchProfessionals = async (req, res) => {
+    if (!trie) {
+        trie = await buildTrieFromProfessionals(Professional);
+    }
+    const { prefix } = req.query;
+    try {
+        const suggestions = trie.autocomplete(prefix.toLowerCase());
+        res.json(suggestions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
 const searchVideos = async (req, res) => {
     let { searchTerm } = req.query;
     let queryObject = {};
@@ -92,7 +106,7 @@ const searchProfessionals = async (req, res, next) => {
     }
 
     try {
-        const professionals = await User.find(queryObject);
+        const professionals = await Professional.find(queryObject);
         res.json(professionals);
     } catch (error) {
         console.error(error);
@@ -156,5 +170,6 @@ module.exports = {
     searchProfessionals,
     searchExercisePlans,
     searchMealPlans,
-    autocompleteSearch
+    autocompleteSearchVideos,
+    autocompleteSearchProfessionals
 };
