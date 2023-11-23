@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './professionalSearchTab.css'
+import './professionalSearchTab.css';
 
-const ProfessionalSearch = () => { // Renamed
+const ProfessionalSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const [quickMessages, setQuickMessages] = useState({});
+    const currentUserId = localStorage.getItem('UserId');
 
     useEffect(() => {
-        fetchAllProfessionals(); // Renamed
+        fetchAllProfessionals();
     }, []);
-
-    useEffect(() => {
-        loadSuggestions();
-    }, [searchTerm]);
 
     const loadSuggestions = async () => {
         if (searchTerm.length > 0) {
@@ -67,6 +65,35 @@ const ProfessionalSearch = () => { // Renamed
             console.error('Search error', error);
         }
     };
+
+    const handleQuickMessageChange = (professionalId, message) => {
+        setQuickMessages(prevMessages => ({
+            ...prevMessages,
+            [professionalId]: message
+        }));
+    };
+
+    const handleQuickMessage = async (professionalId) => {
+        const messageContent = quickMessages[professionalId];
+
+        if (!messageContent || messageContent.trim() === '') {
+            console.error('Error: Message content is empty');
+            return;
+        }
+
+        try {
+            const response = await axios.post('/api/v1/messages/sendMessage', {
+                messagingSenderId: currentUserId,
+                messagingRecipientId: professionalId,
+                content: messageContent
+            });
+            console.log('Quick message sent:', response.data);
+            handleQuickMessageChange(professionalId, ''); // Clear the message input after sending
+        } catch (error) {
+            console.error('Error sending quick message:', error);
+        }
+    };
+
     return (
         <div>
             <h1>Search Professionals</h1>
@@ -74,7 +101,7 @@ const ProfessionalSearch = () => { // Renamed
                 <input
                     type="text"
                     className="searchInput"
-                    placeholder="Search by name, specialization, etc..." // Updated placeholder
+                    placeholder="Search by name, specialization, etc..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     autoComplete="off"
@@ -92,14 +119,22 @@ const ProfessionalSearch = () => { // Renamed
             )}
 
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-
             <div>
-                {results.map((result, index) => (
-                    //we need to include a link to the professionals profile, quick message button.
+                {results.map((professional, index) => (
                     <div key={index} className="professional-result-container">
-                        <div className="professional-firstname">{result.firstName}</div>
-                        <div className="professional-lastname">{result.lastName}</div>
-                        <div className="professional-specialization">{result.specialization}</div>
+                        <div className="professional-firstname">{professional.firstName}</div>
+                        <div className="professional-lastname">{professional.lastName}</div>
+                        <div className="professional-specialization">{professional.specialization}</div>
+                        <input
+                            type="text"
+                            value={quickMessages[professional._id] || ''}
+                            onChange={(e) => handleQuickMessageChange(professional._id, e.target.value)}
+                            placeholder="Type your quick message here"
+                            className="quick-message-input"
+                        />
+                        <button onClick={() => handleQuickMessage(professional._id)} className="quick-message-button">
+                            Quick Message
+                        </button>
                     </div>
                 ))}
             </div>

@@ -89,20 +89,16 @@ const searchLiveSessions = async (req, res, next) => {
 };
 
 const searchProfessionals = async (req, res, next) => {
-    let { firstName, lastName, specialization, email } = req.query;
-    let queryObject = { role: 'professional' };
+    const { searchTerm } = req.query;
+    let queryObject = { };
 
-    if (firstName) {
-        queryObject['firstName'] = { $regex: firstName, $options: 'i' };
-    }
-    if (lastName) {
-        queryObject['lastName'] = { $regex: lastName, $options: 'i' };
-    }
-    if (specialization) {
-        queryObject['specialization'] = { $regex: specialization, $options: 'i' };
-    }
-    if (email) {
-        queryObject['email'] = { $regex: email, $options: 'i' };
+    if (searchTerm) {
+        // This will create a query that looks for the searchTerm in any of the specified fields
+        queryObject['$or'] = [
+            { firstName: { $regex: searchTerm, $options: 'i' } },
+            { lastName: { $regex: searchTerm, $options: 'i' } },
+            { specialization: { $regex: searchTerm, $options: 'i' } }
+        ];
     }
 
     try {
@@ -113,7 +109,6 @@ const searchProfessionals = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
-
 
 const searchExercisePlans = async (req, res, next) => {
     let { title, description, cost } = req.query;

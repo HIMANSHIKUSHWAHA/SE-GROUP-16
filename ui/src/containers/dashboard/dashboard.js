@@ -5,7 +5,7 @@ import CalendarView from "./CalendarViewComponent/CalendarView";
 import SecondaryNavbar from "../secondaryNavbar";
 import VideoSearch from "./VideoTab/videoSearchTab";
 import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
-
+import MessagingWindow from "./MessagingWindow/MessagingWindow";
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
     <div className="ContentArea">
@@ -54,6 +54,7 @@ const Dashboard = () => {
       <Header auth={true} />
       <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent}/>
       <ContentArea activeContent={activeContent} />
+        <MessagingWindow />
     </div>
   );
 };
