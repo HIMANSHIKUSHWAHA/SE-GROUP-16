@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Header from "../header";
-import FilterSearchSection from "../searchbar";
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck, faUser } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import MediaCard from "./videoCards";
 import SecondaryNavbar from "../secondaryNavbar";
 import VideoSearch from "./VideoTab/videoSearchTab";
 import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
@@ -54,7 +52,6 @@ const Dashboard = () => {
   return (
     <div>
       <Header auth={true} />
-      <FilterSearchSection />
       <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent}/>
       <ContentArea activeContent={activeContent} />
     </div>

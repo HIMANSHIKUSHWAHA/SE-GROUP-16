@@ -7,6 +7,8 @@ const SleepPlan = require('../models/SleepPlan');
 const MealPlan = require('../models/Mealplan');
 const AsyncVideo = require('../models/AsyncVideo');
 const Ratings = require("../models/Ratings")
+const Professional = require("../models/Professional");
+const User = require("../models/User");
 // MongoDB connection URI
 const mongoURI = process.env.DB_STRING;
 
@@ -77,7 +79,54 @@ const createDefaultExercisePlan = async () => {
     return exercisePlan._id;
 };
 
+const createDefaultUser = async () => {
+    // Check for an existing default User
+    let user = await User.findOne({ email: "default.user@example.com" });
 
+    if (!user) {
+        user = new User({
+            firstName: "Default",
+            lastName: "User",
+            email: "default.user@example.com",
+            password: "defaultPassword", // This should be hashed in the pre-save hook
+            height: 170, // Example default height
+            weight: 60  // Example default weight
+            // Add other necessary default values
+        });
+
+        await user.save();
+        console.log('Default User created successfully.');
+    } else {
+        console.log('Default User already exists.');
+    }
+
+    return user._id;
+};
+
+
+
+const createDefaultProfessional = async () => {
+    // Check for an existing default Professional
+    let professional = await Professional.findOne({ email: "default.professional@example.com" });
+
+    if (!professional) {
+        professional = new Professional({
+            firstName: "Default",
+            lastName: "Professional",
+            email: "default.professional@example.com",
+            password: "defaultPassword", // This should be hashed in the pre-save hook
+            specialization: "General Wellness"
+            // Add other necessary default values
+        });
+
+        await professional.save();
+        console.log('Default Professional created successfully.');
+    } else {
+        console.log('Default Professional already exists.');
+    }
+
+    return professional._id;
+};
 
 const createDefaultMealPlan = async () => {
     // Check for an existing default MealPlan
@@ -149,6 +198,11 @@ const setupDefaultPlans = async () => {
         const sleepPlanId = await createDefaultSleepPlan();
         const mealPlanId = await createDefaultMealPlan();
         const asyncVideoId = await createDefaultAsyncVideo();
+        const professionalId = await createDefaultProfessional();
+        const userId = await createDefaultUser();
+
+        console.log(`Default Professional ID: ${professionalId}`);
+        console.log(`Default User ID: ${userId}`);
         console.log(`Default MealPlan ID: ${mealPlanId}`);
         console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
         console.log(`Default SleepPlan ID: ${sleepPlanId}`);
