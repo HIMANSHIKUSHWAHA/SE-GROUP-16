@@ -13,6 +13,7 @@ const calendarData = async (req, res, next) => {
         // Fetch and populate the calendar data for the user
         let userCalendarData = await Calendar.findOne({ userId: userId })
 
+
         if (!userCalendarData) {
             createDefaultCalendar(userId);
         }

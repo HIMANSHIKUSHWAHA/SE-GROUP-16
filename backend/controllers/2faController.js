@@ -37,8 +37,10 @@ const verify2FAToken = async (req, res, next) => {
         }
         const userId = decoded.userId;
         let user = await User.findById(userId).select('+twoFASecret');
+        let role = "user";
         if (!user) {
             user = await Professional.findById(userId).select('+twoFASecret');
+            role = "professional"
         }
         if (!user) return next(new AppError('User not found', 404));
 
@@ -53,7 +55,10 @@ const verify2FAToken = async (req, res, next) => {
             return next(new AppError('Invalid code', 400));
         }
 
-        const fullAccessToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const fullAccessToken = jwt.sign(
+            { userId: user._id, role: role },
+            process.env.JWT_SECRET,
+            { expiresIn: '2h' });
 
         res.cookie('access_token', fullAccessToken, {
             expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
@@ -62,7 +67,7 @@ const verify2FAToken = async (req, res, next) => {
         });
 
         console.log("VERIFYING 2 FACTOR FINISHED");
-        res.status(200).json({ message: 'Token verified successfully', userId: userId });
+        res.status(200).json({ message: 'Token verified successfully', userId: userId, token: fullAccessToken });
     } catch (error) {
         console.error(error.message);
         return next(new AppError('Invalid temporary token', 400));

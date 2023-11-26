@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
     Container,
     Grid,
@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getReq } from '../../../services/api';
+import { UserContext } from '../../../context';
+
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -49,7 +51,7 @@ const TaskCard = ({ title, content }) => (
 const DayColumn = ({ day, date, month, isToday, dayData }) => {
     const meals = dayData?.meals;
     const exercises = dayData?.exercises?.exercises;
-
+    const sleep = dayData?.sleep;
     return (
         <Grid
             item
@@ -77,13 +79,14 @@ const DayColumn = ({ day, date, month, isToday, dayData }) => {
             </Typography>
 
             {/* Sleep Data */}
+
             <TaskCard
                 title="Sleep"
                 content={
                     <Typography variant="body2">
-                        Start Time: {dayData.sleep.startTime} <br />
-                        End Time: {dayData.sleep.endTime} <br />
-                        Total Hours: {dayData.sleep.totalHours}
+                        Start Time: {sleep.startTime} <br />
+                        End Time: {sleep.endTime} <br />
+                        Total Hours: {sleep.totalHours}
                     </Typography>
                 }
             />
@@ -143,14 +146,15 @@ const WeeklyCalendar = () => {
     const today = new Date();
     const weekDates = generateWeekDates(today);
     const [calendarData, setCalendarData] = useState({});
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
-        const userId = localStorage.getItem("UserId");
-        const params = { userId: userId };
+        const params = { userId: user.id };
         const headers = {};
         getReq('/dashboard/calendar_data', headers, params)
             .then(response => {
-                setCalendarData(response.data);
+
+                setCalendarData(response.data.data);
             })
             .catch(error => {
                 console.error("There was an error fetching the calendar data!", error);

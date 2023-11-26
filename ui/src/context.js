@@ -1,32 +1,30 @@
-// import React, { createContext, useState, useContext } from 'react';
-//
-// const UserContext = createContext(null);
-//
-// export const useUser = () => useContext(UserContext);
-//
-// export const UserProvider = ({ children }) => {
-//     const [user, setUser] = useState(null);
-//
-//     const fetchAndSetUserDetails = async (userId) => {
-//         try {
-//             // Replace with your API call to fetch user details
-//             const response = await fetch(`/api/user/${userId}`);
-//             const userDetails = await response.json();
-//             setUser(userDetails);
-//         } catch (error) {
-//             console.error('Failed to fetch user details:', error);
-//         }
-//     };
-//
-//     const logout = () => {
-//         setUser(null);
-//         //handle the removal of tokens from storage and cleanup tasks
-//         //will figure out later.
-//     };
-//
-//     return (
-//         <UserContext.Provider value={{ user, login, logout }}>
-//             {children}
-//         </UserContext.Provider>
-//     );
-// };
+import React, { createContext, useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
+
+export const UserContext = createContext();
+
+export const UserProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        // Load the user from the JWT token in local storage on initial load
+        const token = localStorage.getItem('token');
+        console.log("Token: ", token);
+
+        if (token && token.split('.').length === 3) { // Check if token has three parts
+            try {
+                const decoded = jwtDecode(token);
+                setUser({ id: decoded.userId, role: decoded.role });
+            } catch (error) {
+                console.error("Error decoding token: ", error);
+                // Handle token decode error (e.g., clear token, redirect to login)
+            }
+        }
+    }, []);
+
+    return (
+        <UserContext.Provider value={{ user, setUser }}>
+            {children}
+        </UserContext.Provider>
+    );
+};

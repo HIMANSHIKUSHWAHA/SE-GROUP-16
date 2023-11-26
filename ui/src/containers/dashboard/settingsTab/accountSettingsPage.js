@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import './accountSettingsPage.css'; // Make sure to import the CSS file
+import { UserContext } from '../../../context';
+
 
 const SettingsPage = () => {
     const navigate = useNavigate();
@@ -17,9 +19,11 @@ const SettingsPage = () => {
     const [entityType, setEntityType] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const { user } = useContext(UserContext)
 
     useEffect(() => {
-        const userId = localStorage.getItem("UserId");
+        // const userId = localStorage.getItem("UserId");
+        const userId = user.id;
         if (userId) {
             fetchEntity(userId);
         }
