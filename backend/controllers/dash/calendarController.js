@@ -2,51 +2,75 @@ const { Calendar, createDefaultCalendar } = require('../../models/Calendar')
 const AppError = require('../../utils/AppError')
 const User = require('../../models/User');
 
-
-// The data needs to go in the form of {monday:{sleep:seep_data, }}
-/*
-    returns response - {data -> calendar sleep meal and workout data, eventList -> list of events and sessions registered in}
-*/
-
 const calendarData = async (req, res, next) => {
     console.log("Calendar_data CONTROLLER CALLED");
     try {
-        // console.log("COOKIE IS ", req.cookies);
-        // const userId = req.cookies.userId; // Adjust based on how you have set the cookie
         const userId = req.query.userId;
         if (!userId) {
             return res.status(400).send({ error: 'User ID is required' });
         }
 
-        // Fetch the calendar data for the user from the database
-        const userCalendarData = await Calendar.findOne({ userId: userId });
+        // Fetch and populate the calendar data for the user
+        let userCalendarData = await Calendar.findOne({ userId: userId })
+
 
         if (!userCalendarData) {
-            // Handle the case where no calendar data is found for the user
-            // return res.status(404).send({ error: 'No calendar data found for the user' });
             createDefaultCalendar(userId);
         }
 
-        //TODO add live session part -> Fetch live session part from user model
-        const user = await User.findById(userId);
-        const eventList = user.LiveSessionEnrolled;
-        //TODO added test value to live session list
-        test_live_session = {
-            "_id": "1a2b3c4d5e6f",
-            "title": "Morning Yoga Session",
-            "description": "A refreshing yoga session to kickstart your day with positive energy.",
-            "date": "2023-10-28",
-            "startTime": "08:00 AM",
-            "duration": "60 minutes"
+        userCalendarData = await Calendar.findOne({ userId: userId }).populate({
+            path: 'sleepId',
+            model: 'SleepPlan'
+        })
+            .populate({
+                path: 'mealPlanId',
+                model: 'MealPlan'
+            })
+            .populate({
+                path: 'exercisePlanId',
+                model: 'ExercisePlan'
+            })
+        // .populate({
+        //     path: 'liveSessionList',
+        //     model: 'LiveSession'
+        // });
+
+        if (!userCalendarData) {
+            return res.status(404).send({ error: 'No calendar data found for the user' });
         }
-        eventList.push(test_live_session);
+
+        // Extract the plan data for each day
+        const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        const planData = {};
+        const sleepData = {
+            startTime: userCalendarData.sleepId.startTime,
+            endTime: userCalendarData.sleepId.endTime,
+            totalHours: userCalendarData.sleepId.totalHours
+        };
+
+        daysOfWeek.forEach(day => {
+            planData[day] = {
+                sleep: sleepData,
+                meals: userCalendarData.mealPlanId[day],
+                exercises: userCalendarData.exercisePlanId[day]
+            };
+        });
+        // Format the data for the response
+        const formattedCalendarData = {
+            ...planData,
+            // liveSessions: userCalendarData.liveSessionList
+        };
+
+        // //TODO add live session part -> Fetch live session part from user model
+        // const user = await User.findById(userId);
+        // const eventList = user.LiveSessionEnrolled;
         console.log("CALENDAR DATA BACKEND DONE");
         res.status(201).json({
-            data: userCalendarData,
-            event_list: eventList
+            data: formattedCalendarData,
+            // event_list: eventList
         });
     } catch (error) {
-
+        console.log(error);
         return next(new AppError(error.message, error.statusCode || 500));
     }
 };

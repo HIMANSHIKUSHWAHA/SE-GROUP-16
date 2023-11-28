@@ -1,8 +1,18 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
-//add role specific data points if required later
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
+    firstName: {
+        type: String,
+        select: true,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        select: true,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
@@ -12,88 +22,77 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
-    },
-    role: {
-        type: String,
         required: true,
-        enum: ['client', 'professional', 'admin']
+        select: true,
     },
-    // TODO change the fields back to required
     height: {
         type: Number,
-        // Required if role is 'customer'
-        // required: function () { return this.role === 'client'; }
         required: false,
     },
     weight: {
         type: Number,
-        // Required if role is 'customer'
-        // required: function () { return this.role === 'client'; }
         required: false,
     },
-    specialization: {
-        type: String,
-        // Required if role is 'professional'
-        // required: function () { return this.role === 'professional'; }
-        required: false,
-    },
-    //fields required for password reset.
     resetPasswordToken: {
-        type: String
+        type: String,
+        select: false,
     },
     resetPasswordExpires: {
-        type: Date
+        type: Date,
+        select: false,
     },
-    // key should not be sent with every response
     twoFASecret: {
         type: String,
         select: false
     },
-    // Set to false initially, and update it to true once the user sets up 2FA
     twoFAEnabled: {
         type: Boolean,
         default: false
     },
     otp: {
         type: String,
-        select: false
+        select: true
     },
     otpExpires: {
         type: Date,
         select: false
     },
-    Subscribers:{
-        type: Array, //array of user ids(email as id)
-        default: []
+    Subscribing: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Professional',
+    }],
+    mealPlansOwned: [{
+        type: Schema.Types.ObjectId,
+        ref: 'MealPlan', // Linking to the MealPlan model
+        select: false
+    }],
+    exercisePlansOwned: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ExercisePlan', // Linking to the ExercisePlan model
+        select: false
+    }],
+    currentMealPlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'MealPlan',
+        select: false,
     },
-    Subscribing:{
-        type: Array, //array of user ids(amail as id)
-        default: []
+    currentExercisePlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'ExercisePlan',
+        required: false
     },
-    ContentCreated:{
-        type: Array, //array of content ids
-        default: [],
-        // Required if role is 'professional'
-        required: function() { return this.role === 'professional'; }
+    currentSleepPlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'SleepPlan',
+        required: false
     },
-    ContentEnrolled:{
-        type: Array, //array of {content ids,progress metrics}
-        default: []
-    },
-    LiveSessionCreated:{
-        type: Array, //array of session ids
-        default: [],
-        // Required if role is 'professional'
-        required: function() { return this.role === 'professional'; }
-    },
-    LiveSessionEnrolled:{
-        type: Array, //array of session ids
-        default: []
-    },
+    LiveSessionEnrolled: [{
+        type: Schema.Types.ObjectId,
+        ref: 'LiveSession',
+        select: false
+    }],
 });
 
-//hashing and salting function using middleware
 userSchema.pre('save', async function (next) {
     if (this.isModified('password') || this.isNew) {
         this.password = await bcrypt.hash(this.password, 12);
@@ -101,7 +100,6 @@ userSchema.pre('save', async function (next) {
     next();
 });
 
-//used in login
 userSchema.methods.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };

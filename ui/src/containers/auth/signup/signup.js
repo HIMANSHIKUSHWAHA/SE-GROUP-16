@@ -78,21 +78,23 @@ export default function Signup() {
             return;
         }
 
-        // TODO: work on backend data models
+        const endpoint = formData.role === "professional" ? "/signup/professional" : "/signup/user";
         const headers = {};
-        const response = await postReq("/auth/signup", headers, formData);
+        const response = await postReq(`/auth${endpoint}`, headers, formData);
         console.log("RESPONSE IS FROM SIGNUP API- ", response);
+        if (response.status === 201) {
+            console.log(response.data.userId);
+            console.log(response.data.tempToken);
 
-        if (response.message === "User registered successfully") {
+            localStorage.setItem('token', response.data.tempToken);
             setNav({
                 pathname: "/otp-verification",
-                state: { userId: response.userId }
+                state: { userId: response.data.userId, token: response.data.tempToken }
             });
         } else if (response.message === "Email already in use") {
             setErr(prev => ({ ...prev, validEmailErr: "Email already in use" }));
         }
     };
-
 
     return (
         <ThemeProvider theme={defaultTheme}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,18 +8,34 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
+import { useNavigate } from "react-router-dom";
 
-export default function Header({ auth = false }) {
+export default function Header({ auth = false, navbarData, setActiveContent }) {
+    const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleNavbarMenu = (event) => {
+        setMenuAnchorEl(event.currentTarget);
     };
 
+    const handleContentChange = (content) => {
+        setActiveContent(content);
+        handleClose();
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+        setMenuAnchorEl(null);
+    };
+
+    const handleSettings = () => {
+        navigate("/settings");
+    };
     const handleLogout = () => {
         localStorage.removeItem('token');
         window.location.reload();
@@ -37,7 +53,7 @@ export default function Header({ auth = false }) {
                                 color="inherit"
                                 aria-label="menu"
                                 sx={{ mr: 2 }}
-                                onClick={handleMenu}
+                                onClick={handleNavbarMenu}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -75,7 +91,30 @@ export default function Header({ auth = false }) {
                             >
                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                                <MenuItem onClick={handleSettings}>Settings</MenuItem>
                                 <MenuItem onClick={handleLogout}>logout</MenuItem>
+                            </Menu>
+                            <Menu
+                                id="secondary-navbar-menu"
+                                anchorEl={menuAnchorEl}
+                                open={Boolean(menuAnchorEl)}
+                                onClose={handleClose}
+
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'left',
+                                }}
+                            >
+
+                                {navbarData.map((item) => (
+                                    <MenuItem key={item.content} onClick={() => handleContentChange(item.content)}>
+                                        {item.name}
+                                    </MenuItem>
+                                ))}
                             </Menu>
                         </div>
                     )}
