@@ -10,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ auth = false, navbarData, setActiveContent }) {
+export default function Header({ auth = false, navbarData, setActiveContent, showMenu = true }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
@@ -41,12 +41,13 @@ export default function Header({ auth = false, navbarData, setActiveContent }) {
         window.location.reload();
     };
 
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
                     <Box sx={{ flexGrow: 1 }}>
-                        {auth && (
+                        {showMenu && auth && (
                             <IconButton
                                 size="large"
                                 edge="start"
@@ -110,7 +111,7 @@ export default function Header({ auth = false, navbarData, setActiveContent }) {
                                 }}
                             >
 
-                                {navbarData.map((item) => (
+                                {showMenu && navbarData.map((item) => (
                                     <MenuItem key={item.content} onClick={() => handleContentChange(item.content)}>
                                         {item.name}
                                     </MenuItem>

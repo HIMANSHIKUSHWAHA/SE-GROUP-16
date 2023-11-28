@@ -57,7 +57,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} />
+      <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} showMenu={true} />
       <ContentArea activeContent={activeContent} />
     </div>
   );

@@ -11,6 +11,7 @@ import TwoFactor from "./auth/twoFactor.js";
 import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
+import LiveSessionForm from "./livestream/liveStream.js";
 
 // user profile 
 export default function Router() {
@@ -34,6 +35,11 @@ export default function Router() {
                 <Route path="/2fa" element={
                     <PrivateRoute>
                         <TwoFactor />
+                    </PrivateRoute>
+                } />
+                <Route path="/live-session" element={
+                    <PrivateRoute>
+                        <LiveSessionForm />
                     </PrivateRoute>
                 } />
 
