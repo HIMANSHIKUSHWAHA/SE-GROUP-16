@@ -54,7 +54,7 @@ const MealPlansSearch = () => {
         setShowSuggestions(false);
         setError('');
         try {
-            const response = await axios.get(`/api/v1/search/mealPlans?prefix=${searchTerm}`);
+            const response = await axios.get(`/api/v1/search/mealPlans?searchTerm=${searchTerm}`);
             setMealPlans(response.data);
             if (response.data.length === 0) {
                 setError('No meal plans found.');

@@ -177,6 +177,7 @@ const searchExercisePlans = async (req, res, next) => {
 
 const searchMealPlans = async (req, res, next) => {
     const { searchTerm } = req.query;
+    console.log(searchTerm)
     let queryObject = {};
 
     if (searchTerm) {
@@ -184,6 +185,9 @@ const searchMealPlans = async (req, res, next) => {
             { title: { $regex: searchTerm, $options: 'i' } },
             { description: { $regex: searchTerm, $options: 'i' } }
         ];
+    } else {
+        // Handle case where searchTerm is empty
+        return res.json([]); // Or you can send a custom message
     }
 
     try {
