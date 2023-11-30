@@ -33,15 +33,15 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
-    z-index: 1010; /* Above the messaging window */
+    z-index: 1010;
 }
 
 .messaging-container {
-    /* Styles for the overall messaging container */
+
 }
 
 .message-list {
-    /* Styles for the container that holds all messages */
+
 }
 
 .message-sent, .message-received {
@@ -52,26 +52,26 @@
 }
 
 .message-sent {
-    background-color: lightskyblue; /* Light green background for sent messages */
+    background-color: lightskyblue;
     text-align: right;
-    margin-left: auto; /* Aligns the message to the right */
+    margin-left: auto;
 }
 
 .message-received {
-    background-color: #f1f0f0; /* Light grey background for received messages */
+    background-color: #f1f0f0;
     text-align: left;
-    margin-right: auto; /* Aligns the message to the left */
+    margin-right: auto;
 }
 
-/* Additional styling for buttons, inputs, etc. */
+
 .messaging-toggle {
-    /* Styles for the messaging toggle button */
+
 }
 
 .message-input input {
-    /* Styles for the message input field */
+
 }
 
 .message-input button {
-    /* Styles for the send message button */
+
 }

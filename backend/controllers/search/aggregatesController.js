@@ -22,7 +22,8 @@ const getAllAsyncVideos = async (req, res) => {
 
 const getAllLiveSessions = async (req, res) => {
     try {
-        const liveSessions = await LiveSession.find();
+        const liveSessions = await LiveSession.find()
+            .populate('creator', 'firstName lastName');
         res.json(liveSessions);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -48,7 +49,8 @@ const getAllProfessionals = async (req, res) => {
 };
 const getAllExercisePlans = async (req, res) => {
     try {
-        const exercisePlans = await ExercisePlan.find();
+        const exercisePlans = await ExercisePlan.find()
+            .populate('creator', 'firstName lastName');
         res.json(exercisePlans);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -57,7 +59,8 @@ const getAllExercisePlans = async (req, res) => {
 
 const getAllMealPlans = async (req, res) => {
     try {
-        const mealPlans = await MealPlan.find();
+        const mealPlans = await MealPlan.find()
+            .populate('creator', 'firstName lastName');
         res.json(mealPlans);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import VideoPreview from './../videoEmbeds';
-import './videoSearchTab.css';
-const VideoSearch = () => {
+import './ExercisePlan.css';
+
+const ExercisePlanSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -10,7 +10,7 @@ const VideoSearch = () => {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     useEffect(() => {
-        fetchAllVideos();
+        fetchAllExercisePlans();
     }, []);
 
     useEffect(() => {
@@ -20,11 +20,11 @@ const VideoSearch = () => {
     const loadSuggestions = async () => {
         if (searchTerm.length > 0) {
             try {
-                const response = await axios.get(`/api/v1/search/autocomplete/video?prefix=${searchTerm}`);
+                const response = await axios.get(`/api/v1/search/autocomplete/exerciseplans?prefix=${searchTerm}`);
                 setSuggestions(response.data);
                 setShowSuggestions(true);
             } catch (error) {
-                console.error('Error loading title suggestions', error);
+                console.error('Error loading exercise plan suggestions', error);
             }
         } else {
             setSuggestions([]);
@@ -32,19 +32,19 @@ const VideoSearch = () => {
         }
     };
 
-    const handleSuggestionClick = (title) => {
-        setSearchTerm(title);
+    const handleSuggestionClick = (planName) => {
+        setSearchTerm(planName);
         setSuggestions([]);
         setShowSuggestions(false);
     };
 
-    const fetchAllVideos = async () => {
+    const fetchAllExercisePlans = async () => {
         try {
-            const response = await axios.get('/api/v1/search/allvideos');
+            const response = await axios.get('/api/v1/search/allExercisePlans');
             setResults(response.data);
         } catch (error) {
-            setErrorMessage('An error occurred while fetching videos.');
-            console.error('Fetch all videos error', error);
+            setErrorMessage('An error occurred while fetching exercise plans.');
+            console.error('Fetch all exercise plans error', error);
         }
     };
 
@@ -57,24 +57,25 @@ const VideoSearch = () => {
         setShowSuggestions(false);
         setErrorMessage('');
         try {
-            const response = await axios.get('/api/v1/search/videos', { params: { searchTerm } });
+            const response = await axios.get('/api/v1/search/exercisePlans', { params: { searchTerm } });
             setResults(response.data);
             if (response.data.length === 0) {
-                setErrorMessage('No videos found.');
+                setErrorMessage('No exercise plans found.');
             }
         } catch (error) {
-            setErrorMessage('An error occurred while searching for videos.');
+            setErrorMessage('An error occurred while searching for exercise plans.');
             console.error('Search error', error);
         }
     };
+
     return (
         <div>
-            <h1>Search Videos</h1>
+            <h1>Search Workout Plans</h1>
             <div className="search-container">
                 <input
                     type="text"
                     className="searchInput"
-                    placeholder="Search by title, tags, description..."
+                    placeholder="Search by plan name, difficulty level, etc..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     autoComplete="off"
@@ -92,21 +93,17 @@ const VideoSearch = () => {
             )}
 
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div className="results-container"> {/* Flex container for video results */}
-                {results.map((result, index) => (
-                    <div key={index} className="video-result-container">
-                        <div className="video-title">{result.title}</div>
-                        <div className="video-preview">
-                            <VideoPreview link={result.link} />
-                        </div>
-                        <div className="creator">By: {result.creator.firstName} {result.creator.lastName}</div>
-                        <div className="video-description">{result.description}</div>
-                        <div className="video-tags">Tags: {result.tags.join(', ')}</div>
-
+            <div className="exercise-plan-results-container">
+                {results.map((plan, index) => (
+                    <div key={index} className="exercise-plan-result-container">
+                        <div className="exercise-plan-title">{plan.title}</div>
+                        <div className="exercise-plan-description">{plan.description}</div>
+                        {/* Add other details here if necessary */}
                     </div>
                 ))}
             </div>
         </div>
     );
 };
-export default VideoSearch;
+
+export default ExercisePlanSearch;

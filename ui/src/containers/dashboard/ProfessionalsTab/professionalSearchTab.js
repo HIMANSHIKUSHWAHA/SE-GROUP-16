@@ -48,6 +48,7 @@ const ProfessionalSearch = () => {
 
     const handleInputChange = (e) => {
         setSearchTerm(e.target.value);
+        loadSuggestions();
     };
 
     const handleSearch = async (e) => {
@@ -119,7 +120,7 @@ const ProfessionalSearch = () => {
             )}
 
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div>
+            <div className="professional-results-container">
                 {results.map((professional, index) => (
                     <div key={index} className="professional-result-container">
                         <div className="professional-firstname">{professional.firstName}</div>

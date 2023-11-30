@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const { searchVideos, searchLiveSessions, searchProfessionals, searchExercisePlans, searchMealPlans, autocompleteSearchVideos, autocompleteSearchProfessionals  } = require('../controllers/search/searchController');
+const { searchVideos, searchLiveSessions, searchProfessionals, searchExercisePlans, searchMealPlans, autocompleteSearchVideos, autocompleteSearchMealPlans, autocompleteSearchExercisePlans, autocompleteSearchLiveSessions, autocompleteSearchProfessionals  } = require('../controllers/search/searchController');
 const {
     getAllAsyncVideos,
     getAllLiveSessions,
@@ -16,6 +16,9 @@ const {
 //search functions
 router.get('/autocomplete/video', autocompleteSearchVideos);
 router.get('/autocomplete/professional', autocompleteSearchProfessionals);
+router.get('/autocomplete/livesessions', autocompleteSearchLiveSessions);
+router.get('/autocomplete/mealplans', autocompleteSearchMealPlans);
+router.get('/autocomplete/exerciseplans', autocompleteSearchExercisePlans);
 //autocomplete functionality
 router.get('/videos', searchVideos);
 router.get('/sessions', searchLiveSessions);

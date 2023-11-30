@@ -10,7 +10,6 @@ const LiveSession = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'Professional',
-        select: false
     },
     // IDs of those attending the live session
     enrolled: [{

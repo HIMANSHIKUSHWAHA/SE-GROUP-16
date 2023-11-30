@@ -1,21 +1,32 @@
 import React, { useState } from "react";
 import Header from "../header";
-import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+    faVideo,
+    faRunning,
+    faUtensils,
+    faDumbbell,
+    faCalendarCheck,
+    faUser,
+    faCamera
+} from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
 import SecondaryNavbar from "../secondaryNavbar";
 import VideoSearch from "./VideoTab/videoSearchTab";
 import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
 import MessagingWindow from "./MessagingWindow/MessagingWindow";
+import LiveSessions from "./LiveSessionsTab/LiveSessions";
+import MealPlansTab from "./MealPlansTab/MealPlansTab";
+import ExercisePlanSearch from "./ExerciseTab/ExercisePlanSearch";
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
     <div className="ContentArea">
         {activeContent === 'videos' && <VideoSearch />}
         {activeContent === 'routines' && <CalendarView />}
         {activeContent === 'professionals' && <ProfessionalSearch />}
-        {activeContent === 'workout-programs' && <p>workout programs data</p>}
-        {activeContent === 'meal-plans' && <p>meal plans data</p>}
-        {activeContent === 'custom-workouts' && <p>custom workouts data</p>}
+        {activeContent === 'workout-programs' && <ExercisePlanSearch/>}
+        {activeContent === 'meal-plans' && <MealPlansTab/>}
         {activeContent === 'messages' && <p>messaging data</p>}
+        {activeContent === 'livesessions' && <LiveSessions/>}
     </div>
 );
 
@@ -36,10 +47,6 @@ const Dashboard = () => {
      icon: faUtensils,
      content: 'meal-plans'
     },
-    {name: "Custom Workouts",
-     icon: faDumbbell,
-     content: 'workout-programs'
-    },
     {name: "Routines",
      icon: faCalendarCheck,
      content: 'routines'
@@ -48,6 +55,9 @@ const Dashboard = () => {
       icon: faUser,
       content: 'professionals'
     },
+      {name: "Live Sessions",
+      icon: faCamera,
+      content: 'livesessions'}
   ]
   return (
     <div>
