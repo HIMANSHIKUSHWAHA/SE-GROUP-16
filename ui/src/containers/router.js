@@ -11,7 +11,7 @@ import TwoFactor from "./auth/twoFactor.js";
 import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
-
+import Profile from "./dashboard/profile.js";
 // user profile 
 export default function Router() {
     return (
@@ -36,7 +36,7 @@ export default function Router() {
                         <TwoFactor />
                     </PrivateRoute>
                 } />
-
+                <Route path="/profile" element={<Profile />} />
             </Routes>
         </BrowserRouter>
     )

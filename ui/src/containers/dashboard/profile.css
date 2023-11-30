@@ -1,0 +1,54 @@
+/* Profile.css */
+body {
+  background-color: #e0e0e0; /* This sets the background to light grey */
+}
+.user-card {
+  padding: 45px;
+  max-width: 800px;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border-radius: 50px;
+  background: #e0e0e0;
+  box-shadow:  -20px 20px 60px #bebebe,
+             20px -20px 60px #ffffff;
+}
+
+.title-typography {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #333; /* Dark text for better contrast */
+}
+
+.subtitle-typography {
+  color: #555; /* Slightly lighter text for subtitles */
+  margin-bottom: 12px;
+}
+
+.info-typography {
+  margin-bottom: 8px;
+  color: #666; /* Even lighter text for informational text */
+}
+
+.plan-chip {
+  margin-right: 8px;
+  margin-bottom: 8px;
+  border-radius: 10px; /* Rounded corners for chips */
+  background-color: #1976d2; /* MUI blue color for chips */
+  color: white; /* White text for contrast */
+}
+
+.plan-chip:last-child {
+  margin-right: 0;
+}
+
+.scrollable-box {
+  overflow-x: auto;
+  padding: 8px;
+}
+
+.scrollable-box::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Webkit browsers */
+}
+
+/* Additional colors for other elements can be added here */

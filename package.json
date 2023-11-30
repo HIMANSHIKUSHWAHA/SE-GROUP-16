@@ -1,14 +1,21 @@
 {
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
     "concurrently": "^8.2.1",
+    "jwt-decode": "^4.0.0",
     "nodemon": "^3.0.1",
-    "react-scripts": "^5.0.1"
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
     "start:backend": "cd backend && npm start",
     "start:ui": "cd ui && npm start",
     "start": "concurrently \"npm run start:backend\" \"npm run start:ui\"",
     "build:ui": "cd ui && npm install",
-    "build:backend":"cd backend && npm install"
+    "build:backend": "cd backend && npm install"
   }
 }

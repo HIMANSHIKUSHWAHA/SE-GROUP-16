@@ -40,7 +40,9 @@ export default function Header({ auth = false, navbarData, setActiveContent }) {
         localStorage.removeItem('token');
         window.location.reload();
     };
-
+    const handleProfile = () => {
+        navigate("/profile");
+    };
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -89,7 +91,7 @@ export default function Header({ auth = false, navbarData, setActiveContent }) {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={handleProfile}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
                                 <MenuItem onClick={handleSettings}>Settings</MenuItem>
                                 <MenuItem onClick={handleLogout}>logout</MenuItem>
