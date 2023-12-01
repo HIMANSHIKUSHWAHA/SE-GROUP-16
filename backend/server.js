@@ -12,6 +12,7 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const searchContentRoutes = require('./routes/searchContentRoutes');
 
 console.log('Started backend server');
 
@@ -45,6 +46,7 @@ app.use('/api/v1/auth/2fa', twoFARoutes);
 app.use('/api/v1/dashboard', dashboardRoutes)
 app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/settings', settingsRoutes);
+app.use('/api/v1/searchContent', searchContentRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

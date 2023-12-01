@@ -13,6 +13,20 @@ const Profile = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const { user } = useContext(UserContext)
+
+    const fetchContent = async (id) => {
+        setLoading(true);
+        setError('');
+        try {
+            const response = await axios.get(`/api/v1/searchContent/${id}`);
+            setEntityType(response.data.type);
+            setEntityData(response.data.data);
+        } catch (err) {
+            setError(err.response?.data?.message || 'Error fetching data');
+        } finally {
+            setLoading(false);
+        }
+    }
     
     useEffect(() => {
         // const userId = localStorage.getItem("UserId");
@@ -22,9 +36,6 @@ const Profile = () => {
         }
     }, []);
 
-    useEffect(() => {
-        setEditedData(entityData);
-    }, [entityData]);
 
     const weight = entityData.weight;
     const height = entityData.height;
@@ -32,8 +43,17 @@ const Profile = () => {
     const lastName = entityData.lastName;
     const email = entityData.email;
     const specialization = entityData.specialization;
-    const exercisePlans = new Array();
+    const currExercisePlan = entityData.currentExercisePlan;
+    //fetch currExercisePlan title by id
     
+    useState(() => {
+        if (currExercisePlan) {
+            fetchContent(currExercisePlan);
+        }
+    }, [entityData]);
+
+    const currExercisePlanTitle = entityData.title;
+   
 
     useEffect(() => {
         setEditedData(entityData);
@@ -53,6 +73,7 @@ const Profile = () => {
         }
     };
     
+
 
     const handleLongTitle = (title) => {
         return title.length > 20 ? title.substring(0, 17) + '...' : title;
@@ -79,33 +100,27 @@ const Profile = () => {
                 <Stack direction="column" spacing={6} alignItems="center">
                 <Avatar sx={{ width: 100, height: 100 }} />
                 <label className="title-typography">
-                    {entityData.firstName} {entityData.lastName}
+                    {firstName} {lastName}
                 </label>
                 <label className="subtitle-typography">
-                    {entityData.email}
+                    {email}
                 </label>
                 <label className="info-typography">
-                    Specialization: {entityData.specialization}
+                    Specialization: {specialization}
                 </label>
                 <label className="info-typography">
-                    Height: {entityData.height}
+                    Height: {height}
                 </label>
                 <label className="info-typography">
-                    Weight: {entityData.weight}
+                    Weight: {weight}
                 </label>
 
                 <label variant="h6" mt={2} mb={1}>
                     Exercise Plans
                 </label>
-                <ScrollableBox className='scrollable-box'>
-                    {exercisePlans.map((plan, index) => (
-                        <PlanChip
-                            key={index}
-                            label={handleLongTitle(plan)}
-                            variant="outlined"
-                        />
-                    ))}
-                </ScrollableBox>
+                <label className="info-typography">
+                    {currExercisePlanTitle}
+                </label>
                 </Stack>
         </div>
     );

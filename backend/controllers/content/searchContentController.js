@@ -6,6 +6,7 @@ const ExercisePlan = require("../../models/ExercisePlan");
 const MealPlan = require("../../models/MealPlan");
 
 const findContent = async (id) => {
+    console.log("SEARCHING DATABASE WITH CONTENTID: " + id);
     try {
         let content = await AsyncVideo.findById(id);
         let contentType = "AsyncVideo";
