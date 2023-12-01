@@ -4,7 +4,7 @@ const AppError = require('../utils/AppError');
 
 
 const connectDB = async () => {
-    const conn = await mongoose.connect("mongodb://localhost:27017",
+    const conn = await mongoose.connect("mongodb+srv://root:root@merntut.fxy1yel.mongodb.net/practice_collection?retryWrites=true&w=majority",
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
@@ -17,4 +17,4 @@ const connectDB = async () => {
 
 };
 
-module.exports = connectDB;
+module.exports = connectDB; 

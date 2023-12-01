@@ -13,7 +13,7 @@ const passport = require("./config/passport");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const Professional = require("../../models/Professional");
+const Professional = require("./models/Professional");
 
 console.log("Started backend server");
 
@@ -110,7 +110,7 @@ app.get("/retrieve-all-requests", (req, res) => {
     requestQueue: { $exists: true, $ne: [] },
   }).then((data) => {
     res.send(data);
-  }
+  })}
 );
 
 app.get("/approve-request",(req,res)=>{
@@ -157,5 +157,5 @@ app.get("delete-approved-request",(req,res)=>{
 const PORT = process.env.PORT || 8000;
 
 app.listen(PORT, () => {
-  console.log(Server is running on http://localhost:${PORT});
+  console.log("Server is running on http://localhost:${PORT}");
 });
