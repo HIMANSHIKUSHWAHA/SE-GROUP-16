@@ -22,7 +22,7 @@ const ContentArea = ({ activeContent }) => (
 const Dashboard = () => {
   const [activeContent, setActiveContent] = useState('videos'); // Default content
   const { user } = useContext(UserContext);
-
+  console.log("THIS IS THE USer DASHBOARD");
   const navbarData = [
     {
       name: "Workout Videos",

@@ -41,7 +41,13 @@ export default function TwoFactor(props) {
 
             setUser({ id: decodedToken.userId, role: decodedToken.role });
 
-            setNav("/dashboard");
+            let navigation_string = "/dashboard"
+            if (decodedToken.role === "professional") {
+                navigation_string = "/pdashboard"
+            }
+
+
+            setNav(navigation_string);
         } else {
             console.log("Error");
         }

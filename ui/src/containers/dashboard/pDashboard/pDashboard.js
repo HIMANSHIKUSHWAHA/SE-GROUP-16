@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Header from "../../header";
-import { faVideo, faRunning, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faRunning, faUtensils, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import SecondaryNavbar from "../../secondaryNavbar";
 import UploadWorkoutVideo from "./uploadWorkoutVideo";
 import UploadWorkoutRoutine from "./uploadWorkoutRoutine";
 import UploadMealPlan from "./uploadMealPlan";
+import PCalendar from "./pCalendar"
 
 
 export default function PDashboard() {
     const [activeContent, setActiveContent] = useState('video');
 
+    // console.log("THIS IS THE PROFESSIONAL DASHBOARD");
     const navbarData = [
         {
             name: "Upload Workout Videos",
@@ -25,6 +27,11 @@ export default function PDashboard() {
             name: "Upload Meal Plan",
             icon: faUtensils,
             content: 'meal-plans'
+        },
+        {
+            name: "Calendar", // Add calendar to the navbar
+            icon: faCalendarAlt, // Use calendar icon
+            content: 'calendar' // This should match the activeContent check
         }
     ]
 
@@ -34,12 +41,12 @@ export default function PDashboard() {
 
     return (
         <div>
-            <Header auth={true} />
-            <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent} />
+            <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} showMenu={true} />
             <div className="ContentArea">
                 {activeContent === 'videos' && <UploadWorkoutVideo tags_list={tags_list} />}
                 {activeContent === 'workout-routine' && <UploadWorkoutRoutine tags_list={tags_list} />}
                 {activeContent === 'meal-plans' && <UploadMealPlan tags_list={tags_list} />}
+                {activeContent === 'calendar' && <PCalendar />}
             </div>
         </div>
     )

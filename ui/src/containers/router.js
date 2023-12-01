@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import Dashboard from "./dashboard/dashboard.js"
 import PrivateRoute from "./privateRoute"
@@ -12,9 +13,16 @@ import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import LiveSessionForm from "./livestream/liveStream.js";
+import JitsiMeetComponent from "./livestream/meetComponent.js";
+import { UserContext } from "../context.js";
 
 // user profile 
 export default function Router() {
+    const user = useContext(UserContext);
+
+    useEffect(() => {
+        console.log("Router re-rendered with user context:", user);
+    }, [user]);
     return (
         <BrowserRouter>
             <Routes>
@@ -27,9 +35,19 @@ export default function Router() {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
                 <Route path="test" element={<PDashboard />} />
+                <Route path="/pdashboard" element={
+                    <PrivateRoute>
+                        <PDashboard />
+                    </PrivateRoute>
+                } />
                 <Route path="/dashboard" element={
                     <PrivateRoute>
                         <Dashboard />
+                    </PrivateRoute>
+                } />
+                <Route path="/meet" element={
+                    <PrivateRoute>
+                        <JitsiMeetComponent />
                     </PrivateRoute>
                 } />
                 <Route path="/2fa" element={

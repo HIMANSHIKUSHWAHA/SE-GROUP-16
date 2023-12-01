@@ -52,6 +52,7 @@ const DayColumn = ({ day, date, month, isToday, dayData }) => {
     const meals = dayData?.meals;
     const exercises = dayData?.exercises?.exercises;
     const sleep = dayData?.sleep;
+    const events = dayData?.events;
     return (
         <Grid
             item
@@ -137,6 +138,20 @@ const DayColumn = ({ day, date, month, isToday, dayData }) => {
             ) : (
                 <Typography variant="body2">No Exercises Planned</Typography>
             )}
+
+            {events && events.length > 0 && (
+                <TaskCard
+                    title="Live Sessions"
+                    content={events.map((event, index) => (
+                        <Typography key={index} variant="body2">
+                            <strong>{event.title}</strong> <br />
+                            Description: {event.description} <br />
+                            Date: {new Date(event.date).toLocaleString()} <br />
+                            Tags: {event.tags.join(', ')}
+                        </Typography>
+                    ))}
+                />
+            )}
         </Grid>
     );
 };
@@ -146,20 +161,22 @@ const WeeklyCalendar = () => {
     const today = new Date();
     const weekDates = generateWeekDates(today);
     const [calendarData, setCalendarData] = useState({});
+    const [events, setEvents] = useState({});
     const { user } = useContext(UserContext);
 
     useEffect(() => {
-        const params = { userId: user.id };
+        const params = { userId: user.id, role: user.role };
         const headers = {};
         getReq('/dashboard/calendar_data', headers, params)
             .then(response => {
 
                 setCalendarData(response.data.data);
+                setEvents(response.data.events);
             })
             .catch(error => {
                 console.error("There was an error fetching the calendar data!", error);
             });
-    }, []);
+    }, [user.id, user.role]);
 
     return (
         <Container style={{ backgroundColor: '#E0F7FA', padding: '40px', borderRadius: '10px', maxWidth: '90%' }}>
@@ -173,6 +190,7 @@ const WeeklyCalendar = () => {
                             month={month}
                             isToday={today.getDate() === date && today.getMonth() + 1 === month}
                             dayData={calendarData[day]}
+                            events={events[day]}
                         />
                     ))}
                 </Grid>
