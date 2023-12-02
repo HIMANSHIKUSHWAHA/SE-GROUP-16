@@ -2,9 +2,10 @@ const Conversation = require('../../models/Conversation');
 const Message = require('../../models/Message');
 const Professional = require('../../models/Professional');
 const User = require('../../models/User');
+
 const sendMessage = async (req, res) => {
     try {
-
+        console.log("SEND MESsAGE CONTROLLER CALLED");
         let sender = await User.findById(req.body.messagingSenderId);
         let senderModel = 'User';
         if (!sender) {
@@ -67,20 +68,18 @@ const sendMessage = async (req, res) => {
 
 const getAllMessages = async (req, res) => {
     try {
-        let entity = await User.findById(req.query.id);
-        let entityType = 'User';
+        // console.log(req.query);
+        console.log("ALL MESSAGE CONTROLLER");
+        const { id, role } = req.query;
 
-        if (!entity) {
-            entity = await Professional.findById(req.query.id);
-            entityType = 'Professional';
-        }
-
-        if (!entity) {
-            return res.status(404).json({ message: 'User/Professional not found.' });
-        }
-
+        let entity;
         let conversations;
-        if (entityType === 'User') {
+
+        if (role === 'user') {
+            entity = await User.findById(id);
+            if (!entity) {
+                return res.status(404).json({ message: 'User not found.' });
+            }
             conversations = await Conversation.find({ user: entity._id })
                 .populate({
                     path: 'messages',
@@ -91,7 +90,13 @@ const getAllMessages = async (req, res) => {
                     model: 'Professional',
                     select: 'firstName lastName'
                 });
-        } else {
+
+        }
+        else {
+            entity = await Professional.findById(id);
+            if (!entity) {
+                return res.status(404).json({ message: 'Professional not found.' });
+            }
             conversations = await Conversation.find({ professional: entity._id })
                 .populate({
                     path: 'messages',
@@ -103,7 +108,7 @@ const getAllMessages = async (req, res) => {
                     select: 'firstName lastName'
                 });
         }
-
+        // console.log("CONVO ", conversations);
         res.status(200).json({ conversations });
 
     } catch (error) {

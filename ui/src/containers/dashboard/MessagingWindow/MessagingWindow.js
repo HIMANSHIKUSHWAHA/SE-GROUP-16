@@ -1,24 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 // import './MessagingWindow.css';
 import {
     Avatar, Button, CssBaseline, TextField, Link, Grid, Box,
     Typography, Container, Paper, createTheme, ThemeProvider
 } from '@mui/material';
+import { UserContext } from '../../../context';
 
 function Messaging() {
     const [conversations, setConversations] = useState([]);
     const [newMessage, setNewMessage] = useState('');
     const [expandedConversations, setExpandedConversations] = useState(new Set());
     const [isMessagingOpen, setIsMessagingOpen] = useState(false);
-    const currentUserId = localStorage.getItem("UserId");
+    const { user } = useContext(UserContext);
     const pollInterval = 30000;
     const [activeConversationId, setActiveConversationId] = useState(null);
 
     useEffect(() => {
         const fetchConversations = () => {
-            axios.get('/api/v1/messages/getAllMessages', { params: { id: currentUserId } })
+            axios.get('/api/v1/messages/getAllMessages', { params: { id: user.id, role: user.role } })
                 .then(response => {
+                    console.log(response.data);
                     setConversations(response.data.conversations);
                 })
                 .catch(error => console.error('Error fetching messages:', error));
@@ -29,10 +31,10 @@ function Messaging() {
         const intervalId = setInterval(fetchConversations, pollInterval);
 
         return () => clearInterval(intervalId);
-    }, [currentUserId]);
+    }, [user?.id, user?.role]);
 
     const getRecipientId = (conversation) => {
-        return conversation.user === currentUserId ? conversation.professional : conversation.user;
+        return conversation.user === user.id ? conversation.professional : conversation.user;
     };
 
     const handleSendMessage = (conversationId) => {
@@ -51,7 +53,7 @@ function Messaging() {
 
         axios.post('/api/v1/messages/sendMessage', {
             content: newMessage,
-            messagingSenderId: currentUserId,
+            messagingSenderId: user.id,
             messagingRecipientId: recipientId
         })
             .then(response => {
@@ -81,7 +83,7 @@ function Messaging() {
         axios.post('/api/v1/messages/sendMessage', {
             content: newMessage,
             conversationId: conversationId,
-            messagingSenderId: currentUserId,
+            messagingSenderId: user.id,
             messagingRecipientId: recipientId
         })
             .then(response => {
@@ -101,7 +103,7 @@ function Messaging() {
     };
 
     const getOtherParticipantName = (conversation) => {
-        if (conversation.user._id === currentUserId) {
+        if (conversation.user._id === user.id) {
             // If the current user ID matches the user ID in the conversation, they are the user.
             // So return the professional's name.
             return `${conversation.professional.firstName} ${conversation.professional.lastName}`;
@@ -114,7 +116,7 @@ function Messaging() {
 
 
     const isMessageSentByCurrentUser = (message) => {
-        return message.sender.toString() === currentUserId;
+        return message.sender.toString() === user.id;
     };
 
     return (
@@ -124,55 +126,58 @@ function Messaging() {
                 onClick={handleToggleMessaging}
                 sx={{
                     position: 'fixed',
-                    bottom: 20,
-                    right: 20,
-                    zIndex: 1000
+                    bottom: 10,
+                    right: 10,
+                    zIndex: 1010, // Adjusted to be above the messaging container
                 }}>
                 {isMessagingOpen ? 'Close Messages' : 'Open Messages'}
             </Button>
 
-            <Box className={`messaging-container ${!isMessagingOpen ? 'messaging-collapsed' : ''}`}>
-                <Typography variant="h4">Messages</Typography>
-                <Box className="message-list">
-                    {conversations.map((conversation, index) => (
-                        <Box key={index}>
-                            <Typography variant="h5">{getOtherParticipantName(conversation)}</Typography>
-                            {expandedConversations.has(index) ? (
-                                conversation.messages.map((msg, msgIndex) => (
-                                    <Box key={msgIndex} className={isMessageSentByCurrentUser(msg) ? 'message-sent' : 'message-received'}>
-                                        <Typography>{msg.content}</Typography>
-                                    </Box>
-                                ))
-                            ) : (
-                                <Box>
-                                    <Typography>{conversation.messages[conversation.messages.length - 1].content}</Typography>
-                                </Box>
-                            )}
-                            {conversation.messages.length > 1 && (
-                                <Button variant="outlined" onClick={() => {
-                                    toggleConversation(index);
-                                    setActiveConversationId(conversation._id);
-                                }}>
-                                    {expandedConversations.has(index) ? 'Show Less' : 'Show More'}
-                                </Button>
-                            )}
-                        </Box>
-                    ))}
+            <Box
+                sx={{
+                    position: 'fixed',
+                    bottom: 60, // Adjusted to be above the toggle button
+                    right: 10,
+                    width: 300,
+                    backgroundColor: 'white',
+                    border: 1,
+                    borderColor: '#ccc',
+                    borderRadius: 1,
+                    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+                    zIndex: 1000,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxHeight: isMessagingOpen ? 400 : 0, // Controlled by isMessagingOpen
+                    overflow: 'hidden',
+                    transition: 'max-height 0.3s',
+                }}>
+                <Typography variant="h4" sx={{ p: 2 }}>Messages</Typography>
+                <Box
+                    className="message-list"
+                    sx={{
+                        overflowY: 'auto',
+                        p: 1,
+                    }}>
+                    {/* Message list here */}
                 </Box>
                 {activeConversationId && (
-                    <Box className="reply-section">
-                        <Box className="message-input">
-                            <TextField
-                                fullWidth
-                                type="text"
-                                value={newMessage}
-                                onChange={(e) => setNewMessage(e.target.value)}
-                                placeholder="Type your message here"
-                            />
-                            <Button variant="contained" onClick={handleSendReply}>
-                                Reply to Message
-                            </Button>
-                        </Box>
+                    <Box
+                        className="message-input"
+                        sx={{
+                            borderTop: 1,
+                            borderColor: '#ccc',
+                            p: 1,
+                        }}>
+                        <TextField
+                            fullWidth
+                            type="text"
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            placeholder="Type your message here"
+                        />
+                        <Button variant="contained" onClick={handleSendReply}>
+                            Reply to Message
+                        </Button>
                     </Box>
                 )}
             </Box>
