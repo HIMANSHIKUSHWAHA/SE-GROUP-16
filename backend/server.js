@@ -7,6 +7,7 @@ const twoFARoutes = require('./routes/2faRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
+const messagingRoutes = require('./routes/messagingRoutes');
 const liveSessionRoutes = require('./routes/liveSessionRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
@@ -47,7 +48,8 @@ app.use('/api/v1/auth/2fa', twoFARoutes);
 app.use('/api/v1/dashboard', dashboardRoutes)
 app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/settings', settingsRoutes);
-app.use('/api/v1/live-session', liveSessionRoutes)
+app.use('/api/v1/live-session', liveSessionRoutes);
+app.use('/api/v1/messages', messagingRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

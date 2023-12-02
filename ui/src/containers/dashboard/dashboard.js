@@ -1,9 +1,14 @@
 import React, { useState, useContext } from "react";
 import Header from "../header";
-import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
+import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck, faCamera, faUser } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import MediaCard from "./videoCards";
-import SecondaryNavbar from "../secondaryNavbar";
+import VideoSearch from "./VideoTab/videoSearchTab";
+import ExercisePlanSearch from "./ExerciseTab/ExercisePlanSearch";
+import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
+import MessagingWindow from "./MessagingWindow/MessagingWindow";
+import LiveSessions from "./LiveSessionsTab/LiveSessions";
+import MealPlansTab from "./MealPlansTab/MealPlansTab";
+import { UserContext } from "../../context";
 
 
 // Content Area Component
@@ -11,9 +16,10 @@ const ContentArea = ({ activeContent }) => (
   <div className="ContentArea">
     {activeContent === 'videos' && <VideoSearch />}
     {activeContent === 'routines' && <CalendarView />}
-    {activeContent === 'workout-programs' && <p>workout programs data</p>}
-    {activeContent === 'meal-plans' && <p>meal plans data</p>}
-    {activeContent === 'custom-workouts' && <p>custom workouts data</p>}
+    {activeContent === 'professionals' && <ProfessionalSearch />}
+    {activeContent === 'workout-programs' && <ExercisePlanSearch />}
+    {activeContent === 'meal-plans' && <MealPlansTab />}
+    {activeContent === 'livesessions' && <LiveSessions />}
   </div>
 );
 
@@ -39,25 +45,28 @@ const Dashboard = () => {
       content: 'meal-plans'
     },
     {
-      name: "Custom Workouts",
-      icon: faDumbbell,
-      content: 'workout-programs'
-    },
-
-  ]
-
-  if (user && user.role === "user") {
-    navbarData.push({
       name: "Routines",
       icon: faCalendarCheck,
       content: 'routines'
-    });
-  }
+    },
+    {
+      name: "Professionals",
+      icon: faUser,
+      content: 'professionals'
+    },
+    {
+      name: "Live Sessions",
+      icon: faCamera,
+      content: 'livesessions'
+    }
+  ]
+
 
   return (
     <div>
       <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} showMenu={true} />
       <ContentArea activeContent={activeContent} />
+      <MessagingWindow />
     </div>
   );
 };

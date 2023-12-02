@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './MessagingWindow.css';
+// import './MessagingWindow.css';
+import {
+    Avatar, Button, CssBaseline, TextField, Link, Grid, Box,
+    Typography, Container, Paper, createTheme, ThemeProvider
+} from '@mui/material';
 
 function Messaging() {
     const [conversations, setConversations] = useState([]);
@@ -115,54 +119,63 @@ function Messaging() {
 
     return (
         <>
-            <button onClick={handleToggleMessaging} className="messaging-toggle">
+            <Button
+                variant="contained"
+                onClick={handleToggleMessaging}
+                sx={{
+                    position: 'fixed',
+                    bottom: 20,
+                    right: 20,
+                    zIndex: 1000
+                }}>
                 {isMessagingOpen ? 'Close Messages' : 'Open Messages'}
-            </button>
+            </Button>
 
-            <div className={`messaging-container ${!isMessagingOpen ? 'messaging-collapsed' : ''}`}>
-                <h2>Messages</h2>
-                <div className="message-list">
+            <Box className={`messaging-container ${!isMessagingOpen ? 'messaging-collapsed' : ''}`}>
+                <Typography variant="h4">Messages</Typography>
+                <Box className="message-list">
                     {conversations.map((conversation, index) => (
-                        <div key={index}>
-                            <h3>{getOtherParticipantName(conversation)}</h3>
+                        <Box key={index}>
+                            <Typography variant="h5">{getOtherParticipantName(conversation)}</Typography>
                             {expandedConversations.has(index) ? (
                                 conversation.messages.map((msg, msgIndex) => (
-                                    <div key={msgIndex} className={isMessageSentByCurrentUser(msg) ? 'message-sent' : 'message-received'}>
-                                        <p>{msg.content}</p>
-                                    </div>
+                                    <Box key={msgIndex} className={isMessageSentByCurrentUser(msg) ? 'message-sent' : 'message-received'}>
+                                        <Typography>{msg.content}</Typography>
+                                    </Box>
                                 ))
                             ) : (
-                                <div>
-                                    <p>{conversation.messages[conversation.messages.length - 1].content}</p>
-                                </div>
+                                <Box>
+                                    <Typography>{conversation.messages[conversation.messages.length - 1].content}</Typography>
+                                </Box>
                             )}
                             {conversation.messages.length > 1 && (
-                                <button onClick={() => {
+                                <Button variant="outlined" onClick={() => {
                                     toggleConversation(index);
-                                    setActiveConversationId(conversation._id); // Set the active conversation for replying
+                                    setActiveConversationId(conversation._id);
                                 }}>
                                     {expandedConversations.has(index) ? 'Show Less' : 'Show More'}
-                                </button>
+                                </Button>
                             )}
-                        </div>
+                        </Box>
                     ))}
-                </div>
+                </Box>
                 {activeConversationId && (
-                    <div className="reply-section">
-                        <div className="message-input">
-                            <input
+                    <Box className="reply-section">
+                        <Box className="message-input">
+                            <TextField
+                                fullWidth
                                 type="text"
                                 value={newMessage}
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 placeholder="Type your message here"
                             />
-                            <button onClick={handleSendReply}>
+                            <Button variant="contained" onClick={handleSendReply}>
                                 Reply to Message
-                            </button>
-                        </div>
-                    </div>
+                            </Button>
+                        </Box>
+                    </Box>
                 )}
-            </div>
+            </Box>
         </>
     );
 }

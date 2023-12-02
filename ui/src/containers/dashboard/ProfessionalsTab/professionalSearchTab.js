@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './professionalSearchTab.css';
+import { TextField, Button, List, ListItem, Typography, Box } from '@mui/material';
 
 const ProfessionalSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -96,50 +97,55 @@ const ProfessionalSearch = () => {
     };
 
     return (
-        <div>
-            <h1>Search Professionals</h1>
-            <div className="search-container">
-                <input
+        <Box>
+            <Typography variant="h3" sx={{ mb: 2, fontWeight: 'bold' }}>Search Professionals</Typography>
+            <Box className="search-container">
+                <TextField
                     type="text"
-                    className="searchInput"
+                    variant="outlined"
                     placeholder="Search by name, specialization, etc..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     autoComplete="off"
+                    fullWidth
                 />
-                <button className="searchButton" onClick={handleSearch}>Search</button>
-            </div>
+                <Button variant="contained" onClick={handleSearch}>Search</Button>
+            </Box>
             {showSuggestions && suggestions.length > 0 && (
-                <ul className="suggestions-container">
+                <List className="suggestions-container">
                     {suggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
+                        <ListItem key={index} button onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
                             {suggestion}
-                        </li>
+                        </ListItem>
                     ))}
-                </ul>
+                </List>
             )}
 
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div className="professional-results-container">
+            {errorMessage && <Typography className="error-message">{errorMessage}</Typography>}
+            <Box className="professional-results-container">
                 {results.map((professional, index) => (
-                    <div key={index} className="professional-result-container">
-                        <div className="professional-firstname">{professional.firstName}</div>
-                        <div className="professional-lastname">{professional.lastName}</div>
-                        <div className="professional-specialization">{professional.specialization}</div>
-                        <input
+                    <Box key={index} className="professional-result-container">
+                        <Box display="flex" alignItems="center" justifyContent="space-between">
+                            <Typography variant="body1">
+                                {`${professional.firstName} ${professional.lastName}`}
+                            </Typography>
+                        </Box>
+                        <Typography className="professional-specialization">{professional.specialization}</Typography>
+                        <TextField
                             type="text"
                             value={quickMessages[professional._id] || ''}
                             onChange={(e) => handleQuickMessageChange(professional._id, e.target.value)}
                             placeholder="Type your quick message here"
-                            className="quick-message-input"
+                            variant="outlined"
+                            fullWidth
                         />
-                        <button onClick={() => handleQuickMessage(professional._id)} className="quick-message-button">
+                        <Button variant="contained" onClick={() => handleQuickMessage(professional._id)}>
                             Quick Message
-                        </button>
-                    </div>
+                        </Button>
+                    </Box>
                 ))}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 };
 
