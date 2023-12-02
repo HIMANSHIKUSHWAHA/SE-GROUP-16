@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import VideoPreview from './../videoEmbeds';
-import './videoSearchTab.css';
-const VideoSearch = () => {
+import './LiveSessions.css'
+const LiveSessionSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
@@ -10,7 +9,7 @@ const VideoSearch = () => {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     useEffect(() => {
-        fetchAllVideos();
+        fetchAllLiveSessions();
     }, []);
 
     useEffect(() => {
@@ -20,11 +19,11 @@ const VideoSearch = () => {
     const loadSuggestions = async () => {
         if (searchTerm.length > 0) {
             try {
-                const response = await axios.get(`/api/v1/search/autocomplete/video?prefix=${searchTerm}`);
+                const response = await axios.get(`/api/v1/search/autocomplete/livesessions?prefix=${searchTerm}`);
                 setSuggestions(response.data);
                 setShowSuggestions(true);
             } catch (error) {
-                console.error('Error loading title suggestions', error);
+                console.error('Error loading live session suggestions', error);
             }
         } else {
             setSuggestions([]);
@@ -32,19 +31,19 @@ const VideoSearch = () => {
         }
     };
 
-    const handleSuggestionClick = (title) => {
-        setSearchTerm(title);
+    const handleSuggestionClick = (sessionName) => {
+        setSearchTerm(sessionName);
         setSuggestions([]);
         setShowSuggestions(false);
     };
 
-    const fetchAllVideos = async () => {
+    const fetchAllLiveSessions = async () => {
         try {
-            const response = await axios.get('/api/v1/search/allvideos');
+            const response = await axios.get('/api/v1/search/allLiveSessions');
             setResults(response.data);
         } catch (error) {
-            setErrorMessage('An error occurred while fetching videos.');
-            console.error('Fetch all videos error', error);
+            setErrorMessage('An error occurred while fetching live sessions.');
+            console.error('Fetch all live sessions error', error);
         }
     };
 
@@ -57,24 +56,25 @@ const VideoSearch = () => {
         setShowSuggestions(false);
         setErrorMessage('');
         try {
-            const response = await axios.get('/api/v1/search/videos', { params: { searchTerm } });
+            const response = await axios.get('/api/v1/search/livesessions', {params: {searchTerm}});
             setResults(response.data);
             if (response.data.length === 0) {
-                setErrorMessage('No videos found.');
+                setErrorMessage('No live sessions found.');
             }
         } catch (error) {
-            setErrorMessage('An error occurred while searching for videos.');
+            setErrorMessage('An error occurred while searching for live sessions.');
             console.error('Search error', error);
         }
     };
+
     return (
         <div>
-            <h1>Search Videos</h1>
+            <h1>Search Live Sessions</h1>
             <div className="search-container">
                 <input
                     type="text"
                     className="searchInput"
-                    placeholder="Search by title, tags, description..."
+                    placeholder="Search by session name, topic, etc..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     autoComplete="off"
@@ -92,21 +92,21 @@ const VideoSearch = () => {
             )}
 
             {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div className="results-container"> {/* Flex container for video results */}
-                {results.map((result, index) => (
-                    <div key={index} className="video-result-container">
-                        <div className="video-title">{result.title}</div>
-                        <div className="video-preview">
-                            <VideoPreview link={result.link} />
-                        </div>
-                        <div className="creator">By: {result.creator.firstName} {result.creator.lastName}</div>
-                        <div className="video-description">{result.description}</div>
-                        <div className="video-tags">Tags: {result.tags.join(', ')}</div>
-
+            <div className="results-container"> {/* This div wraps the session results in a flex container */}
+                {results.map((session, index) => (
+                    <div key={index} className="session-result-container">
+                        <div className="session-title">{session.title}</div>
+                        <div className="creator">By: {session.creator.firstName} {session.creator.lastName}</div>
+                        {/* Use session-title for title */}
+                        <div className="session-description">{session.description}</div>
+                        {/* Use session-description for description */}
+                        <div className="session-date">{session.date}</div>
+                        {/* Add any other session details here */}
                     </div>
                 ))}
             </div>
         </div>
     );
 };
-export default VideoSearch;
+
+export default LiveSessionSearch;

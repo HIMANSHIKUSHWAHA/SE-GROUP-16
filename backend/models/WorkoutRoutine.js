@@ -7,7 +7,6 @@ const WorkoutRoutine = new mongoose.schema({
     creator: {
         type: Schema.types.objectId,
         ref: 'Professional',
-        select: false // why
     },
     title: {
         type: String,

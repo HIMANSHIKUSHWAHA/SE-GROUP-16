@@ -2,10 +2,9 @@ import React, { useState, useContext } from "react";
 import Header from "../header";
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-// import MediaCard from "./videoCards";
+import MediaCard from "./videoCards";
 import SecondaryNavbar from "../secondaryNavbar";
-import VideoSearch from "./VideoTab/videoSearchTab";
-import { UserContext } from "../../context";
+
 
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
