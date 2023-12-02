@@ -12,8 +12,13 @@ import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import Profile from "./dashboard/profile.js";
+import { UserContext } from "../context.js";
+import { useContext, useEffect } from "react";
 // user profile 
 export default function Router() {
+    
+    const { user } = useContext(UserContext);
+    
     return (
         <BrowserRouter>
             <Routes>
@@ -36,7 +41,7 @@ export default function Router() {
                         <TwoFactor />
                     </PrivateRoute>
                 } />
-                <Route path="/profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile userId = {user.id} user={user} />} />
             </Routes>
         </BrowserRouter>
     )

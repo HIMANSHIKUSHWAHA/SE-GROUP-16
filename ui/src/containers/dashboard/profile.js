@@ -1,41 +1,20 @@
-import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-import { UserContext } from '../../context';
-import { Typography, Box, Card, CardContent, Chip, Stack, Avatar } from '@mui/material';
+import { Box, Chip, Stack, Avatar } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import './profile.css';
-const Profile = () => {
-    const navigate = useNavigate();
-    const [entityData, setEntityData] = useState({});
-    const [editedData, setEditedData] = useState({});
-    const [entityType, setEntityType] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const { user } = useContext(UserContext)
-
-    const fetchContent = async (id) => {
-        setLoading(true);
-        setError('');
+const Profile = ({ userId }) => {
+    console.log("userId", userId);
+    const fetchEntity = async (userId) => {
         try {
-            const response = await axios.get(`/api/v1/searchContent/${id}`);
-            setEntityType(response.data.type);
-            setEntityData(response.data.data);
+            const response = await axios.get(`/api/v1/profile/${userId}`);
+            return response.data;
         } catch (err) {
-            setError(err.response?.data?.message || 'Error fetching data');
+            console.log(err);
         } finally {
-            setLoading(false);
+            console.log("DONE fetchEntity");
         }
-    }
-    
-    useEffect(() => {
-        // const userId = localStorage.getItem("UserId");
-        const userId = user.id;
-        if (userId) {
-            fetchEntity(userId);
-        }
-    }, []);
-
+    };
+    const entityData = fetchEntity(userId);
 
     const weight = entityData.weight;
     const height = entityData.height;
@@ -46,39 +25,11 @@ const Profile = () => {
     const currExercisePlan = entityData.currentExercisePlan;
     //fetch currExercisePlan title by id
     
-    useState(() => {
-        if (currExercisePlan) {
-            fetchContent(currExercisePlan);
-        }
-    }, [entityData]);
 
-    const currExercisePlanTitle = entityData.title;
-   
-
-    useEffect(() => {
-        setEditedData(entityData);
-    }, [entityData]);
-
-    const fetchEntity = async (id) => {
-        setLoading(true);
-        setError('');
-        try {
-            const response = await axios.get(`/api/v1/settings/entity/${id}`);
-            setEntityType(response.data.type);
-            setEntityData(response.data.data);
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error fetching data');
-        } finally {
-            setLoading(false);
-        }
-    };
-    
+    const currExercisePlanTitle = entityData.title;    
 
 
-    const handleLongTitle = (title) => {
-        return title.length > 20 ? title.substring(0, 17) + '...' : title;
-    };
-    
+
       
     const PlanChip = styled(Chip)({
         marginRight: '8px',
