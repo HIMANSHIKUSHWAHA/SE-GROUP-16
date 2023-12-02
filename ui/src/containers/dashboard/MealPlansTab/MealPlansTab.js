@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './MealPlansSearch.css';
+import RatingsComponent from "../RatingsButtons/RatingsComponent"
 const MealPlansSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [mealPlans, setMealPlans] = useState([]);
@@ -96,6 +97,7 @@ const MealPlansSearch = () => {
                         <p className="mealPlan-description">{mealPlan.description}</p>
                         <p className="mealPlan-cost">{mealPlan.cost}</p>
                         <p className="mealPlan-creator">By: {mealPlan.creator.firstName} {mealPlan.creator.lastName}</p>
+                        <div className="Ratings"><RatingsComponent ratings={mealPlan.ratings}/></div>
                     </div>
                 ))}
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ExercisePlan.css';
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
 
 const ExercisePlanSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -98,6 +99,7 @@ const ExercisePlanSearch = () => {
                     <div key={index} className="exercise-plan-result-container">
                         <div className="exercise-plan-title">{plan.title}</div>
                         <div className="exercise-plan-description">{plan.description}</div>
+                        <div className="Ratings"><RatingsComponent ratings={plan.ratings}/></div>
                         {/* Add other details here if necessary */}
                     </div>
                 ))}

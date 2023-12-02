@@ -23,6 +23,7 @@ const getAllAsyncVideos = async (req, res) => {
 const getAllLiveSessions = async (req, res) => {
     try {
         const liveSessions = await LiveSession.find()
+            .populate('ratings')
             .populate('creator', 'firstName lastName');
         res.json(liveSessions);
     } catch (error) {
@@ -50,6 +51,7 @@ const getAllProfessionals = async (req, res) => {
 const getAllExercisePlans = async (req, res) => {
     try {
         const exercisePlans = await ExercisePlan.find()
+            .populate('ratings')
             .populate('creator', 'firstName lastName');
         res.json(exercisePlans);
     } catch (error) {
@@ -60,6 +62,7 @@ const getAllExercisePlans = async (req, res) => {
 const getAllMealPlans = async (req, res) => {
     try {
         const mealPlans = await MealPlan.find()
+            .populate('ratings')
             .populate('creator', 'firstName lastName');
         res.json(mealPlans);
     } catch (error) {

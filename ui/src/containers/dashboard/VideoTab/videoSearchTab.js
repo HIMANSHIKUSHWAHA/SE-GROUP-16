@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
 import './videoSearchTab.css';
+import {UserContext} from "../../../context";
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
 const VideoSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-
+    const { user } = useContext(UserContext);
+    console.log('User ID: ',user?.id);
     useEffect(() => {
         fetchAllVideos();
     }, []);
@@ -102,6 +105,7 @@ const VideoSearch = () => {
                         <div className="creator">By: {result.creator.firstName} {result.creator.lastName}</div>
                         <div className="video-description">{result.description}</div>
                         <div className="video-tags">Tags: {result.tags.join(', ')}</div>
+                        <div className="Ratings"><RatingsComponent ratings={result.ratings}/></div>
 
                     </div>
                 ))}
