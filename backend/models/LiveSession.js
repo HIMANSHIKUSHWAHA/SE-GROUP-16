@@ -34,6 +34,10 @@ const LiveSession = new Schema({
         type: Date,
         required: true
     },
+    isDefault: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('LiveSession', LiveSession);

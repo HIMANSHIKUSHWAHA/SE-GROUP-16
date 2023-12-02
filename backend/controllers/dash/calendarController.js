@@ -98,6 +98,7 @@ const calendarData = async (req, res, next) => {
                 description: session.description,
                 tags: session.tags,
                 date: session.date,
+                duration: session.duration
             }));
 
             console.log("CALENDAR DATA BACKEND DONE");

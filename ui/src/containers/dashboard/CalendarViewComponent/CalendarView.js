@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Container,
     Grid,
@@ -6,7 +7,7 @@ import {
     Typography,
     Accordion,
     AccordionSummary,
-    AccordionDetails
+    AccordionDetails, Button
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { getReq } from '../../../services/api';
@@ -30,29 +31,52 @@ const generateWeekDates = (today) => {
 };
 
 // BASE CARD FOR EVENTS
-const TaskCard = ({ title, content }) => (
-    <Accordion sx={{ marginBottom: 2 }}>
-        <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1a-content"
-            id="panel1a-header"
-        >
-            <Typography variant="h6">{title}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-            <CardContent>
-                {content}
-            </CardContent>
-        </AccordionDetails>
-    </Accordion>
-);
+const TaskCard = ({ title, content, session }) => {
+    const navigate = useNavigate();
+    let isJoinTime = false;
+    // console.log("Session:", session);
 
+    if (session) {
+        const now = new Date();
+        const startTime = new Date(session.date);
+        const durationInMilliseconds = session.duration * 60000;
+        const endTime = new Date(startTime.getTime() + durationInMilliseconds);
+        isJoinTime = now >= new Date(startTime.getTime() - 15 * 60000) && now <= endTime;
+        console.log(startTime, endTime);
+    }
+
+    const handleStartSession = () => {
+        navigate('/meet'); // Adjust this route as needed
+    };
+
+    return (
+        <Accordion sx={{ marginBottom: 2 }}>
+            <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+            >
+                <Typography variant="h6">{title}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+                <CardContent>
+                    {content}
+                    {isJoinTime && session && (
+                        <Button variant="contained" color="primary" onClick={handleStartSession}>
+                            Join Session
+                        </Button>
+                    )}
+                </CardContent>
+            </AccordionDetails>
+        </Accordion>
+    );
+};
 // COLUMN FOR EACH DAY OF CALENDAR
-const DayColumn = ({ day, date, month, isToday, dayData }) => {
+const DayColumn = ({ day, date, month, isToday, dayData, events }) => {
     const meals = dayData?.meals;
     const exercises = dayData?.exercises?.exercises;
     const sleep = dayData?.sleep;
-    const events = dayData?.events;
+
     return (
         <Grid
             item
@@ -78,6 +102,23 @@ const DayColumn = ({ day, date, month, isToday, dayData }) => {
             >
                 {day} <br /> {month}/{date}
             </Typography>
+
+            {events && events.length > 0 && (
+                events.map((event, index) => (
+                    <TaskCard
+                        key={index}
+                        title={event.title}
+                        content={
+                            <Typography variant="body2">
+                                Description: {event.description} <br />
+                                Date: {new Date(event.date).toLocaleString()} <br />
+                                Tags: {event.tags.join(', ')}
+                            </Typography>
+                        }
+                        session={event}
+                    />
+                ))
+            )}
 
             {/* Sleep Data */}
 
@@ -139,19 +180,6 @@ const DayColumn = ({ day, date, month, isToday, dayData }) => {
                 <Typography variant="body2">No Exercises Planned</Typography>
             )}
 
-            {events && events.length > 0 && (
-                <TaskCard
-                    title="Live Sessions"
-                    content={events.map((event, index) => (
-                        <Typography key={index} variant="body2">
-                            <strong>{event.title}</strong> <br />
-                            Description: {event.description} <br />
-                            Date: {new Date(event.date).toLocaleString()} <br />
-                            Tags: {event.tags.join(', ')}
-                        </Typography>
-                    ))}
-                />
-            )}
         </Grid>
     );
 };
@@ -172,6 +200,7 @@ const WeeklyCalendar = () => {
 
                 setCalendarData(response.data.data);
                 setEvents(response.data.events);
+                console.log("Events Data:", response.data.events);
             })
             .catch(error => {
                 console.error("There was an error fetching the calendar data!", error);
@@ -182,17 +211,25 @@ const WeeklyCalendar = () => {
         <Container style={{ backgroundColor: '#E0F7FA', padding: '40px', borderRadius: '10px', maxWidth: '90%' }}>
             {Object.keys(calendarData).length > 0 ? (
                 <Grid container spacing={4} justifyContent="center" style={{ overflowX: 'auto' }}>
-                    {weekDates.map(({ day, date, month }, index) => (
-                        <DayColumn
-                            key={day}
-                            day={day}
-                            date={date}
-                            month={month}
-                            isToday={today.getDate() === date && today.getMonth() + 1 === month}
-                            dayData={calendarData[day]}
-                            events={events[day]}
-                        />
-                    ))}
+                    {weekDates.map(({ day, date, month }, index) => {
+                        const formattedDate = `${new Date().getFullYear()}-${month.toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`;
+                        const eventsForDay = events.filter(event => {
+                            const eventDate = new Date(event.date).toISOString().split('T')[0];
+                            return eventDate === formattedDate;
+                        });
+                        console.log(events[0], "   ", eventsForDay);
+                        return (
+                            <DayColumn
+                                key={day}
+                                day={day}
+                                date={date}
+                                month={month}
+                                isToday={today.getDate() === date && today.getMonth() + 1 === month}
+                                dayData={calendarData[day]}
+                                events={eventsForDay}
+                            />
+                        )
+                    })}
                 </Grid>
             ) : (
                 <Typography variant="h6" align="center">Loading...</Typography>

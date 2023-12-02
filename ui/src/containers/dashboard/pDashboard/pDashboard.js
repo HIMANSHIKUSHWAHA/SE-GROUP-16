@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../header";
 import { faVideo, faRunning, faUtensils, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import SecondaryNavbar from "../../secondaryNavbar";
 import UploadWorkoutVideo from "./uploadWorkoutVideo";
 import UploadWorkoutRoutine from "./uploadWorkoutRoutine";
 import UploadMealPlan from "./uploadMealPlan";
