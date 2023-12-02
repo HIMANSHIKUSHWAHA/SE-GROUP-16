@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
 import { Box, TextField, Button, List, ListItem, Typography, Paper, Grid, Card, CardContent } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import {UserContext} from "../../../context";
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
 
 const VideoSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -10,8 +12,8 @@ const VideoSearch = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-
-
+    const { user } = useContext(UserContext);
+    console.log('User ID: ',user?.id);
     useEffect(() => {
         fetchAllVideos();
     }, []);

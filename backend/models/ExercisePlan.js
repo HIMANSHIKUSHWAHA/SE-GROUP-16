@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const Ratings = require('../models/Ratings').schema;
 // Define the Exercise schema
 const exerciseSchema = new Schema({
     title: String,
@@ -20,6 +20,7 @@ const exercisePlanSchema = new mongoose.Schema({
     cost: Number,
     title: String,
     difficulty_level: String,
+    ratings: {type: Schema.Types.ObjectId, ref: 'Ratings'},
     description: String,
     tags: Array,
     isDefault: { type: Boolean, default: false },
