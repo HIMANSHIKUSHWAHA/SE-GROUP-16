@@ -1,91 +1,96 @@
-// require("dotenv").config();
-// const express = require("express");
-// const app = express();
-// const connectDB = require("./config/db");
-// const authRoutes = require("./routes/authRoutes");
-// const twoFARoutes = require("./routes/2faRoutes");
-// const dashboardRoutes = require("./routes/dashboardRoutes");
-// const searchRoutes = require("./routes/searchRoutes");
-// const settingsRoutes = require("./routes/settingsRoutes");
-// const errorHandler = require("./middleware/errorHandler");
-// const session = require("express-session");
-// const passport = require("./config/passport");
-// const cors = require("cors");
-// const cookieParser = require("cookie-parser");
-// const mongoose = require("mongoose");
-// const Professional = require("./models/Professional");
-// const adminRoutes = require('./routes/adminRoutes');
-// app.use('/api/admin', adminRoutes);
+const express = require("express");
+const app = express();
+require("dotenv").config();
+const connectDB = require("./config/db");
+const authRoutes = require("./routes/authRoutes");
+const twoFARoutes = require("./routes/2faRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const searchRoutes = require("./routes/searchRoutes");
+const settingsRoutes = require("./routes/settingsRoutes");
+const errorHandler = require("./middleware/errorHandler");
+const session = require("express-session");
+const passport = require("./config/passport");
+const cors = require("cors");
+const cookieParser = require("cookie-parser");
+const mongoose = require("mongoose");
+const Professional = require("./models/Professional");
+const adminRoutes = require('./routes/adminRoutes');
 
-// console.log("Started backend server");
+console.log("Started backend server");
 
-// // Connect to mongoose
-// connectDB();
+// Connect to mongoose
+connectDB();
 
-// // Enable CORS for all routes
-// app.use("*", cors());
-// app.use(express.json());
-// app.use(cookieParser());
-// app.use('/api/admin', adminRoutes);
-// // Session Middleware Initialization with secure cookie settingsTab
-// app.use(
-//   session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {
-//       secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-//       httpOnly: true,
-//       sameSite: "Strict",
-//     },
-//   })
-// );
+// Enable CORS for all routes
+app.use("*", cors());
+app.use(express.json());
+app.use(cookieParser());
+app.use('/api/admin', adminRoutes);
+// Session Middleware Initialization with secure cookie settingsTab
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    secret:"kokijaAe4e5dtmk",
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+      httpOnly: true,
+      sameSite: "Strict",
+    },
+  })
+);
 
-// // Initialize Passport Middleware
-// app.use(passport.initialize());
-// app.use(passport.session());
+// Initialize Passport Middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-// // Routes
-// app.use("/api/v1/auth", authRoutes);
-// app.use("/api/v1/auth/2fa", twoFARoutes);
-// app.use("/api/v1/dashboard", dashboardRoutes);
-// app.use("/api/v1/search", searchRoutes);
-// app.use("/api/v1/settings", settingsRoutes);
-// app.get("/", (req, res) => {
-//   res.send("Hello, World!");
-// });
-// // Error handler to be placed last
-// app.use(errorHandler);
+// Routes
+app.use("/api/v1/auth", authRoutes);
+app.use('/auth', authRoutes);
+app.use("/api/v1/auth/2fa", twoFARoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
+app.use("/api/v1/search", searchRoutes);
+app.use("/api/v1/settings", settingsRoutes);
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+// Error handler to be placed last
+app.use(errorHandler);
+// const PORT = process.env.PORT || 8000;
+app.listen(8000, () => {
+  console.log(`Server is running on http://localhost:8000`);
+});
 
-// /*
-// Request Queue
+/*
+Request Queue
 
-// Proffestional Trainer Side id(9012)
-// VideoId  DateRequested TimeRequested Status
-// re34r3r  12/12/2020      12:00       Pending
+Proffestional Trainer Side id(9012)
+VideoId  DateRequested TimeRequested Status
+re34r3r  12/12/2020      12:00       Pending
 
-// requestQueue = [{
-//     videoId: "re34r3r",
-//     dateRequested: "12/12/2020",
-//     timeRequested: "12:00",
-//     status: "Pending"
-// }]
+requestQueue = [{
+    videoId: "re34r3r",
+    dateRequested: "12/12/2020",
+    timeRequested: "12:00",
+    status: "Pending"
+}]
 
-// admin approves the request
-// update adminsRequestQueue in mongodb
-// update requestQueue in mongodb
+admin approves the request
+update adminsRequestQueue in mongodb
+update requestQueue in mongodb
 
-// first update the adminsRequestQueue in mongodb status to approved
+first update the adminsRequestQueue in mongodb status to approved
 
-// For updating proffestional side
+For updating proffestional side
 
-// fetch adminsRequestQueue from mongodb
-// find your id in the adminsRequestQueue
-// check if status is approved
-// requestQueue update that videoId status to approved
-// */
+fetch adminsRequestQueue from mongodb
+find your id in the adminsRequestQueue
+check if status is approved
+requestQueue update that videoId status to approved
+*/
 
-// // Recieving Requests from the proffestional trainer
+// Recieving Requests from the proffestional trainer
 // app.get("/request-admin", (req, res) => {
 //   let proffestionalId = req.body.proffestionalId;
 //   let videoRequest = req.body.videoRequest;
@@ -156,72 +161,63 @@
 //     )
 // })
 
-// const PORT = process.env.PORT || 8000;
 
-// app.listen(PORT, () => {
-//   console.log("Server is running on http://localhost:${PORT}");
+
+// require("dotenv").config();
+// const express = require("express");
+// const connectDB = require("./config/db");
+// const authRoutes = require("./routes/authRoutes");
+// const twoFARoutes = require("./routes/2faRoutes");
+// const dashboardRoutes = require("./routes/dashboardRoutes");
+// const searchRoutes = require("./routes/searchRoutes");
+// const settingsRoutes = require("./routes/settingsRoutes");
+// const errorHandler = require("./middleware/errorHandler");
+// const session = require("express-session");
+// const passport = require("./config/passport");
+// const cors = require("cors");
+// const cookieParser = require("cookie-parser");
+// const adminRoutes = require('./routes/adminRoutes'); // Admin routes
+
+// const app = express();
+// console.log("Started backend server");
+
+// // Connect to mongoose
+// connectDB();
+
+// // Enable CORS for all routes
+// app.use(cors());
+// app.use(express.json());
+// app.use(cookieParser());
+
+// // Session Middleware Initialization with secure cookie settings
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
+//     cookie: {
+//       secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
+//       httpOnly: true,
+//       sameSite: "Strict",
+//     },
+// }));
+
+// // Initialize Passport Middleware
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// // Routes
+// app.use("/api/v1/auth", authRoutes);
+// app.use("/api/v1/auth/2fa", twoFARoutes);
+// app.use("/api/v1/dashboard", dashboardRoutes);
+// app.use("/api/v1/search", searchRoutes);
+// app.use("/api/v1/settings", settingsRoutes);
+// app.use('/api/admin', adminRoutes); // Use admin routes
+
+// // Home route
+// app.get("/", (req, res) => {
+//   res.send("Hello, World!");
 // });
 
+// // Error handler to be placed last
+// app.use(errorHandler);
 
-require("dotenv").config();
-const express = require("express");
-const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const twoFARoutes = require("./routes/2faRoutes");
-const dashboardRoutes = require("./routes/dashboardRoutes");
-const searchRoutes = require("./routes/searchRoutes");
-const settingsRoutes = require("./routes/settingsRoutes");
-const errorHandler = require("./middleware/errorHandler");
-const session = require("express-session");
-const passport = require("./config/passport");
-const cors = require("cors");
-const cookieParser = require("cookie-parser");
-const adminRoutes = require('./routes/adminRoutes'); // Admin routes
-
-const app = express();
-console.log("Started backend server");
-
-// Connect to mongoose
-connectDB();
-
-// Enable CORS for all routes
-app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
-
-// Session Middleware Initialization with secure cookie settings
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: process.env.NODE_ENV === "production", // Ensure secure cookies in production
-      httpOnly: true,
-      sameSite: "Strict",
-    },
-}));
-
-// Initialize Passport Middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
-// Routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/auth/2fa", twoFARoutes);
-app.use("/api/v1/dashboard", dashboardRoutes);
-app.use("/api/v1/search", searchRoutes);
-app.use("/api/v1/settings", settingsRoutes);
-app.use('/api/admin', adminRoutes); // Use admin routes
-
-// Home route
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
-
-// Error handler to be placed last
-app.use(errorHandler);
-
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});

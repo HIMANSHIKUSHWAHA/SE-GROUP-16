@@ -1,4 +1,6 @@
 const express = require('express');
+require("dotenv").config();
+const jwt=require('jsonwebtoken')
 const router = express.Router();
 const Professional = require('../models/Professional'); // Adjust the path as needed
 /*
@@ -60,7 +62,36 @@ router.get("/retrieve-all-requests", async (req, res) => {
         res.status(500).send("Server error while retrieving requests.");
     }
 });
-
+router.post("/admin-login", (req, res) => {
+    if (
+      req.body.adminEmail === process.env.ADMIN_EMAIL &&
+      req.body.adminPassword === process.env.ADMIN_PASSWORD
+    ) {
+      jwt.sign(
+        { user: req.body },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" },
+        (err, token) => {
+          if (err) {
+            return res.json({
+              message: "Failed to login",
+              token: null,
+            });
+          }
+          res.json({
+            isAdmin: true,
+            token,
+          });
+        }
+      );
+    } else {
+      res.json({
+        isAdmin: false,
+        token: null,
+      });
+    }
+  });
+  
 // Endpoint to approve a request
 router.post("/approve-request", async (req, res) => {
     const { videoId, professionalId } = req.body;

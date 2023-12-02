@@ -12,6 +12,7 @@ import TwoFactorAuthSetup from "./auth/twoFactorAuthSetup.js";
 import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import Profile from "./dashboard/profile.js";
+import AdminLogin from "./auth/AdminLogin.js"
 // user profile 
 export default function Router() {
     return (
@@ -26,6 +27,7 @@ export default function Router() {
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
                 <Route path="test" element={<PDashboard />} />
+                <Route path="/admin-login" element={<AdminLogin/>}/>
                 <Route path="/dashboard" element={
                     <PrivateRoute>
                         <Dashboard />
