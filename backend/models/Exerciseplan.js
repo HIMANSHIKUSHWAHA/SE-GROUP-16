@@ -11,25 +11,34 @@ const exerciseSchema = new Schema({
 });
 
 // Define the ExerciseDay schema
-const exerciseDaySchema = new mongoose.Schema({
-    exercises: [exerciseSchema] // An array of exercise schemas
-});
+// const exerciseDaySchema = new mongoose.Schema({
+//     exercises: [exerciseSchema] // An array of exercise schemas
+// });
 
 // Define the ExercisePlan schema
 const exercisePlanSchema = new mongoose.Schema({
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'Professional',
+        select: false
+    },
     cost: Number,
     title: String,
     difficulty_level: String,
     description: String,
     tags: Array,
+    ratings: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ratings'
+    },
     isDefault: { type: Boolean, default: false },
-    Monday: exerciseDaySchema,
-    Tuesday: exerciseDaySchema,
-    Wednesday: exerciseDaySchema,
-    Thursday: exerciseDaySchema,
-    Friday: exerciseDaySchema,
-    Saturday: exerciseDaySchema,
-    Sunday: exerciseDaySchema
+    Monday: [exerciseSchema],
+    Tuesday: [exerciseSchema],
+    Wednesday: [exerciseSchema],
+    Thursday: [exerciseSchema],
+    Friday: [exerciseSchema],
+    Saturday: [exerciseSchema],
+    Sunday: [exerciseSchema]
 });
 
 // Create and export the ExercisePlan model

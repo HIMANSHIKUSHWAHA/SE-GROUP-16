@@ -146,6 +146,8 @@ const SecondPage = (props) => {
         const handleSave = (idx, e_idx) => {
             let tmp_array = props.formData.routine;
             tmp_array[idx].exercises[e_idx] = exercise;
+            console.log(tmp_array);
+            console.log('--',idx,'--',e_idx);
             props.setFormData((prevFormData) => {
                 return {...prevFormData, routine: tmp_array}
             })

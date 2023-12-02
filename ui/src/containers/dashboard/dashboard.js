@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import Header from "../header";
-import FilterSearchSection from "../searchbar";
+// import FilterSearchSection from "../searchbar";
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import MediaCard from "./videoCards";
+// import MediaCard from "./videoCards";
 import SecondaryNavbar from "../secondaryNavbar";
 
 
 // Content Area Component
 const ContentArea = ({ activeContent }) => (
     <div className="ContentArea">
-        {activeContent === 'videos' && <VideoSearch />}
+        {/* {activeContent === 'videos' && <VideoSearch />} */}
         {activeContent === 'routines' && <CalendarView />}
         {activeContent === 'workout-programs' && <p>workout programs data</p>}
         {activeContent === 'meal-plans' && <p>meal plans data</p>}
@@ -47,7 +47,7 @@ const Dashboard = () => {
   return (
     <div>
       <Header auth={true} />
-      <FilterSearchSection />
+      {/* <FilterSearchSection /> */}
       <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent}/>
       <ContentArea activeContent={activeContent} />
     </div>

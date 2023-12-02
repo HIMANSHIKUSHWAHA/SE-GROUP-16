@@ -65,6 +65,16 @@ const professionalSchema = new Schema({
         ref: 'AsyncVideo',
         select: false
     }],
+    exercisePlanAssociated: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ExercisePlan',
+        select: false
+    }],
+    mealPlanAssociated: [{
+        type: Schema.Types.ObjectId,
+        ref: 'MealPlan',
+        select: false
+    }],
     LiveSessionCreated: [{
         type: Schema.Types.ObjectId,
         ref: 'LiveSession',

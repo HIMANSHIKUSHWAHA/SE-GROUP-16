@@ -44,10 +44,19 @@ const mealPlanDaySchema = new mongoose.Schema({
 
 // Define the MealPlan schema
 const mealPlanSchema = new mongoose.Schema({
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'Professional',
+        select: false
+    },
     cost: Number,
     title: String,
     description: String,
     tags: Array,
+    ratings: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ratings'
+    },
     isDefault: { type: Boolean, default: false },
     Monday: mealPlanDaySchema,
     Tuesday: mealPlanDaySchema,
