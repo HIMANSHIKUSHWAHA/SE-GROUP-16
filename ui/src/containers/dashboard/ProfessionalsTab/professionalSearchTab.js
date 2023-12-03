@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './professionalSearchTab.css';
-import { TextField, Button, List, ListItem, Typography, Box } from '@mui/material';
+// import './professionalSearchTab.css';
+import { Grid, Card, CardContent, Box, TextField, Button, List, ListItem, Typography, Paper } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 const ProfessionalSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -97,9 +98,22 @@ const ProfessionalSearch = () => {
     };
 
     return (
-        <Box>
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 'bold' }}>Search Professionals</Typography>
-            <Box className="search-container">
+        <Box sx={{ padding: 3 }}>
+            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', mb: 4 }}>
+                <SearchIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, mr: 1 }} />
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    sx={{
+                        flexGrow: 1,
+                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+                    }}
+                >
+                    Search Professionals
+                </Typography>
+            </Box>
+            <Box display="flex" alignItems="center" gap={2} mb={4} position="relative">
                 <TextField
                     type="text"
                     variant="outlined"
@@ -108,43 +122,51 @@ const ProfessionalSearch = () => {
                     onChange={handleInputChange}
                     autoComplete="off"
                     fullWidth
+                    sx={{ flexGrow: 1, maxWidth: '70%' }}
                 />
                 <Button variant="contained" onClick={handleSearch}>Search</Button>
+                {showSuggestions && suggestions.length > 0 && (
+                    <Paper elevation={2} style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 2 }}>
+                        <List>
+                            {suggestions.map((suggestion, index) => (
+                                <ListItem key={index} button onClick={() => handleSuggestionClick(suggestion)}>
+                                    {suggestion}
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Paper>
+                )}
             </Box>
-            {showSuggestions && suggestions.length > 0 && (
-                <List className="suggestions-container">
-                    {suggestions.map((suggestion, index) => (
-                        <ListItem key={index} button onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
-                            {suggestion}
-                        </ListItem>
-                    ))}
-                </List>
-            )}
 
-            {errorMessage && <Typography className="error-message">{errorMessage}</Typography>}
-            <Box className="professional-results-container">
+            {errorMessage && <Typography color="error">{errorMessage}}</Typography>}
+            <Grid container spacing={2}>
                 {results.map((professional, index) => (
-                    <Box key={index} className="professional-result-container">
-                        <Box display="flex" alignItems="center" justifyContent="space-between">
-                            <Typography variant="body1">
-                                {`${professional.firstName} ${professional.lastName}`}
-                            </Typography>
-                        </Box>
-                        <Typography className="professional-specialization">{professional.specialization}</Typography>
-                        <TextField
-                            type="text"
-                            value={quickMessages[professional._id] || ''}
-                            onChange={(e) => handleQuickMessageChange(professional._id, e.target.value)}
-                            placeholder="Type your quick message here"
-                            variant="outlined"
-                            fullWidth
-                        />
-                        <Button variant="contained" onClick={() => handleQuickMessage(professional._id)}>
-                            Quick Message
-                        </Button>
-                    </Box>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                            <CardContent>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    {`${professional.firstName} ${professional.lastName}`}
+                                </Typography>
+                                <Typography sx={{ mb: 2 }}>{professional.specialization}</Typography>
+                                <TextField
+                                    type="text"
+                                    value={quickMessages[professional._id] || ''}
+                                    onChange={(e) => handleQuickMessageChange(professional._id, e.target.value)}
+                                    placeholder="Type your quick message here"
+                                    variant="outlined"
+                                    fullWidth
+                                    sx={{ mb: 2 }} // Added margin-bottom
+                                />
+                                <Box textAlign="center"> {/* Center the button */}
+                                    <Button variant="contained" onClick={() => handleQuickMessage(professional._id)}>
+                                        Quick Message
+                                    </Button>
+                                </Box>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
-            </Box>
+            </Grid>
         </Box>
     );
 };

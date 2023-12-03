@@ -69,7 +69,7 @@ const MealPlansSearch = () => {
 
     return (
         <div className="mealPlans-search-wrapper">
-            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', mb: 4 }}>
                 <RestaurantMenuIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, marginRight: 1 }} />
                 <Typography
                     variant="h4"

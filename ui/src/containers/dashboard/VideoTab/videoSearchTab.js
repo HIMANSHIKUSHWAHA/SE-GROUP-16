@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
+import { Box, TextField, Button, List, ListItem, Typography, Paper, Grid, Card, CardContent } from '@mui/material';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import './videoSearchTab.css';
 const VideoSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -8,6 +10,7 @@ const VideoSearch = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+
 
     useEffect(() => {
         fetchAllVideos();
@@ -68,45 +71,74 @@ const VideoSearch = () => {
         }
     };
     return (
-        <div>
-            <h1>Search Videos</h1>
-            <div className="search-container">
-                <input
+        <Box sx={{ padding: 3 }}>
+            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', mb: 4 }}>
+                <PlayCircleOutlineIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, mr: 1 }} />
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    sx={{
+                        flexGrow: 1,
+                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+                    }}
+                >
+                    Search Videos
+                </Typography>
+            </Box>
+            <Box display="flex" alignItems="center" gap={2} mb={4} position="relative">
+                <TextField
                     type="text"
-                    className="searchInput"
+                    variant="outlined"
                     placeholder="Search by title, tags, description..."
                     value={searchTerm}
                     onChange={handleInputChange}
                     autoComplete="off"
+                    fullWidth
+                    sx={{ flexGrow: 1, maxWidth: '70%' }}
                 />
-                <button className="searchButton" onClick={handleSearch}>Search</button>
-            </div>
-            {showSuggestions && suggestions.length > 0 && (
-                <ul className="suggestions-container">
-                    {suggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
-                            {suggestion}
-                        </li>
-                    ))}
-                </ul>
-            )}
+                <Button variant="contained" onClick={handleSearch}>Search</Button>
+                {showSuggestions && suggestions.length > 0 && (
+                    <Paper elevation={2} style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 2 }}>
+                        <List>
+                            {suggestions.map((suggestion, index) => (
+                                <ListItem key={index} button onClick={() => handleSuggestionClick(suggestion)}>
+                                    {suggestion}
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Paper>
+                )}
+            </Box>
 
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div className="results-container"> {/* Flex container for video results */}
+            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+            <Grid container spacing={2}>
                 {results.map((result, index) => (
-                    <div key={index} className="video-result-container">
-                        <div className="video-title">{result.title}</div>
-                        <div className="video-preview">
-                            <VideoPreview link={result.link} />
-                        </div>
-                        <div className="creator">By: {result.creator.firstName} {result.creator.lastName}</div>
-                        <div className="video-description">{result.description}</div>
-                        <div className="video-tags">Tags: {result.tags.join(', ')}</div>
-
-                    </div>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                            <CardContent>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    {result.title}
+                                </Typography>
+                                {/* Assuming VideoPreview is a React component */}
+                                <Box className="video-preview" sx={{ mb: 2 }}>
+                                    <VideoPreview link={result.link} />
+                                </Box>
+                                <Typography variant="body1" sx={{ mb: 1 }}>
+                                    By: {result.creator.firstName} {result.creator.lastName}
+                                </Typography>
+                                <Typography variant="body2">
+                                    {result.description}
+                                </Typography>
+                                <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                                    Tags: {result.tags.join(', ')}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Box>
     );
 };
 export default VideoSearch;

@@ -104,33 +104,33 @@ const searchVideos = async (req, res) => {
 };
 
 const searchLiveSessions = async (req, res, next) => {
-        const { searchTerm } = req.query;
-        let queryObject = { };
-
-        if (searchTerm) {
-            // This will create a query that looks for the searchTerm in any of the specified fields
-            queryObject['$or'] = [
-                { title: { $regex: searchTerm, $options: 'i' } },
-                { creator: { $regex: searchTerm, $options: 'i' } },
-                { description: { $regex: searchTerm, $options: 'i' } },
-                { tags: { $regex: searchTerm, $options: 'i' } },
-                { date: { $regex: searchTerm, $options: 'i'} }
-            ];
-        }
-
-        try {
-            const liveSessions = await LiveSession.find(queryObject)
-                .populate('creator', 'firstName lastName');
-            res.json(liveSessions);
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Internal server error' });
-        }
-    };
-
-    const searchProfessionals = async (req, res, next) => {
     const { searchTerm } = req.query;
-    let queryObject = { };
+    let queryObject = {};
+
+    if (searchTerm) {
+        // This will create a query that looks for the searchTerm in any of the specified fields
+        queryObject['$or'] = [
+            { title: { $regex: searchTerm, $options: 'i' } },
+            { creator: { $regex: searchTerm, $options: 'i' } },
+            { description: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } },
+            { date: { $regex: searchTerm, $options: 'i' } }
+        ];
+    }
+
+    try {
+        const liveSessions = await LiveSession.find(queryObject)
+            .populate('creator', 'firstName lastName');
+        res.json(liveSessions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+const searchProfessionals = async (req, res, next) => {
+    const { searchTerm } = req.query;
+    let queryObject = {};
 
     if (searchTerm) {
         // This will create a query that looks for the searchTerm in any of the specified fields

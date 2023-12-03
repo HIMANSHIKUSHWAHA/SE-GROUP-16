@@ -3,13 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import {
     Container,
     Grid,
+    Card,
     CardContent,
     Typography,
     Accordion,
     AccordionSummary,
-    AccordionDetails, Button
+    AccordionDetails,
+    Button,
+    Box
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import EventNoteIcon from '@mui/icons-material/EventNote'; // Example icon for calendar
 import { getReq } from '../../../services/api';
 import { UserContext } from '../../../context';
 
@@ -209,6 +213,21 @@ const WeeklyCalendar = () => {
 
     return (
         <Container style={{ backgroundColor: '#E0F7FA', padding: '40px', borderRadius: '10px', maxWidth: '90%' }}>
+            <Box display="flex" alignItems="center" sx={{ mb: 4 }}>
+                <EventNoteIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, mr: 1 }} />
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    sx={{
+                        flexGrow: 1,
+                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+                    }}
+                >
+                    Weekly Calendar
+                </Typography>
+            </Box>
+
             {Object.keys(calendarData).length > 0 ? (
                 <Grid container spacing={4} justifyContent="center" style={{ overflowX: 'auto' }}>
                     {weekDates.map(({ day, date, month }, index) => {

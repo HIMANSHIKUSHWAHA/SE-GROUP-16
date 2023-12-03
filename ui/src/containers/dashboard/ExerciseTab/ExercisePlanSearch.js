@@ -71,8 +71,8 @@ const ExercisePlanSearch = () => {
     };
 
     return (
-        <Box sx={{ padding: 3 }}>
-            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+        <div className="exercise-plan-search-wrapper"> {/* Ensuring outer wrapper consistency */}
+            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', mb: 4 }}>
                 <FitnessCenterIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, marginRight: 1 }} />
                 <Typography
                     variant="h4"
@@ -86,13 +86,13 @@ const ExercisePlanSearch = () => {
                     Search Workout Plans
                 </Typography>
             </Box>
-            <Box position="relative" display="flex" alignItems="center" gap={2} marginBottom={2} width="auto">
+            <Box display="flex" alignItems="center" gap={2} marginBottom={2} position="relative">
                 <TextField
                     label="Search by plan name, difficulty level, etc..."
                     variant="outlined"
                     value={searchTerm}
                     onChange={handleInputChange}
-                    sx={{ flexGrow: 1, maxWidth: { xs: '100%', sm: '70%' } }}
+                    sx={{ flexGrow: 1, maxWidth: '70%' }} // Adjust width as needed
                 />
                 <Button variant="contained" color="primary" onClick={handleSearch}>
                     Search
@@ -113,7 +113,6 @@ const ExercisePlanSearch = () => {
                     </Paper>
                 )}
             </Box>
-
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
             <Grid container spacing={2}>
                 {results.map((plan, index) => (
@@ -132,7 +131,7 @@ const ExercisePlanSearch = () => {
                     </Grid>
                 ))}
             </Grid>
-        </Box>
+        </div>
     );
 };
 
