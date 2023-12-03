@@ -158,6 +158,7 @@ const searchExercisePlans = async (req, res, next) => {
         queryObject['$or'] = [
             { title: { $regex: searchTerm, $options: 'i' } },
             { description: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } }
             // You can also include other relevant fields here, for example:
             // { cost: { $regex: searchTerm, $options: 'i' } },
             // { 'creator.firstName': { $regex: searchTerm, $options: 'i' } },
@@ -183,7 +184,8 @@ const searchMealPlans = async (req, res, next) => {
     if (searchTerm) {
         queryObject['$or'] = [
             { title: { $regex: searchTerm, $options: 'i' } },
-            { description: { $regex: searchTerm, $options: 'i' } }
+            { description: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } }
             // Add other fields if necessary
         ];
     }
