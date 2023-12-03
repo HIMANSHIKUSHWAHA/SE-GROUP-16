@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './ExercisePlan.css';
+// import './ExercisePlan.css';
+import { Paper, Box, TextField, Button, List, ListItem, Typography, Grid, Card, CardContent } from '@mui/material';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 
 const ExercisePlanSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -69,40 +71,68 @@ const ExercisePlanSearch = () => {
     };
 
     return (
-        <div>
-            <h1>Search Workout Plans</h1>
-            <div className="search-container">
-                <input
-                    type="text"
-                    className="searchInput"
-                    placeholder="Search by plan name, difficulty level, etc..."
+        <Box sx={{ padding: 3 }}>
+            <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}>
+                <FitnessCenterIcon sx={{ fontSize: { xs: '2rem', sm: '2.5rem' }, marginRight: 1 }} />
+                <Typography
+                    variant="h4"
+                    component="h1"
+                    sx={{
+                        flexGrow: 1,
+                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+                        textShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)'
+                    }}
+                >
+                    Search Workout Plans
+                </Typography>
+            </Box>
+            <Box position="relative" display="flex" alignItems="center" gap={2} marginBottom={2} width="auto">
+                <TextField
+                    label="Search by plan name, difficulty level, etc..."
+                    variant="outlined"
                     value={searchTerm}
                     onChange={handleInputChange}
-                    autoComplete="off"
+                    sx={{ flexGrow: 1, maxWidth: { xs: '100%', sm: '70%' } }}
                 />
-                <button className="searchButton" onClick={handleSearch}>Search</button>
-            </div>
-            {showSuggestions && suggestions.length > 0 && (
-                <ul className="suggestions-container">
-                    {suggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSuggestionClick(suggestion)} className="suggestion-item">
-                            {suggestion}
-                        </li>
-                    ))}
-                </ul>
-            )}
+                <Button variant="contained" color="primary" onClick={handleSearch}>
+                    Search
+                </Button>
+                {showSuggestions && suggestions.length > 0 && (
+                    <Paper elevation={2} style={{ position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 2 }}>
+                        <List>
+                            {suggestions.map((suggestion, index) => (
+                                <ListItem
+                                    key={index}
+                                    button
+                                    onClick={() => handleSuggestionClick(suggestion)}
+                                >
+                                    {suggestion}
+                                </ListItem>
+                            ))}
+                        </List>
+                    </Paper>
+                )}
+            </Box>
 
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-            <div className="exercise-plan-results-container">
+            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+            <Grid container spacing={2}>
                 {results.map((plan, index) => (
-                    <div key={index} className="exercise-plan-result-container">
-                        <div className="exercise-plan-title">{plan.title}</div>
-                        <div className="exercise-plan-description">{plan.description}</div>
-                        {/* Add other details here if necessary */}
-                    </div>
+                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                            <CardContent>
+                                <Typography variant="h5" component="h2">
+                                    {plan.title}
+                                </Typography>
+                                <Typography color="textSecondary">
+                                    {plan.description}
+                                </Typography>
+                                {/* Add other details here if necessary */}
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
-            </div>
-        </div>
+            </Grid>
+        </Box>
     );
 };
 

@@ -18,7 +18,7 @@ function Messaging() {
 
     useEffect(() => {
         const fetchConversations = () => {
-            axios.get('/api/v1/messages/getAllMessages', { params: { id: user.id, role: user.role } })
+            axios.get('/api/v1/messages/getAllMessages', { params: { id: user?.id, role: user?.role } })
                 .then(response => {
                     console.log(response.data);
                     setConversations(response.data.conversations);
