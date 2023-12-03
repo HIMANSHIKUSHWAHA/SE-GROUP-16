@@ -5,7 +5,7 @@ const LiveSession = require('../../models/LiveSession');
 const ExercisePlan = require('../../models/ExercisePlan');
 const MealPlan = require('../../models/MealPlan');
 const Professional = require('../../models/Professional');
-const {populate} = require("dotenv");
+const { populate } = require("dotenv");
 
 
 //for the purpose of returning all content upon initially visiting a page.
@@ -22,10 +22,26 @@ const getAllAsyncVideos = async (req, res) => {
 
 const getAllLiveSessions = async (req, res) => {
     try {
+        const userId = req.query.userId; // Get user ID from the query parameters
+
         const liveSessions = await LiveSession.find()
-            .populate('creator', 'firstName lastName');
-        res.json(liveSessions);
+            .select('+enrolled')
+            .populate('creator', 'firstName lastName')
+            .lean(); // Convert to plain JavaScript objects to add custom fields
+
+        const sessionsWithEnrollment = liveSessions.map(session => {
+            const enrolledUserIds = session.enrolled.map(id => id.toString());
+            const isEnrolled = enrolledUserIds.includes(userId);
+
+            return {
+                ...session,
+                isEnrolled: isEnrolled
+            };
+        });
+
+        res.json(sessionsWithEnrollment);
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: error.message });
     }
 };

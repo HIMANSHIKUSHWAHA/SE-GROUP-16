@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { Box, TextField, Button, List, ListItem, Typography, Grid, Card, CardContent, Paper } from '@mui/material';
+import { UserContext } from '../../../context';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import { postReq } from '../../../services/api';
+
 const LiveSessionSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
+    const { user } = useContext(UserContext);
 
     useEffect(() => {
         fetchAllLiveSessions();
@@ -40,7 +44,9 @@ const LiveSessionSearch = () => {
 
     const fetchAllLiveSessions = async () => {
         try {
-            const response = await axios.get('/api/v1/search/allLiveSessions');
+            const userId = user.id; // Assuming 'user.id' contains the current user's ID
+            const params = { userId };
+            const response = await axios.get('/api/v1/search/allLiveSessions', { params });
             setResults(response.data);
         } catch (error) {
             setErrorMessage('An error occurred while fetching live sessions.');
@@ -50,6 +56,32 @@ const LiveSessionSearch = () => {
 
     const handleInputChange = (e) => {
         setSearchTerm(e.target.value);
+    };
+
+    const handleEnroll = async (sessionId) => {
+        try {
+            console.log("FRONTEND SEsSION ID IS ", sessionId)
+            const headers = {};
+            const postData = {
+                userId: user.id,
+                eventId: sessionId
+            };
+
+            const response = await postReq('/live-session/enroll', headers, postData);
+
+            if (response.status === 200) {
+                // Enrollment was successful
+                console.log('Successfully enrolled in the session');
+
+                // Re-fetch live sessions to update the UI
+                await fetchAllLiveSessions();
+            } else {
+                // Handle other statuses or errors
+                console.error('Failed to enroll in session:', response.status);
+            }
+        } catch (error) {
+            console.error('Error during enrollment:', error);
+        }
     };
 
     const handleSearch = async (e) => {
@@ -127,7 +159,20 @@ const LiveSessionSearch = () => {
                                 <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
                                     {session.date}
                                 </Typography>
-                                {/* Add any other session details here */}
+                                {session.isEnrolled ? (
+                                    <Typography color="success" sx={{ mt: 2 }}>
+                                        Enrolled
+                                    </Typography>
+                                ) : (
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        sx={{ mt: 2 }}
+                                        onClick={() => handleEnroll(session._id)}
+                                    >
+                                        Enroll
+                                    </Button>
+                                )}
                             </CardContent>
                         </Card>
                     </Grid>

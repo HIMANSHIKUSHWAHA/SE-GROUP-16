@@ -5,7 +5,6 @@ const Calendar = require("../models/Calendar");
 const jwt = require('jsonwebtoken');
 const axios = require('axios');
 
-// TODO add the fields left in the frontend form -> tags
 
 
 const schedule = async (req, res) => {
@@ -46,6 +45,29 @@ const schedule = async (req, res) => {
 
 };
 
+const enroll = async (req, res) => {
+
+    try {
+        const { userId, eventId } = req.body;
+
+        console.log("BACKENd EVENT ID ", eventId);
+        const user = await User.findById(userId).select('+LiveSessionEnrolled');
+        const session = await LiveSession.findById(eventId).select('+enrolled');
+
+        user.LiveSessionEnrolled.push(eventId);
+        session.enrolled.push(userId);
+
+        // Save the changes
+        await user.save();
+        await session.save();
+        res.json({ message: 'Successfully enrolled in the session' });
+    } catch (error) {
+        console.error('Error enrolling in session:', error);
+        res.status(500).json({ message: 'Error enrolling in session' });
+    }
+};
+
 module.exports = {
     schedule,
+    enroll
 }

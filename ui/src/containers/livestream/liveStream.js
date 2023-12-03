@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import {
     Avatar, Button, CssBaseline, TextField, Link, Grid, Box,
-    Typography, Container, Paper, createTheme, ThemeProvider
+    Typography, Container, Paper, createTheme, ThemeProvider, Alert
 } from '@mui/material';
 import EventIcon from '@mui/icons-material/Event';
-import Header from '../header'
+import Header from '../header';
 import { postReq } from '../../services/api';
 import { UserContext } from '../../context';
 
@@ -18,6 +18,8 @@ export default function ScheduleSessionForm() {
         tags: ""
     });
 
+    const [notification, setNotification] = useState({ show: false, message: "" });
+
     const { user } = useContext(UserContext);
 
     const handleChange = (event) => {
@@ -27,8 +29,6 @@ export default function ScheduleSessionForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Session Details: ", sessionDetails);
-
         const postData = {
             title: sessionDetails.topic,
             creatorId: user.id,
@@ -39,22 +39,28 @@ export default function ScheduleSessionForm() {
 
         const headers = {};
         try {
-
             const response = await postReq('/live-session/schedule', headers, postData);
 
-            console.log("RESPONSE FROM LIVE SESSION CONTROLLER ", response);
-
+            if (response.status === 201) {
+                setNotification({ show: true, message: 'Live session scheduled successfully!' });
+                setSessionDetails({ topic: "", startTime: "", agenda: "", tags: "" }); // Reset form
+            } else {
+                // Handle non-successful responses
+                setNotification({ show: true, message: 'Failed to schedule the session.' });
+            }
         } catch (error) {
             console.error("Error in post req to schedule live session ", error);
+            setNotification({ show: true, message: 'Error scheduling the session.' });
         }
     };
-
     return (
         <ThemeProvider theme={defaultTheme}>
-            <Header auth={true} showMenu={false} />
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    {/* Alert notification */}
+                    {notification.show && <Alert severity="success" sx={{ width: '100%', mb: 2 }}>{notification.message}</Alert>}
+
                     <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                         <EventIcon />
                     </Avatar>
@@ -122,3 +128,5 @@ export default function ScheduleSessionForm() {
         </ThemeProvider>
     );
 }
+
+

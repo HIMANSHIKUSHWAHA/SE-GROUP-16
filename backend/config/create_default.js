@@ -54,6 +54,17 @@ const createLiveSession = async () => {
     const profesh = await Professional.findById(professionalId).select("+LiveSessionCreated");
     const user = await User.findById(userId).select("+LiveSessionEnrolled");
 
+    let liveSession2 = new LiveSession({
+        title: 'Default Session Title 2',
+        creator: profesh._id,
+        duration: 30,
+        enrolled: [],
+        description: 'Default session description for second',
+        tags: ['default', 'session'],
+        date: new Date(),
+        isDefault: false
+    });
+
     console.log("user - ", user.firstName, "Profesh ", profesh.firstName);
 
     if (!liveSession) {
@@ -72,8 +83,10 @@ const createLiveSession = async () => {
 
         user.LiveSessionEnrolled.push(liveSession._id);
         profesh.LiveSessionCreated.push(liveSession._id);
+        profesh.LiveSessionCreated.push(liveSession2._id);
 
         await liveSession.save();
+        await liveSession2.save();
         await user.save();
         await profesh.save();
 
