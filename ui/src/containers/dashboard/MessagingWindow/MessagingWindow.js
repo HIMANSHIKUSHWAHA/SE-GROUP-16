@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-// import './MessagingWindow.css';
+import './MessagingWindow.css';
 import {
     Avatar, Button, CssBaseline, TextField, Link, Grid, Box,
     Typography, Container, Paper, createTheme, ThemeProvider
@@ -103,14 +103,10 @@ function Messaging() {
     };
 
     const getOtherParticipantName = (conversation) => {
-        if (conversation.user._id === user.id) {
-            // If the current user ID matches the user ID in the conversation, they are the user.
-            // So return the professional's name.
-            return `${conversation.professional.firstName} ${conversation.professional.lastName}`;
-        } else {
-            // If the current user ID does not match the user ID in the conversation,
-            // they are the professional, so return the user's name.
+        if ('professional' === user.role) {
             return `${conversation.user.firstName} ${conversation.user.lastName}`;
+        } else {
+            return `${conversation.professional.firstName} ${conversation.professional.lastName}`;
         }
     };
 
@@ -128,7 +124,7 @@ function Messaging() {
                     position: 'fixed',
                     bottom: 10,
                     right: 10,
-                    zIndex: 1010, // Adjusted to be above the messaging container
+                    zIndex: 1010,
                 }}>
                 {isMessagingOpen ? 'Close Messages' : 'Open Messages'}
             </Button>
@@ -136,7 +132,7 @@ function Messaging() {
             <Box
                 sx={{
                     position: 'fixed',
-                    bottom: 60, // Adjusted to be above the toggle button
+                    bottom: 60,
                     right: 10,
                     width: 300,
                     backgroundColor: 'white',
@@ -147,7 +143,7 @@ function Messaging() {
                     zIndex: 1000,
                     display: 'flex',
                     flexDirection: 'column',
-                    maxHeight: isMessagingOpen ? 400 : 0, // Controlled by isMessagingOpen
+                    maxHeight: isMessagingOpen ? 400 : 0,
                     overflow: 'hidden',
                     transition: 'max-height 0.3s',
                 }}>
@@ -158,7 +154,19 @@ function Messaging() {
                         overflowY: 'auto',
                         p: 1,
                     }}>
-                    {/* Message list here */}
+                    {conversations.map((conversation, index) => (
+                        <Box key={index} sx={{ marginBottom: 2 }}>
+                            <Typography variant="h6">{getOtherParticipantName(conversation)}</Typography>
+                            <Button onClick={() => toggleConversation(conversation._id)}>
+                                {expandedConversations.has(conversation._id) ? 'Hide' : 'Show'}
+                            </Button>
+                            {expandedConversations.has(conversation._id) && conversation.messages.map((message, msgIndex) => (
+                                <Paper key={msgIndex} sx={{ padding: 1, marginTop: 1, backgroundColor: isMessageSentByCurrentUser(message) ? '#e0f7fa' : '#f0f0f0' }}>
+                                    <Typography variant="body1">{message.content || "Message content not available"}</Typography>
+                                </Paper>
+                            ))}
+                        </Box>
+                    ))}
                 </Box>
                 {activeConversationId && (
                     <Box
@@ -175,7 +183,7 @@ function Messaging() {
                             onChange={(e) => setNewMessage(e.target.value)}
                             placeholder="Type your message here"
                         />
-                        <Button variant="contained" onClick={handleSendReply}>
+                        <Button variant="contained" onClick={() => handleSendReply(activeConversationId)}>
                             Reply to Message
                         </Button>
                     </Box>

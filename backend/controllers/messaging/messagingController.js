@@ -68,9 +68,10 @@ const sendMessage = async (req, res) => {
 
 const getAllMessages = async (req, res) => {
     try {
-        // console.log(req.query);
         console.log("ALL MESSAGE CONTROLLER");
         const { id, role } = req.query;
+        console.log("Query Params: ", req.query);
+        console.log(`Finding entity with ID: ${id} and role: ${role}`);
 
         let entity;
         let conversations;
@@ -90,9 +91,7 @@ const getAllMessages = async (req, res) => {
                     model: 'Professional',
                     select: 'firstName lastName'
                 });
-
-        }
-        else {
+        } else { // This should be else, not if
             entity = await Professional.findById(id);
             if (!entity) {
                 return res.status(404).json({ message: 'Professional not found.' });
@@ -108,10 +107,17 @@ const getAllMessages = async (req, res) => {
                     select: 'firstName lastName'
                 });
         }
-        // console.log("CONVO ", conversations);
+
+        if (conversations.length === 0) {
+            console.log("No conversations found for entity.");
+        } else {
+            console.log(`Found ${conversations.length} conversations.`);
+        }
+
         res.status(200).json({ conversations });
 
     } catch (error) {
+        console.error('getAllMessages error:', error);
         res.status(500).json({ message: error.message });
     }
 };
