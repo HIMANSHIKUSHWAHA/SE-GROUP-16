@@ -158,6 +158,15 @@ async function buildTrieFromMealPlans(MealPlan) {
                 trie.insert(mealPlan.creator.firstName.toLowerCase());
                 trie.insert(mealPlan.creator.lastName.toLowerCase());
             }
+            if (mealPlan.tags && Array.isArray(MealPlan.tags)) {
+                console.log(`Inserting tags for MealPlan: ${MealPlan.title}`); // Log tag processing
+                mealPlan.tags.forEach(tag => {
+                    if (tag) { // Check if tag is not undefined or null
+                        console.log(`Inserting tag: ${tag.toLowerCase()}`); // Log each tag insertion
+                        trie.insert(tag.toLowerCase());
+                    }
+                });
+            }
         }
     } catch (error) {
         console.error("Error populating trie from meal plans database:", error);
@@ -168,24 +177,52 @@ async function buildTrieFromExercisePlans(ExercisePlan) {
     const trie = new Trie();
     try {
         const exercisePlans = await ExercisePlan.find({});
+        console.log(`Total exercise plans found: ${exercisePlans.length}`); // Consistent logging
+
         for (const exercisePlan of exercisePlans) {
+            console.log(`Processing exercise plan: ${exercisePlan.title}`); // Log the title of each exercise plan
+
             // Insert title, description, and cost into the trie
-            const title = exercisePlan.title.toLowerCase();
-            const description = exercisePlan.description.toLowerCase();
-            const cost = exercisePlan.cost.toString().toLowerCase();
-            if (exercisePlans.creator) {
+            if (exercisePlan.title) {
+                console.log(`Inserting title: ${exercisePlan.title.toLowerCase()}`); // Log the title insertion
+                trie.insert(exercisePlan.title.toLowerCase());
+            }
+
+            if (exercisePlan.description) {
+                console.log(`Inserting description: ${exercisePlan.description.toLowerCase()}`); // Log the description insertion
+                trie.insert(exercisePlan.description.toLowerCase());
+            }
+
+            if (exercisePlan.cost) {
+                console.log(`Inserting cost: ${exercisePlan.cost.toString().toLowerCase()}`); // Log the cost insertion
+                trie.insert(exercisePlan.cost.toString().toLowerCase());
+            }
+
+            // Check if both firstName and lastName exist before insertion
+            if (exercisePlan.creator && exercisePlan.creator.firstName && exercisePlan.creator.lastName) {
+                console.log(`Inserting creator name: ${exercisePlan.creator.firstName.toLowerCase()}, ${exercisePlan.creator.lastName.toLowerCase()}`); // Log the creator's name insertion
                 trie.insert(exercisePlan.creator.firstName.toLowerCase());
                 trie.insert(exercisePlan.creator.lastName.toLowerCase());
+            } else {
+                console.log(`Missing creator information for exercise plan: ${exercisePlan.title}`); // Log missing creator info
             }
-            trie.insert(title);
-            trie.insert(description);
-            trie.insert(cost);
+
+            if (exercisePlan.tags && Array.isArray(exercisePlan.tags)) {
+                console.log(`Inserting tags for exercise plan: ${exercisePlan.title}`); // Log tag processing
+                exercisePlan.tags.forEach(tag => {
+                    if (tag) { // Check if tag is not undefined or null
+                        console.log(`Inserting tag: ${tag.toLowerCase()}`); // Log each tag insertion
+                        trie.insert(tag.toLowerCase());
+                    }
+                });
+            }
         }
     } catch (error) {
         console.error("Error populating trie from exercise plans database:", error);
     }
     return trie;
 }
+
 
 async function buildTrieFromLiveSessions(LiveSession) {
     const trie = new Trie();

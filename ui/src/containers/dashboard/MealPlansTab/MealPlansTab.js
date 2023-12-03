@@ -97,6 +97,7 @@ const MealPlansSearch = () => {
                         <p className="mealPlan-creator">By: {mealPlan.creator.firstName} {mealPlan.creator.lastName}</p>
                         <p className="mealPlan-description">{mealPlan.description}</p>
                         <p className="mealPlan-cost">${mealPlan.cost}</p>
+                        <div className="exerciseplan-tags">Tags: {mealPlan.tags.join(', ')}</div>
                         <div className="Ratings"><RatingsComponent ratings={mealPlan.ratings}/></div>
                     </div>
                 ))}

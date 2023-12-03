@@ -52,19 +52,20 @@ const createDefaultAsyncVideo = async (professionalId) => {
 
     return { defaultVideoId, fitnessVideoId, cookingVideoId };
 };
-const createExercisePlan = async (title, description, cost, exerciseDays, professionalId, isDefault = false) => {
+
+const createExercisePlan = async (title, description, cost, exerciseDays, professionalId, tags = [], isDefault = false) => {
     let exercisePlan = await ExercisePlan.findOne({ title: title });
 
     if (!exercisePlan) {
         const newRatings = new Ratings({ ratings: new Map() });
         await newRatings.save();
-        // Create a new ExercisePlan with provided details
         exercisePlan = new ExercisePlan({
             title: title,
             ratings: newRatings._id,
             description: description,
             cost: cost,
             ...exerciseDays,
+            tags: tags, // Add tags here
             isDefault: isDefault,
             creator: professionalId
         });
@@ -77,7 +78,6 @@ const createExercisePlan = async (title, description, cost, exerciseDays, profes
 
     return exercisePlan._id;
 };
-
 const createDefaultExercisePlan = async (professionalId) => {
 
     // Define a default exercise
@@ -98,7 +98,7 @@ const createDefaultExercisePlan = async (professionalId) => {
     }
 
     // Create different exercise plans
-    const defaultExercisePlanId = await createExercisePlan('PUSH UPS ALWAYS!', 'Push ups now and forever!', 600, exerciseDays, professionalId, true);
+    const defaultExercisePlanId = await createExercisePlan('PUSH UPS ALWAYS!', 'Push ups now and forever!', 600, exerciseDays, professionalId, ['default', 'pushups'], true)
     const cardioPlanId = await createExercisePlan('Cardio Burn', 'Intense cardio workouts', 30, exerciseDays, professionalId);
     const yogaPlanId = await createExercisePlan('Yoga Zen', 'Peaceful and strengthening yoga sessions', 25, exerciseDays, professionalId);
 
@@ -161,11 +161,10 @@ const createDefaultProfessional = async () => {
 };
 
 
-const createMealPlan = async (title, description, cost, mealsForDay, professionalId, isDefault = false) => {
+const createMealPlan = async (title, description, cost, mealsForDay, professionalId, tags = [], isDefault = false) => {
     let mealPlan = await MealPlan.findOne({ title: title });
 
     if (!mealPlan) {
-        // Create a new MealPlan with provided details
         const newRatings = new Ratings({ ratings: new Map() });
         await newRatings.save();
         mealPlan = new MealPlan({
@@ -174,6 +173,7 @@ const createMealPlan = async (title, description, cost, mealsForDay, professiona
             cost: cost,
             ratings: newRatings._id,
             ...mealsForDay,
+            tags: tags, // Add tags here
             isDefault: isDefault,
             creator: professionalId
         });
@@ -212,7 +212,7 @@ const createDefaultMealPlan = async (professionalId) => {
     }
 
     // Create different meal plans
-    const defaultMealPlanId = await createMealPlan('Default Meal Plan', 'Standard healthy diet', 50, mealDays, professionalId, true);
+    const defaultMealPlanId = await createMealPlan('Default Meal Plan', 'Standard healthy diet', 50, mealDays, professionalId, ['default', 'healthy'], true);
     const ketoMealPlanId = await createMealPlan('Keto King, Big Butter', 'I hope you like butter, cause this diet is full of it.', 75, mealDays, professionalId);
     const veganMealPlanId = await createMealPlan('Vegan Delight', 'A plant-based diet full of variety and taste.', 65, mealDays, professionalId);
 
