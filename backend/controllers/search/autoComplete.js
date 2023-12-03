@@ -72,16 +72,41 @@ async function buildTrieFromVideos(AsyncVideo) {
     const trie = new Trie();
     try {
         const videos = await AsyncVideo.find({});
+        console.log(`Total videos found: ${videos.length}`); // Log the total number of videos
+
         for (const video of videos) {
+            console.log(`Processing video: ${video.title}`); // Log the title of each video
+
             if (video.title) {
+                console.log(`Inserting title: ${video.title.toLowerCase()}`); // Log the title insertion
                 trie.insert(video.title.toLowerCase());
             }
-            if (video.creator) {
+
+            // Check if both firstName and lastName exist before insertion
+            if (video.creator && video.creator.firstName && video.creator.lastName) {
+                console.log(`Inserting creator name: ${video.creator.firstName.toLowerCase()}, ${video.creator.lastName.toLowerCase()}`); // Log the creator's name insertion
                 trie.insert(video.creator.firstName.toLowerCase());
                 trie.insert(video.creator.lastName.toLowerCase());
+            } else {
+                console.log(`Missing creator information for video: ${video.title}`); // Log missing creator info
             }
+
             if (video.tags && Array.isArray(video.tags)) {
-                video.tags.forEach(tag => trie.insert(tag.toLowerCase()));
+                console.log(`Inserting tags for video: ${video.title}`); // Log tag processing
+                video.tags.forEach(tag => {
+                    if (tag) { // Check if tag is not undefined or null
+                        console.log(`Inserting tag: ${tag.toLowerCase()}`); // Log each tag insertion
+                        trie.insert(tag.toLowerCase());
+                    }
+                });
+            }
+
+            // Check if description exists before insertion
+            if (video.description) {
+                console.log(`Inserting description: ${video.description.toLowerCase()}`); // Log the description insertion
+                trie.insert(video.description.toLowerCase());
+            } else {
+                console.log(`Missing description for video: ${video.title}`); // Log missing description
             }
         }
     } catch (error) {

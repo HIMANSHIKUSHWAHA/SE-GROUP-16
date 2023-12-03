@@ -94,9 +94,9 @@ const MealPlansSearch = () => {
                 {mealPlans.map((mealPlan, index) => (
                     <div key={index} className="mealPlan-card">
                         <p className="mealPlan-title">{mealPlan.title}</p>
-                        <p className="mealPlan-description">{mealPlan.description}</p>
-                        <p className="mealPlan-cost">{mealPlan.cost}</p>
                         <p className="mealPlan-creator">By: {mealPlan.creator.firstName} {mealPlan.creator.lastName}</p>
+                        <p className="mealPlan-description">{mealPlan.description}</p>
+                        <p className="mealPlan-cost">${mealPlan.cost}</p>
                         <div className="Ratings"><RatingsComponent ratings={mealPlan.ratings}/></div>
                     </div>
                 ))}

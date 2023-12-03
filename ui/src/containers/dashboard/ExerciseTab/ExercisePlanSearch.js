@@ -97,8 +97,10 @@ const ExercisePlanSearch = () => {
             <div className="exercise-plan-results-container">
                 {results.map((plan, index) => (
                     <div key={index} className="exercise-plan-result-container">
-                        <div className="exercise-plan-title">{plan.title}</div>
-                        <div className="exercise-plan-description">{plan.description}</div>
+                        <div className="exerciseplan-title">{plan.title}</div>
+                        <div className="exerciseplan-creator">By: {plan.creator.firstName} {plan.creator.lastName}</div>
+                        <div className="exerciseplan-cost">${plan.cost}</div>
+                        <div className="exerciseplan-description">{plan.description}</div>
                         <div className="Ratings"><RatingsComponent ratings={plan.ratings}/></div>
                         {/* Add other details here if necessary */}
                     </div>
