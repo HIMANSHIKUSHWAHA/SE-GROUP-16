@@ -2,8 +2,8 @@ const AsyncVideo = require("../../models/AsyncVideo");
 const Professional = require("../../models/Professional");
 const Ratings= require("../../models/Ratings");
 const User = require('../../models/User');
-const ExercisePlan = require("../../models/Exerciseplan");
-const MealPlan = require("../../models/Mealplan");
+const ExercisePlan = require("../../models/ExercisePlan");
+const MealPlan = require("../../models/MealPlan");
 const Tags = require("../../models/Tags");
 const mongoose = require("mongoose");
 

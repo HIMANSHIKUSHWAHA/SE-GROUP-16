@@ -4,8 +4,7 @@ import { faVideo, faRunning, faUtensils} from '@fortawesome/free-solid-svg-icons
 import SecondaryNavbar from "../../secondaryNavbar";
 import UploadWorkoutVideo from "./uploadWorkoutVideo";
 import UploadWorkoutRoutine from "./uploadWorkoutRoutine";
-// import UploadMealPlan from "./uploadMealPlan";
-import UploadMealPlan from "./mealPlan";
+import UploadMealPlan from "./uploadMealPlan";
 
 
 export default function PDashboard() {
