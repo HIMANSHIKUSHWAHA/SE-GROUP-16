@@ -33,5 +33,5 @@ router.get('/allLivesessions', getAllLiveSessions);
 router.get('/allUsers', getAllUsers);
 router.get('/allExercisePlans', getAllExercisePlans);
 router.get('/allMealPlans', getAllMealPlans);
-router.get('/allProfessionals', getAllProfessionals);
+// router.get('/allProfessionals', getAllProfessionals);
 module.exports = router;
