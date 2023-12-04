@@ -30,3 +30,28 @@
         flex-basis: calc(100% - 20px);
     }
 }
+
+.exerciseplan-title {
+    font-size: 20px;
+    color: #1976d2;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.exerciseplan-description {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .mealPlan-card {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .mealPlan-card {
+        flex-basis: calc(100% - 20px);
+    }
+}

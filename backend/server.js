@@ -9,6 +9,7 @@ const searchRoutes = require('./routes/searchRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
 const messagingRoutes = require('./routes/messagingRoutes');
 const liveSessionRoutes = require('./routes/liveSessionRoutes');
+const ratingsRoutes = require('./routes/ratingsRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -50,6 +51,7 @@ app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/settings', settingsRoutes);
 app.use('/api/v1/live-session', liveSessionRoutes);
 app.use('/api/v1/messages', messagingRoutes);
+app.use('/api/v1/ratings', ratingsRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

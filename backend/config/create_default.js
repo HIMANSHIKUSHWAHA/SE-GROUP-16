@@ -5,11 +5,8 @@ const mongoose = require('mongoose');
 const ExercisePlan = require('../models/Exerciseplan');
 const SleepPlan = require('../models/SleepPlan');
 const MealPlan = require('../models/Mealplan');
-const LiveSession = require('../models/LiveSession');
 const AsyncVideo = require('../models/AsyncVideo');
 const Ratings = require("../models/Ratings")
-const Professional = require('../models/Professional');
-const User = require('../models/User');
 // MongoDB connection URI
 const mongoURI = process.env.DB_STRING;
 
@@ -136,6 +133,7 @@ const createDefaultExercisePlan = async () => {
 };
 
 
+
 const createDefaultMealPlan = async () => {
     // Check for an existing default MealPlan
     let mealPlan = await MealPlan.findOne({ isDefault: true });
@@ -180,7 +178,6 @@ const createDefaultMealPlan = async () => {
     return mealPlan._id;
 };
 
-
 const createDefaultSleepPlan = async () => {
     // Check for an existing default SleepPlan
     let sleepPlan = await SleepPlan.findOne({ isDefault: true });
@@ -207,12 +204,10 @@ const setupDefaultPlans = async () => {
         const sleepPlanId = await createDefaultSleepPlan();
         const mealPlanId = await createDefaultMealPlan();
         const asyncVideoId = await createDefaultAsyncVideo();
-        const liveSessionId = await createLiveSession();
         console.log(`Default MealPlan ID: ${mealPlanId}`);
         console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
         console.log(`Default SleepPlan ID: ${sleepPlanId}`);
         console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
-        console.log(`Default Live session ID: ${liveSessionId}`);;
 
     } catch (err) {
         console.error('Error setting up default plans:', err);
