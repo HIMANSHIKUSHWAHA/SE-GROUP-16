@@ -50,5 +50,15 @@ body {
 .scrollable-box::-webkit-scrollbar {
   display: none; /* Hide scrollbar for Webkit browsers */
 }
-
+.subbutton{
+  text-transform: none;
+  color: #4ff340;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 36px;
+  background: #4ff340;
+  box-shadow:  -20px 20px 60px #bebebe,
+             20px -20px 60px #ffffff;
+  
+}
 /* Additional colors for other elements can be added here */

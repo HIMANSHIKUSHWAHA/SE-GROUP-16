@@ -16,8 +16,8 @@ import { UserContext } from "../context.js";
 import { useContext, useEffect } from "react";
 // user profile 
 export default function Router() {
-    
-    const { user } = useContext(UserContext);
+
+    const { user } = useContext(UserContext)
     
     return (
         <BrowserRouter>
@@ -41,7 +41,7 @@ export default function Router() {
                         <TwoFactor />
                     </PrivateRoute>
                 } />
-                <Route path="/profile" element={<Profile userId = {user.id} user={user} />} />
+                <Route path="/profile/:userId" element={<Profile/>} />
             </Routes>
         </BrowserRouter>
     )

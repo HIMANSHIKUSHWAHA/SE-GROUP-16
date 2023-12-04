@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,12 +9,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context";
 
 export default function Header({ auth = false, navbarData, setActiveContent }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
-
+    const { user } = useContext(UserContext)
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -41,7 +42,7 @@ export default function Header({ auth = false, navbarData, setActiveContent }) {
         window.location.reload();
     };
     const handleProfile = () => {
-        navigate("/profile");
+        navigate(`/profile/${user.id}`);
     };
     return (
         <Box sx={{ flexGrow: 1 }}>
