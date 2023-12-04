@@ -13,10 +13,10 @@ const sendEmail = async ({ title, email, content, link }) => {
         },
     });
 
-
+    // TODO change email to email
     const option = {
         from: '"FitFriend" <fitfriendapplication@gmail.com>',
-        to: email,
+        to: 'rg913000@gmail.com',
         subject: title,
         html: link ? `${content} <a href="${link}">Click here</a>` : content
     };

@@ -15,9 +15,9 @@ export const UserProvider = ({ children }) => {
             try {
                 const decoded = jwtDecode(token);
                 setUser({ id: decoded.userId, role: decoded.role });
+                console.log("User set in context:", { id: decoded.userId, role: decoded.role });
             } catch (error) {
                 console.error("Error decoding token: ", error);
-                // Handle token decode error (e.g., clear token, redirect to login)
             }
         }
     }, []);

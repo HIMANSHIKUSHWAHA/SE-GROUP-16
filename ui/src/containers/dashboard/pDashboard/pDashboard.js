@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import Header from "../../header";
-import { faVideo, faRunning, faUtensils } from '@fortawesome/free-solid-svg-icons';
-import SecondaryNavbar from "../../secondaryNavbar";
+import { faVideo, faRunning, faUtensils, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import UploadWorkoutVideo from "./uploadWorkoutVideo";
 import UploadWorkoutRoutine from "./uploadWorkoutRoutine";
 import UploadMealPlan from "./uploadMealPlan";
+import PCalendar from "./pCalendar"
+import ScheduleSessionForm from "../../livestream/liveStream";
 
 
 export default function PDashboard() {
-    const [activeContent, setActiveContent] = useState('video');
+    const [activeContent, setActiveContent] = useState('videos');
 
+    // console.log("THIS IS THE PROFESSIONAL DASHBOARD");
     const navbarData = [
         {
             name: "Upload Workout Videos",
@@ -25,7 +27,17 @@ export default function PDashboard() {
             name: "Upload Meal Plan",
             icon: faUtensils,
             content: 'meal-plans'
-        }
+        },
+        {
+            name: "Calendar", // Add calendar to the navbar
+            icon: faCalendarAlt, // Use calendar icon
+            content: 'calendar' // This should match the activeContent check
+        },
+        {
+            name: "Create Live Session",
+            icon: faVideo,
+            content: 'live-session'
+        },
     ]
 
     // make a get requist and get all the Tags
@@ -34,12 +46,13 @@ export default function PDashboard() {
 
     return (
         <div>
-            <Header auth={true} />
-            <SecondaryNavbar data={navbarData} setActiveContent={setActiveContent} />
+            <Header auth={true} navbarData={navbarData} setActiveContent={setActiveContent} showMenu={true} />
             <div className="ContentArea">
                 {activeContent === 'videos' && <UploadWorkoutVideo tags_list={tags_list} />}
+                {activeContent === 'live-session' && <ScheduleSessionForm tags_list={tags_list} />}
                 {activeContent === 'workout-routine' && <UploadWorkoutRoutine tags_list={tags_list} />}
                 {activeContent === 'meal-plans' && <UploadMealPlan tags_list={tags_list} />}
+                {activeContent === 'calendar' && <PCalendar />}
             </div>
         </div>
     )

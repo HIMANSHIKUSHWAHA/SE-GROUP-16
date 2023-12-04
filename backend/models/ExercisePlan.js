@@ -23,6 +23,7 @@ const exercisePlanSchema = new mongoose.Schema({
     description: String,
     tags: Array,
     isDefault: { type: Boolean, default: false },
+    creator: { type: Schema.Types.ObjectId, ref: 'Professional' },
     Monday: exerciseDaySchema,
     Tuesday: exerciseDaySchema,
     Wednesday: exerciseDaySchema,

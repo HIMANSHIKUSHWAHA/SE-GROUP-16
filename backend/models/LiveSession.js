@@ -10,7 +10,10 @@ const LiveSession = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'Professional',
-        select: false
+    },
+    duration: {
+        type: Number,
+        default: 30
     },
     // IDs of those attending the live session
     enrolled: [{
@@ -30,6 +33,10 @@ const LiveSession = new Schema({
         type: Date,
         required: true
     },
+    isDefault: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('LiveSession', LiveSession);

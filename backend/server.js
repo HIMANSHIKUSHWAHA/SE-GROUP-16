@@ -7,6 +7,8 @@ const twoFARoutes = require('./routes/2faRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
 const searchRoutes = require('./routes/searchRoutes');
 const settingsRoutes = require('./routes/settingsRoutes');
+const messagingRoutes = require('./routes/messagingRoutes');
+const liveSessionRoutes = require('./routes/liveSessionRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const session = require('express-session');
 const passport = require('./config/passport');
@@ -25,7 +27,7 @@ app.use("*", cors());
 app.use(express.json());
 app.use(cookieParser());
 
-// Session Middleware Initialization with secure cookie settingsTab
+// Session Middleware Initialization with secure cookie settings
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -49,6 +51,8 @@ app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/settings', settingsRoutes);
 app.use('/api/v1/profile', profileRoutes);
 app.use('/api/v1/subscribe', subscribeRoutes);
+app.use('/api/v1/live-session', liveSessionRoutes);
+app.use('/api/v1/messages', messagingRoutes);
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });

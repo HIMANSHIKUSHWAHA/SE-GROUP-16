@@ -6,7 +6,6 @@ const asyncVideoSchema = new Schema({
     creator: {
         type: Schema.Types.ObjectId,
         ref: 'Professional',
-        select: false
     },
     title: {
         type: String,

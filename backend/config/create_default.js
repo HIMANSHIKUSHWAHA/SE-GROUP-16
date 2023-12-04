@@ -5,8 +5,11 @@ const mongoose = require('mongoose');
 const ExercisePlan = require('../models/Exerciseplan');
 const SleepPlan = require('../models/SleepPlan');
 const MealPlan = require('../models/Mealplan');
+const LiveSession = require('../models/LiveSession');
 const AsyncVideo = require('../models/AsyncVideo');
 const Ratings = require("../models/Ratings")
+const Professional = require('../models/Professional');
+const User = require('../models/User');
 // MongoDB connection URI
 const mongoURI = process.env.DB_STRING;
 
@@ -38,6 +41,61 @@ const createDefaultAsyncVideo = async () => {
     }
 
     return asyncVideo._id;
+};
+
+const createLiveSession = async () => {
+    // Check for an existing default ExercisePlan
+    let liveSession = await LiveSession.findOne({ isDefault: true });
+
+    // profess is ac and user is ab
+    const professionalId = "656ab00646472068847d7bc7";
+    const userId = "656aaf5946472068847d7b6d";
+
+    const profesh = await Professional.findById(professionalId).select("+LiveSessionCreated");
+    const user = await User.findById(userId).select("+LiveSessionEnrolled");
+
+    let liveSession2 = new LiveSession({
+        title: 'Default Session Title 2',
+        creator: profesh._id,
+        duration: 30,
+        enrolled: [],
+        description: 'Default session description for second',
+        tags: ['default', 'session'],
+        date: new Date(),
+        isDefault: false
+    });
+
+    console.log("user - ", user.firstName, "Profesh ", profesh.firstName);
+
+    if (!liveSession) {
+        liveSession = new LiveSession({
+            title: 'Default Session Title',
+            creator: profesh._id, // Generate a new ObjectId
+            duration: 30,
+            enrolled: [user._id],
+            description: 'Default session description',
+            tags: ['default', 'session'],
+            date: new Date(),
+            isDefault: true
+        });
+
+
+
+        user.LiveSessionEnrolled.push(liveSession._id);
+        profesh.LiveSessionCreated.push(liveSession._id);
+        profesh.LiveSessionCreated.push(liveSession2._id);
+
+        await liveSession.save();
+        await liveSession2.save();
+        await user.save();
+        await profesh.save();
+
+        console.log('Default Livesession created successfully.');
+    } else {
+        console.log('Default Livesession already exists.');
+    }
+
+    return liveSession._id;
 };
 
 const createDefaultExercisePlan = async () => {
@@ -76,7 +134,6 @@ const createDefaultExercisePlan = async () => {
 
     return exercisePlan._id;
 };
-
 
 
 const createDefaultMealPlan = async () => {
@@ -123,6 +180,7 @@ const createDefaultMealPlan = async () => {
     return mealPlan._id;
 };
 
+
 const createDefaultSleepPlan = async () => {
     // Check for an existing default SleepPlan
     let sleepPlan = await SleepPlan.findOne({ isDefault: true });
@@ -149,10 +207,12 @@ const setupDefaultPlans = async () => {
         const sleepPlanId = await createDefaultSleepPlan();
         const mealPlanId = await createDefaultMealPlan();
         const asyncVideoId = await createDefaultAsyncVideo();
+        const liveSessionId = await createLiveSession();
         console.log(`Default MealPlan ID: ${mealPlanId}`);
         console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
         console.log(`Default SleepPlan ID: ${sleepPlanId}`);
         console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
+        console.log(`Default Live session ID: ${liveSessionId}`);;
 
     } catch (err) {
         console.error('Error setting up default plans:', err);
