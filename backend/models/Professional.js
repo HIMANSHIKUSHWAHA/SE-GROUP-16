@@ -55,10 +55,14 @@ const professionalSchema = new Schema({
         type: Date,
         select: true
     },
+    Subscribing: [{
+        type: Schema.Types.ObjectId,
+        select: true
+    }],
+
     Subscribers: [{
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        select: false
+        select: true
     }],
     asyncVideosAssociated: [{
         type: Schema.Types.ObjectId,

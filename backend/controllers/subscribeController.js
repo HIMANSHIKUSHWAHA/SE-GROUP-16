@@ -1,12 +1,22 @@
 const User = require('../models/User');
 const Professional = require('../models/Professional');
+
 // Subscribe to a User
 const subscribe = async (subscriberId, subscribeToUserId) => {
     console.log('subscribe CONTROLLER CALLED',subscriberId, subscribeToUserId);
+    let user = null;
     try {
-        
+        //find the subscriber in Uesr or Professional model
+        if (User.findById(subscriberId)) {
+            user = await User.findById(subscriberId);
+        } else if (Professional.findById(subscriberId)) {
+            user = await Professional.findById(subscriberId);
+        } else {
+            console.log('user NOT FOUND');
+            return { status: 404, json: { message: 'User not found' } };
+        }
         // Check if already subscribed
-        const user = await User.findById(subscriberId);
+        
         if (user.Subscribing.includes(subscribeToUserId)) {
             console.log('ALREADY SUBSCRIBED');
             return { status: 400, json: { message: 'Already subscribed to user.' }};
@@ -17,7 +27,7 @@ const subscribe = async (subscriberId, subscribeToUserId) => {
         await user.save();
 
         // Add to the subscribed user's Subscribers list
-        const subscribedUser = await User.findById(subscribeToUserId);
+        const subscribedUser = await Professional.findById(subscribeToUserId);
         subscribedUser.Subscribers.push(subscriberId);
         await subscribedUser.save();
         console.log('SUBSCRIBED SUCCESSFULLY');
@@ -62,10 +72,12 @@ viewSubscribers = async (id) => {
 };
 
 // View Subscribed Users
-viewSubscribedUsers = async (id) => {
+viewSubscribing = async (id) => {
     console.log('viewSubscribedUsers CONTROLLER CALLED');
+    console.log('ID', id);
     try {
-        const user = await User.findById(id).populate('Subscribing', 'email'); // Only fetching email for simplicity
+        const user =  User.findById(id);
+        console.log('SUBSCRIBED USERS', user.Subscribing);
         return { status: 200, json: { subscribedUsers: user.Subscribing } };
 
     } catch (error) {
@@ -73,9 +85,22 @@ viewSubscribedUsers = async (id) => {
     }
 };
 
+banUser = async (id) => {
+    console.log('banUser CONTROLLER CALLED');
+    try {
+        const user = await User.findById(id);
+        // delete user
+        await user.delete();
+        return { status: 200, json: { message: 'User banned successfully.' } };
+    } catch (error) {
+        return { status: 500, json: { message: 'Error banning user.', error } };
+    }
+};
+
 module.exports = {
     subscribe,
     unsubscribe,
     viewSubscribers,
-    viewSubscribedUsers
+    viewSubscribing,
+    banUser
 };

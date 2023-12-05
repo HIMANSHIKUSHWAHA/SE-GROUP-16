@@ -24,9 +24,15 @@ router.get('/subscribers/:id', async (req, res) => {
 });
 
 // View users the authenticated user is subscribed to
-router.get('/subscribed/:id', async (req, res) => {
+router.get('/subscribing/:id', async (req, res) => {
     const { id } = req.params;
-    const result = await subscribeController.viewSubscribed(id);
+    const result = await subscribeController.viewSubscribing(id);
+    res.status(result.status).json(result.json);
+});
+
+router.get('/ban/:id', async (req, res) => {
+    const { id } = req.params;
+    const result = await subscribeController.banUser(id);
     res.status(result.status).json(result.json);
 });
 

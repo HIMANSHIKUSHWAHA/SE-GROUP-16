@@ -60,6 +60,7 @@ const userSchema = new Schema({
     Subscribing: [{
         type: Schema.Types.ObjectId,
         ref: 'Professional',
+        select: true,
     }],
     mealPlansOwned: [{
         type: Schema.Types.ObjectId,

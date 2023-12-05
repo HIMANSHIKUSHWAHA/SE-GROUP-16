@@ -1,6 +1,16 @@
 /* Profile.css */
-body {
-  background-color: #e0e0e0; /* This sets the background to light grey */
+.bg {
+  background-color: hsl(0, 0%, 88%);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.scroll{
+  overflow-y: auto;
+  height: 600px;
+  border-color: #1976d2;
+  border-radius: 10px;
+  
 }
 .user-card {
   padding: 45px;
@@ -12,6 +22,7 @@ body {
   background: #e0e0e0;
   box-shadow:  -20px 20px 60px #bebebe,
              20px -20px 60px #ffffff;
+  overflow-y: auto;
 }
 
 .title-typography {
@@ -21,7 +32,8 @@ body {
 }
 
 .subtitle-typography {
-  color: #555; /* Slightly lighter text for subtitles */
+  font-size: 0.6em;
+  color: #656565a4; /* Slightly lighter text for subtitles */
   margin-bottom: 12px;
 }
 
