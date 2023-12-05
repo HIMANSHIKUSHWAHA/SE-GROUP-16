@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Grid, Box, Container, CssBaseline, Typography, Avatar, Button, InputLabel } from "@mui/material";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
+import { postReq } from "../../../services/api";
 
 const defaultTheme = createTheme();
 
@@ -45,13 +46,16 @@ export default function UploadWorkoutVideo (props) {
         });
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         console.log(formData);
 
         // Do input validation and then send the data to the backend!!
         // Maybe a success message
+        const header = {}
+        const response = await postReq('/upload/video/',header,formData);
 
+        console.log(response);
         setFormData({
             title: '',
             tags: [],

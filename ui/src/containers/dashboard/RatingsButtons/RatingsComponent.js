@@ -37,16 +37,27 @@ const RatingsComponent = ({ ratings }) => {
         }
     };
 
+    const handleLike = () =>{
+        let l = likesCount;
+        l = l+1;
+        setLikesCount(l);
+    }
+
+    const handleDislike = () => {
+        let d = dislikesCount;
+        d = d + 1;
+        setDislikesCount(d);
+    }
     return (
         <div>
             <button
-                onClick={() => handleRating('like')}
+                onClick={handleLike}
                 style={{ color: currentRating === 'like' ? 'green' : 'grey' }}>
                 <ThumbUpIcon />
             </button>
             <span>{likesCount}</span>
             <button
-                onClick={() => handleRating('dislike')}
+                onClick={handleDislike}
                 style={{ color: currentRating === 'dislike' ? 'red' : 'grey' }}>
                 <ThumbDownIcon />
             </button>
