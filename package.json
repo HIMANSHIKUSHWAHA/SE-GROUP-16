@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@material-ui/icons": "^4.11.3",
     "axios": "^1.6.2",
     "concurrently": "^8.2.1",
     "nodemon": "^3.0.1",

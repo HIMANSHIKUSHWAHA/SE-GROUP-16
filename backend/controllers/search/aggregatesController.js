@@ -11,9 +11,7 @@ const { populate } = require("dotenv");
 //for the purpose of returning all content upon initially visiting a page.
 const getAllAsyncVideos = async (req, res) => {
     try {
-        const videos = await AsyncVideo.find()
-            .populate('ratings')
-            .populate('creator', 'firstName lastName');
+        const videos = await AsyncVideo.find().populate('ratings');
         res.json(videos);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -55,18 +53,9 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-const getAllProfessionals = async (req, res) => {
-    try {
-        const professionals = await Professional.find();
-        res.json(professionals);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 const getAllExercisePlans = async (req, res) => {
     try {
-        const exercisePlans = await ExercisePlan.find()
-            .populate('creator', 'firstName lastName');
+        const exercisePlans = await ExercisePlan.find();
         res.json(exercisePlans);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -75,8 +64,7 @@ const getAllExercisePlans = async (req, res) => {
 
 const getAllMealPlans = async (req, res) => {
     try {
-        const mealPlans = await MealPlan.find()
-            .populate('creator', 'firstName lastName');
+        const mealPlans = await MealPlan.find();
         res.json(mealPlans);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -88,6 +76,5 @@ module.exports = {
     getAllLiveSessions,
     getAllUsers,
     getAllExercisePlans,
-    getAllMealPlans,
-    getAllProfessionals
+    getAllMealPlans
 };

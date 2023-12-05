@@ -3,9 +3,13 @@ import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
 import { Box, TextField, Button, List, ListItem, Typography, Paper, Grid, Card, CardContent } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-
 const VideoSearch = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+
+    const [searchParams, setSearchParams] = useState({
+        title: '',
+        tags: '',
+        description: '',
+    });
     const [results, setResults] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
@@ -13,38 +17,17 @@ const VideoSearch = () => {
 
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(token);
         fetchAllVideos();
     }, []);
 
-    useEffect(() => {
-        loadSuggestions();
-    }, [searchTerm]);
-
-    const loadSuggestions = async () => {
-        if (searchTerm.length > 0) {
-            try {
-                const response = await axios.get(`/api/v1/search/autocomplete/video?prefix=${searchTerm}`);
-                setSuggestions(response.data);
-                setShowSuggestions(true);
-            } catch (error) {
-                console.error('Error loading title suggestions', error);
-            }
-        } else {
-            setSuggestions([]);
-            setShowSuggestions(false);
-        }
-    };
-
-    const handleSuggestionClick = (title) => {
-        setSearchTerm(title);
-        setSuggestions([]);
-        setShowSuggestions(false);
-    };
 
     const fetchAllVideos = async () => {
         try {
             const response = await axios.get('/api/v1/search/allvideos');
             setResults(response.data);
+            console.log(response);
         } catch (error) {
             setErrorMessage('An error occurred while fetching videos.');
             console.error('Fetch all videos error', error);
@@ -52,24 +35,26 @@ const VideoSearch = () => {
     };
 
     const handleInputChange = (e) => {
-        setSearchTerm(e.target.value);
+        setSearchParams({ ...searchParams, [e.target.name]: e.target.value });
     };
 
     const handleSearch = async (e) => {
         e.preventDefault();
-        setShowSuggestions(false);
         setErrorMessage('');
         try {
-            const response = await axios.get('/api/v1/search/videos', { params: { searchTerm } });
-            setResults(response.data);
+            const response = await axios.get('/api/v1/search/searchvideos', { params: searchParams });
+            setResults(response.data); // This will trigger the useEffect if the array is empty
             if (response.data.length === 0) {
+                setResults([]);
                 setErrorMessage('No videos found.');
             }
         } catch (error) {
+            setResults([]);
             setErrorMessage('An error occurred while searching for videos.');
             console.error('Search error', error);
         }
     };
+
     return (
         <Box sx={{ padding: 3 }}>
             <Box display="flex" alignItems="center" sx={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', mb: 4 }}>
@@ -141,4 +126,5 @@ const VideoSearch = () => {
         </Box>
     );
 };
+
 export default VideoSearch;
