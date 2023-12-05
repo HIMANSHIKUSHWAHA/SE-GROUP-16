@@ -9,7 +9,6 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import validator from 'validator';
 import { Navigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
@@ -19,9 +18,12 @@ export default function AdminLogin() {
         email: '',
         password: '',
     });
-    const [validEmail, setValidEmail] = useState(null);
     const [passErr, setPassErr] = useState(null);
     const [nav, setNav] = useState(null);
+
+    // Hardcoded admin credentials
+    const ADMIN_EMAIL = 'himanshi@iu.edu';
+    const ADMIN_PASSWORD = 'himanshi';
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -29,41 +31,19 @@ export default function AdminLogin() {
             ...prevFormData,
             [name]: value,
         }));
-
-        if (name === 'email') setValidEmail(null);
-        if (name === 'password') setPassErr(null);
+        // Reset error when the user starts typing again
+        setPassErr(null);
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-
-        if (!validator.isEmail(formData.email)) {
-            setValidEmail('Not a valid email');
-            return;
-        }
-
-        const headers = {
-            'Content-Type': 'application/json',
-        };
-
-        try {
-            const response = await fetch('http://localhost:3000/auth/admin-login', {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('adminToken', data.token);
-                setNav('/admin-dashboard');
-            } else {
-                setPassErr(data.message || 'Incorrect email or password');
-            }
-        } catch (error) {
-            console.error('Login request failed:', error);
-            setPassErr('Failed to connect. Please check your internet connection and try again.');
+        // Check if entered credentials match the hardcoded admin credentials
+        if (formData.email === ADMIN_EMAIL && formData.password === ADMIN_PASSWORD) {
+            // Credentials are correct, redirect to admin dashboard
+            setNav('/admin-dashboard');
+        } else {
+            // Credentials are incorrect, show error message
+            setPassErr('Incorrect email or password.');
         }
     };
 
@@ -75,8 +55,36 @@ export default function AdminLogin() {
         <ThemeProvider theme={defaultTheme}>
             <Grid container component="main" sx={{ height: '100vh' }}>
                 <CssBaseline />
+                <Grid
+                    item
+                    xs={false}
+                    sm={4}
+                    md={7}
+                    sx={{
+                        backgroundImage: 'url("/images/venti-views-I1EWTM5mFEM-unsplash.jpg")',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundColor: (t) =>
+                            t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    {/* Content on top of background image could go here */}
+                </Grid>
                 <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-                    <Box sx={{ my: 8, mx: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <Box
+                        sx={{
+                            my: 8,
+                            mx: 4,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
                         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                             <FitnessCenterIcon />
                         </Avatar>
@@ -95,8 +103,8 @@ export default function AdminLogin() {
                                 autoFocus
                                 value={formData.email}
                                 onChange={handleInputChange}
-                                error={!!validEmail}
-                                helperText={validEmail}
+                                error={!!passErr}
+                                helperText={passErr && 'Incorrect email'}
                             />
                             <TextField
                                 margin="normal"
@@ -110,7 +118,7 @@ export default function AdminLogin() {
                                 value={formData.password}
                                 onChange={handleInputChange}
                                 error={!!passErr}
-                                helperText={passErr}
+                                helperText={passErr && 'Incorrect password'}
                             />
                             <Button
                                 type="submit"

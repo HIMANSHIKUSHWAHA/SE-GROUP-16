@@ -13,6 +13,9 @@ import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import Profile from "./dashboard/profile.js";
 import AdminLogin from "./auth/AdminLogin.js"
+import AdminDashboard from './dashboard/aDashboard/AdminDashboard.js';
+
+
 // user profile 
 export default function Router() {
     return (
@@ -28,6 +31,7 @@ export default function Router() {
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
                 <Route path="test" element={<PDashboard />} />
                 <Route path="/admin-login" element={<AdminLogin/>}/>
+                <Route path="/admin-dashboard" element={<AdminDashboard />} />
                 <Route path="/dashboard" element={
                     <PrivateRoute>
                         <Dashboard />

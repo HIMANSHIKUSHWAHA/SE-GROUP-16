@@ -16,6 +16,26 @@ const mongoose = require("mongoose");
 const Professional = require("./models/Professional");
 const adminRoutes = require('./routes/adminRoutes');
 
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import AdminLogin from './path/to/AdminLogin'; // Update with the correct path to your AdminLogin component
+// import OtherComponent from './path/to/OtherComponent'; // Import other components as needed
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/admin-login" element={<AdminLogin />} />
+//         {/* Add other routes here */}
+//         {/* <Route path="/other-path" element={<OtherComponent />} /> */}
+//         {/* ... */}
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
 console.log("Started backend server");
 
 // Connect to mongoose
