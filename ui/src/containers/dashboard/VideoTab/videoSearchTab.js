@@ -125,7 +125,7 @@ const VideoSearch = () => {
                                     <VideoPreview link={result.link} />
                                 </Box>
                                 <Typography variant="body1" sx={{ mb: 1 }}>
-                                    By: {result.creator.firstName} {result.creator.lastName}
+                                    {/* By: {result.creator.firstName} {result.creator.lastName} */}
                                 </Typography>
                                 <Typography variant="body2">
                                     {result.description}

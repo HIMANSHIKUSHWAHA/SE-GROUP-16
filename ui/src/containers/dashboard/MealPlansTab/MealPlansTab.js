@@ -126,7 +126,7 @@ const MealPlansSearch = () => {
                                     {mealPlan.cost}
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    By: {mealPlan.creator.firstName} {mealPlan.creator.lastName}
+                                    {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */}
                                 </Typography>
                             </CardContent>
                         </Card>
