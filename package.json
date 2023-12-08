@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "axios": "^1.6.2",
     "concurrently": "^8.2.1",
     "nodemon": "^3.0.1",
     "react-scripts": "^5.0.1"
@@ -9,6 +10,6 @@
     "start:ui": "cd ui && npm start",
     "start": "concurrently \"npm run start:backend\" \"npm run start:ui\"",
     "build:ui": "cd ui && npm install",
-    "build:backend":"cd backend && npm install"
+    "build:backend": "cd backend && npm install"
   }
 }

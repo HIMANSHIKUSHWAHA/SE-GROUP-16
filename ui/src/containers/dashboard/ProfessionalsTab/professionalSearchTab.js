@@ -3,6 +3,7 @@ import axios from 'axios';
 // import './professionalSearchTab.css';
 import { Grid, Card, CardContent, Box, TextField, Button, List, ListItem, Typography, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import { Link } from 'react-router-dom';
 
 const ProfessionalSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -138,13 +139,13 @@ const ProfessionalSearch = () => {
                 )}
             </Box>
 
-            {errorMessage && <Typography color="error">{errorMessage}}</Typography>}
+            {errorMessage && <Typography color="error">{errorMessage}</Typography>}
             <Grid container spacing={2}>
                 {results.map((professional, index) => (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
                         <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
                             <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                <Typography variant="h6" component={Link} to={`/profile/${professional._id}`} sx={{ mb: 2, textDecoration: 'none', fontWeight:500}}>
                                     {`${professional.firstName} ${professional.lastName}`}
                                 </Typography>
                                 <Typography sx={{ mb: 2 }}>{professional.specialization}</Typography>

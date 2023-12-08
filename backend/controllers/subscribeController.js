@@ -4,9 +4,11 @@ const Professional = require('../models/Professional');
 const subscribe = async (subscriberId, subscribeToUserId) => {
     console.log('subscribe CONTROLLER CALLED',subscriberId, subscribeToUserId);
     try {
-        
         // Check if already subscribed
-        const user = await User.findById(subscriberId);
+        let user = await User.findById(subscriberId);
+        if (!user) {
+            user = await Professional.findById(subscriberId);
+        }
         if (user.Subscribing.includes(subscribeToUserId)) {
             console.log('ALREADY SUBSCRIBED');
             return { status: 400, json: { message: 'Already subscribed to user.' }};
@@ -17,7 +19,10 @@ const subscribe = async (subscriberId, subscribeToUserId) => {
         await user.save();
 
         // Add to the subscribed user's Subscribers list
-        const subscribedUser = await User.findById(subscribeToUserId);
+        let subscribedUser = await User.findById(subscribeToUserId);
+        if (!subscribedUser) {
+            subscribedUser = await Professional.findById(subscribeToUserId);
+        }
         subscribedUser.Subscribers.push(subscriberId);
         await subscribedUser.save();
         console.log('SUBSCRIBED SUCCESSFULLY');

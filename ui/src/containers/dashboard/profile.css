@@ -1,12 +1,41 @@
 /* Profile.css */
-body {
-  background-color: #e0e0e0; /* This sets the background to light grey */
+.modal-overlay {
+  position: fixed; /* Fixed position to cover the entire viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  /* High z-index to ensure it's on top */
 }
+.modal-content {
+  min-height: 140px;
+  min-width: 140px;
+  max-width: 290px;
+  display: flex;
+
+  background: #e0e0e0;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow:  -20px 20px 60px #bebebe,
+             20px -20px 60px #ffffff;
+  z-index: 1;
+}
+.bg {
+  background-color: hsl(0, 0%, 88%);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
 .user-card {
   padding: 45px;
   max-width: 800px;
   margin: auto;
-  margin-top: 60px;
+  margin-top: 130px;
   margin-bottom: 60px;
   border-radius: 50px;
   background: #e0e0e0;
@@ -21,12 +50,17 @@ body {
 }
 
 .subtitle-typography {
-  color: #555; /* Slightly lighter text for subtitles */
+  font-size: 0.6em;
+  color: #656565a4; /* Slightly lighter text for subtitles */
   margin-bottom: 12px;
 }
 
 .info-typography {
-  margin-bottom: 8px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-decoration: none;
+  text-transform: none;
   color: #666; /* Even lighter text for informational text */
 }
 
@@ -42,23 +76,15 @@ body {
   margin-right: 0;
 }
 
-.scrollable-box {
-  overflow-x: auto;
-  padding: 8px;
-}
-
-.scrollable-box::-webkit-scrollbar {
-  display: none; /* Hide scrollbar for Webkit browsers */
-}
 .subbutton{
+  position: absolute;
   text-transform: none;
-  color: #4ff340;
   cursor: pointer;
   font-size: 15px;
   border-radius: 36px;
-  background: #4ff340;
   box-shadow:  -20px 20px 60px #bebebe,
              20px -20px 60px #ffffff;
   
 }
+
 /* Additional colors for other elements can be added here */

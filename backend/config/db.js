@@ -4,7 +4,7 @@ const AppError = require('../utils/AppError');
 
 
 const connectDB = async () => {
-    const conn = await mongoose.connect("mongodb://localhost:27017",
+    const conn = await mongoose.connect(process.env.DB_STRING,
         {
             useNewUrlParser: true,
             useUnifiedTopology: true,
