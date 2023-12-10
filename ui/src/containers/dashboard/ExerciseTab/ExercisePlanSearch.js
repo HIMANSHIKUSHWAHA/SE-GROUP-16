@@ -18,13 +18,13 @@ const ExpandableExerciseCard = ({ plan }) => {
     const renderExercisesForDay = (dayExercisesArray) => {
         // It seems each day is an array of objects that have an `exercises` array
         // We need to flatten this into a single array of all exercises for the day
-        const allExercises = dayExercisesArray.flatMap(dayExercise => dayExercise.exercises);
-        return allExercises.map((exercise, idx) => (
+        
+        return dayExercisesArray.map((exercise, idx) => (
             <div key={exercise._id || idx}>
-                <Typography variant="subtitle2">Exercise {idx + 1}: {exercise.title}</Typography>
-                <Typography variant="body2">Description: {exercise.description}</Typography>
-                <Typography variant="body2">Reps: {exercise.reps}</Typography>
-                <Typography variant="body2">Sets: {exercise.sets}</Typography>
+                 <Typography variant="subtitle2">Exercise {idx + 1}: {exercise.title}</Typography>
+                 <Typography variant="body2">Description: {exercise.description}</Typography>
+                 <Typography variant="body2">Reps: {exercise.reps}</Typography>
+                 <Typography variant="body2">Sets: {exercise.sets}</Typography>
                 {/* You can add referenceVideo and other details here */}
             </div>
         ));
@@ -63,25 +63,6 @@ const ExpandableExerciseCard = ({ plan }) => {
             </Accordion>
         </Grid>
     );
-};
-
-
-const ExerciseCard = (props) => {
-    return (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
-            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                <CardContent>
-                    <Typography variant="h5" component="h2">
-                        {props.plan.title}
-                    </Typography>
-                    <Typography color="textSecondary">
-                        {props.plan.description}
-                    </Typography>
-                    {/* Add other details here if necessary */}
-                </CardContent>
-            </Card>
-        </Grid>
-    )
 };
 
 const ExercisePlanSearch = () => {
@@ -124,7 +105,7 @@ const ExercisePlanSearch = () => {
         try {
             const response = await axios.get('/api/v1/search/allExercisePlans');
             setResults(response.data);
-
+            
         } catch (error) {
             setErrorMessage('An error occurred while fetching exercise plans.');
             console.error('Fetch all exercise plans error', error);
@@ -132,6 +113,7 @@ const ExercisePlanSearch = () => {
     };
 
     const handleInputChange = (e) => {
+        console.log("------->",results);
         setSearchTerm(e.target.value);
     };
 
@@ -204,4 +186,4 @@ const ExercisePlanSearch = () => {
     );
 };
 
-export { ExercisePlanSearch, ExerciseCard, ExpandableExerciseCard };
+export { ExercisePlanSearch, ExpandableExerciseCard };
