@@ -49,14 +49,17 @@ const createAsyncVideo = async (title, description, link, tags, professionalId, 
 
 const createDefaultAsyncVideo = async (professionalId) => {
     
-    AsyncVideo.deleteMany({});
+    await AsyncVideo.deleteMany({});
+    // const id = await createAsyncVideo("How to do push-ups", "temp", "https://www.youtube.com/embed/IODxDxX7oi4?si=tmEZbNQSGXV3NqZt", professionalId);
     const videos = data["videos"];
-    let ids = [];
-    videos.map(async (item,idx) =>{
-        const tmp_id = await createAsyncVideo(item.title, item.description, item.link, item.tags, professionalId);
-        ids.push(tmp_id);
-    })
 
+    // console.log(videos);
+    let ids = [];
+    for(let i=0;i<videos.length;i++){
+        const item = videos[i];
+        const tmp_id = await createAsyncVideo(item.title, item.description, item.link, item.tags);
+        ids.push(tmp_id);
+    }
     return ids;
 };
 

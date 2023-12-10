@@ -19,6 +19,12 @@
             "tags": ["workout", "build-muscle"]
         },
         {
+            "title": "HIIT",
+            "description": "high intensity training",
+            "link": "https://www.youtube.com/embed/J212vz33gU4?si=NaM3mI_dewET5AO5",
+            "tags": ["workout", "weight-lose"]
+        },
+        {
             "title": "Muscle building smoothies",
             "description": "Recipies for building muscles",
             "link": "https://www.youtube.com/embed/2_MMdqqgqSs?si=o28oSR9ULjJW5GW-",
@@ -35,6 +41,12 @@
             "description": "Best meal prep out there",
             "link": "https://www.youtube.com/embed/PXub4lr-9J8?si=q2x1oyFUt0Bq5hUz",
             "tags": ["meal-prep", "Food"]
+        },
+        {
+            "title": "What to do?",
+            "description": "Best solutions",
+            "link": "https://www.youtube.com/embed/YvrKIQ_Tbsk?si=GcBgzIFtBNUnkObu",
+            "tags": ["workout", "get-healthy"]
         }
     ]
 }
