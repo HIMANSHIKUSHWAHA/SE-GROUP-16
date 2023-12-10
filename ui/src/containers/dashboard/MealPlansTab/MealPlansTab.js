@@ -105,7 +105,7 @@ const MealCard = (props) => {
                         {props.mealPlan.cost}
                     </Typography>
                     <Typography color="textSecondary">
-                        {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */By: {mealPlan.creator?.firstName || 'null'} {mealPlan.creator?.lastName.lastName || 'null'}}
+                        {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */}
                     </Typography>
                     <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
                         Tags: {props.mealPlan.tags.join(', ')}

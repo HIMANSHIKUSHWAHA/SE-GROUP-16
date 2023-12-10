@@ -20,7 +20,6 @@ const VideoCard = (props) => {
                     </Box>
                     <Typography variant="body1" sx={{ mb: 1 }}>
                         {/* By: {result.creator.firstName} {result.creator.lastName} */}
-                        By: {result.creator?.firstName||'null'} {result.creator?.lastName||'null'}
                     </Typography>
                     <Typography variant="body2">
                         {props.result.description}
