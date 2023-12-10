@@ -1,0 +1,72 @@
+[
+    {
+        "title": "random video 1",
+        "link": "https://www.youtube.com/embed/Ev6yE55kYGw?si=nGvE-BcfnQyJ68dw",
+        "creator": {
+            "firstName": "Alan",
+            "lastName": "Kola"
+        },
+        "description": "random description 1",
+        "tags": ["tag1","tag2"],
+        "ratings": {
+            "likesCount": 3,
+            "dislikesCount": 1
+        }
+    },
+    {
+        "title": "random video 2",
+        "link": "https://www.youtube.com/embed/vFXwQSuY_gw?si=eO6WSGWEwvyhtwys",
+        "creator": {
+            "firstName": "Alan",
+            "lastName": "Kola"
+        },
+        "description": "random description 1",
+        "tags": ["tag1","tag2"],
+        "ratings": {
+            "likesCount": 3,
+            "dislikesCount": 1
+        }
+    },
+    {
+        "title": "random video 3",
+        "link": "https://www.youtube.com/embed/o20sLxinfwc?si=UxACRpal9PFYmwqC",
+        "creator": {
+            "firstName": "Alan",
+            "lastName": "Kola"
+        },
+        "description": "random description 1",
+        "tags": ["tag1","tag2"],
+        "ratings": {
+            "likesCount": 3,
+            "dislikesCount": 1
+        }
+    },
+    {
+        "title": "random video 4",
+        "link": "https://www.youtube.com/embed/2tM1LFFxeKg?si=F2P4VA-DpYkX8rnv",
+        "creator": {
+            "firstName": "Alan",
+            "lastName": "Kola"
+        },
+        "description": "random description 1",
+        "tags": ["tag1","tag2"],
+        "ratings": {
+            "likesCount": 3,
+            "dislikesCount": 1
+        }
+    },
+    {
+        "title": "random video 5",
+        "link": "https://www.youtube.com/embed/_EldigduNbs?si=pdYsS71hglDM79Rk",
+        "creator": {
+            "firstName": "Alan",
+            "lastName": "Kola"
+        },
+        "description": "random description 1",
+        "tags": ["tag1","tag2"],
+        "ratings": {
+            "likesCount": 3,
+            "dislikesCount": 1
+        }
+    }
+]

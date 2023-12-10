@@ -6,8 +6,8 @@ import { UserContext } from "../context";
 
 export default function Header({ auth = false, navbarData, setActiveContent, activeContent }) {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
     const { user } = useContext(UserContext)
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);

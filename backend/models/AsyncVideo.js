@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const Ratings = require('../models/Ratings').schema; // Assuming you export schema from Ratings
+const Ratings = require('../models/Ratings').schema;
 
 const asyncVideoSchema = new Schema({
     creator: {
@@ -21,7 +21,7 @@ const asyncVideoSchema = new Schema({
         default: 0
     },
     tags: {
-        type: [String],
+        type: Array,
         required: true,
     },
     description: {

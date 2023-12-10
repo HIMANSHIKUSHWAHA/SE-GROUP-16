@@ -129,6 +129,7 @@ const searchLiveSessions = async (req, res, next) => {
 };
 
 const searchProfessionals = async (req, res, next) => {
+    console.log("SEARCH PROF CALLED ");
     const { searchTerm } = req.query;
     let queryObject = {};
 
@@ -148,6 +149,7 @@ const searchProfessionals = async (req, res, next) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
+    console.log("SEARCH PROF DONE ");
 };
 
 const searchExercisePlans = async (req, res, next) => {
@@ -158,6 +160,7 @@ const searchExercisePlans = async (req, res, next) => {
         queryObject['$or'] = [
             { title: { $regex: searchTerm, $options: 'i' } },
             { description: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } }
             // You can also include other relevant fields here, for example:
             // { cost: { $regex: searchTerm, $options: 'i' } },
             // { 'creator.firstName': { $regex: searchTerm, $options: 'i' } },
@@ -177,17 +180,16 @@ const searchExercisePlans = async (req, res, next) => {
 
 const searchMealPlans = async (req, res, next) => {
     const { searchTerm } = req.query;
-    console.log(searchTerm)
+    console.log(searchTerm);
     let queryObject = {};
 
     if (searchTerm) {
         queryObject['$or'] = [
             { title: { $regex: searchTerm, $options: 'i' } },
-            { description: { $regex: searchTerm, $options: 'i' } }
+            { description: { $regex: searchTerm, $options: 'i' } },
+            { tags: { $regex: searchTerm, $options: 'i' } }
+            // Add other fields if necessary
         ];
-    } else {
-        // Handle case where searchTerm is empty
-        return res.json([]); // Or you can send a custom message
     }
 
     try {

@@ -52,7 +52,9 @@ const calendarData = async (req, res, next) => {
 
             if (!userCalendarData) {
                 createDefaultCalendar(userId);
+                userCalendarData = await Calendar.findOne({ userId: userId });
             }
+
 
 
             userCalendarData = await Calendar.findOne({ userId: userId }).populate({

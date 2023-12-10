@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const Ratings = require('../models/Ratings').schema;
 // Define the Meal schema
 const mealSchema = new Schema({
     mealItems: [String],
@@ -44,11 +44,21 @@ const mealPlanDaySchema = new mongoose.Schema({
 
 // Define the MealPlan schema
 const mealPlanSchema = new mongoose.Schema({
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'Professional',
+        select: false
+    },
     cost: Number,
     title: String,
     description: String,
     tags: Array,
+    ratings: {
+        type: Schema.Types.ObjectId,
+        ref: 'Ratings'
+    },
     isDefault: { type: Boolean, default: false },
+    ratings: { type: Schema.Types.ObjectId, ref: 'Ratings' },
     creator: { type: Schema.Types.ObjectId, ref: 'Professional' },
     Monday: mealPlanDaySchema,
     Tuesday: mealPlanDaySchema,

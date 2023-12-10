@@ -1,0 +1,52 @@
+{
+    "videos": [
+        {
+            "title": "How to do push-ups",
+            "description": "The correct way to do push ups",
+            "link": "https://www.youtube.com/embed/IODxDxX7oi4?si=tmEZbNQSGXV3NqZt",
+            "tags": ["workout", "build-muscle"]
+        },
+        {
+            "title": "How to do pull-ups",
+            "description": "The correct way to do pull ups",
+            "link": "https://www.youtube.com/embed/syS4M1G-rII?si=wqJcZAsvK5Kiv0JN",
+            "tags": ["workout", "build-muscle"]
+        },
+        {
+            "title": "How to do sqauts",
+            "description": "The correct way to do squats",
+            "link": "https://www.youtube.com/embed/YaXPRqUwItQ?si=t8jHmxNC_01KRIB9",
+            "tags": ["workout", "build-muscle"]
+        },
+        {
+            "title": "HIIT",
+            "description": "high intensity training",
+            "link": "https://www.youtube.com/embed/J212vz33gU4?si=NaM3mI_dewET5AO5",
+            "tags": ["workout", "weight-lose"]
+        },
+        {
+            "title": "Muscle building smoothies",
+            "description": "Recipies for building muscles",
+            "link": "https://www.youtube.com/embed/2_MMdqqgqSs?si=o28oSR9ULjJW5GW-",
+            "tags": ["Food", "build-muscle"]
+        },
+        {
+            "title": "Fat loss food recipies",
+            "description": "Follow these and loose fat quick",
+            "link": "https://www.youtube.com/embed/LCyECbA3pUw?si=bgReQX232Ze3kBIt",
+            "tags": ["Food", "weight-lose"]
+        },
+        {
+            "title": "Low budget meal prep",
+            "description": "Best meal prep out there",
+            "link": "https://www.youtube.com/embed/PXub4lr-9J8?si=q2x1oyFUt0Bq5hUz",
+            "tags": ["meal-prep", "Food"]
+        },
+        {
+            "title": "What to do?",
+            "description": "Best solutions",
+            "link": "https://www.youtube.com/embed/YvrKIQ_Tbsk?si=GcBgzIFtBNUnkObu",
+            "tags": ["workout", "get-healthy"]
+        }
+    ]
+}

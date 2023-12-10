@@ -1,8 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import VideoPreview from './../videoEmbeds';
 import { Box, TextField, Button, List, ListItem, Typography, Paper, Grid, Card, CardContent } from '@mui/material';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import {UserContext} from "../../../context";
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
+
+const VideoCard = (props) => {
+    return (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
+            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                <CardContent>
+                    <Typography variant="h6" sx={{ mb: 2 }}>
+                        {props.result.title}
+                    </Typography>
+                    {/* Assuming VideoPreview is a React component */}
+                    <Box className="video-preview" sx={{ mb: 2 }}>
+                        <VideoPreview link={props.result.link} />
+                    </Box>
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                        {/* By: {result.creator.firstName} {result.creator.lastName} */}
+                        By: {result.creator?.firstName||'null'} {result.creator?.lastName||'null'}
+                    </Typography>
+                    <Typography variant="body2">
+                        {props.result.description}
+                    </Typography>
+                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                        Tags: {props.result.tags.join(', ')}
+                    </Typography>
+                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                       {props.result.ratings !== undefined && <RatingsComponent ratings={props.result.ratings} />} 
+                    </Typography>
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+}
 
 const VideoSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -10,8 +43,8 @@ const VideoSearch = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-
-
+    const { user } = useContext(UserContext);
+    console.log('User ID: ',user?.id);
     useEffect(() => {
         fetchAllVideos();
     }, []);
@@ -20,6 +53,8 @@ const VideoSearch = () => {
         loadSuggestions();
     }, [searchTerm]);
 
+    //test 
+    
     const loadSuggestions = async () => {
         if (searchTerm.length > 0) {
             try {
@@ -115,31 +150,11 @@ const VideoSearch = () => {
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
             <Grid container spacing={2}>
                 {results.map((result, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                            <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
-                                    {result.title}
-                                </Typography>
-                                {/* Assuming VideoPreview is a React component */}
-                                <Box className="video-preview" sx={{ mb: 2 }}>
-                                    <VideoPreview link={result.link} />
-                                </Box>
-                                <Typography variant="body1" sx={{ mb: 1 }}>
-                                    By: {result.creator?.firstName||'null'} {result.creator?.lastName||'null'}
-                                </Typography>
-                                <Typography variant="body2">
-                                    {result.description}
-                                </Typography>
-                                <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                                    Tags: {result.tags.join(', ')}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <VideoCard result={result} index={index}/>
                 ))}
             </Grid>
         </Box>
     );
 };
-export default VideoSearch;
+
+export {VideoSearch, VideoCard};
