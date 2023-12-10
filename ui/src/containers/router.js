@@ -14,10 +14,8 @@ import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import LiveSessionForm from "./livestream/liveStream.js";
 import JitsiMeetComponent from "./livestream/meetComponent.js";
-import Recommendaton from "./dashboard/recommendation/Recommendation.js";
-import VideoSearch from "./dashboard/VideoTab/videoSearchTab.js"
-
 import { UserContext } from "../context.js";
+import AdminPage from './admin.js';
 
 // user profile 
 export default function Router() {
@@ -30,6 +28,7 @@ export default function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
+                <Route path="/admin" element={<AdminPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/otp-verification" element={<OtpVerification />} />
@@ -37,7 +36,7 @@ export default function Router() {
                 <Route path="/2fa-setup" element={<TwoFactorAuthSetup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
-                <Route path="test" element={<Recommendaton />} />
+                <Route path="test" element={<PDashboard />} />
                 <Route path="/pdashboard" element={
                     <PrivateRoute>
                         <PDashboard />

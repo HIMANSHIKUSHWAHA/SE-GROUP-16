@@ -3,6 +3,72 @@ const AppError = require('../../utils/AppError')
 const User = require('../../models/User');
 const LiveSession = require('../../models/LiveSession');
 const Professional = require('../../models/Professional');
+const MealPlan = require('../../models/MealPlan');
+const ExercisePlan = require('../../models/ExercisePlan');
+
+
+const getDefaultMealPlanId = async () => {
+    const defaultMealPlan = await MealPlan.findOne({ isDefault: true });
+    return defaultMealPlan ? defaultMealPlan._id : null;
+};
+
+const validateAndAssignDefaultMealPlan = async (userCalendarData) => {
+    if (userCalendarData.mealPlanId) {
+        // Check if the current mealPlanId corresponds to a valid meal plan
+        const existingMealPlan = await MealPlan.findById(userCalendarData.mealPlanId);
+        if (!existingMealPlan) {
+            // If not valid, assign the default meal plan ID
+            const defaultMealPlanId = await getDefaultMealPlanId();
+            if (defaultMealPlanId) {
+                userCalendarData.mealPlanId = defaultMealPlanId;
+                await userCalendarData.save(); // Save the updated calendar data
+            } else {
+                // Handle the case where there is no default meal plan
+                console.log("NO DEFAULT MEAL PLAN")
+            }
+        }
+    } else {
+        // If mealPlanId is null, also assign the default meal plan ID
+        const defaultMealPlanId = await getDefaultMealPlanId();
+        if (defaultMealPlanId) {
+            userCalendarData.mealPlanId = defaultMealPlanId;
+            await userCalendarData.save();
+        } else {
+            console.log("NO DEFAULT MEAL PLAN")
+        }
+    }
+};
+
+const getDefaultExercisePlanId = async () => {
+    const defaultExercisePlan = await ExercisePlan.findOne({ isDefault: true });
+    return defaultExercisePlan ? defaultExercisePlan._id : null;
+};
+
+const validateAndAssignDefaultExercisePlan = async (userCalendarData) => {
+    if (userCalendarData.exercisePlanId) {
+        // Check if the current exercisePlanId corresponds to a valid exercise plan
+        const existingExercisePlan = await ExercisePlan.findById(userCalendarData.exercisePlanId);
+        if (!existingExercisePlan) {
+            // If not valid, assign the default exercise plan ID
+            const defaultExercisePlanId = await getDefaultExercisePlanId();
+            if (defaultExercisePlanId) {
+                userCalendarData.exercisePlanId = defaultExercisePlanId;
+                await userCalendarData.save(); // Save the updated calendar data
+            } else {
+                console.log("NO DEFAULT EXERCISE PLAN EXISTS");
+            }
+        }
+    } else {
+        // If exercisePlanId is null, also assign the default exercise plan ID
+        const defaultExercisePlanId = await getDefaultExercisePlanId();
+        if (defaultExercisePlanId) {
+            userCalendarData.exercisePlanId = defaultExercisePlanId;
+            await userCalendarData.save();
+        } else {
+            console.log("NO DEFAULT EXERCISE PLAN EXISTS");
+        }
+    }
+};
 
 const calendarData = async (req, res, next) => {
     console.log("Calendar_data CONTROLLER CALLED");
@@ -55,6 +121,10 @@ const calendarData = async (req, res, next) => {
                 userCalendarData = await Calendar.findOne({ userId: userId });
             }
 
+            await validateAndAssignDefaultMealPlan(userCalendarData);
+
+            await validateAndAssignDefaultExercisePlan(userCalendarData);
+
 
 
             userCalendarData = await Calendar.findOne({ userId: userId }).populate({
@@ -84,11 +154,14 @@ const calendarData = async (req, res, next) => {
             };
 
             daysOfWeek.forEach(day => {
+
                 planData[day] = {
                     sleep: sleepData,
                     meals: userCalendarData.mealPlanId[day],
                     exercises: userCalendarData.exercisePlanId[day]
                 };
+
+
             });
             // Format the data for the response
             const formattedCalendarData = {

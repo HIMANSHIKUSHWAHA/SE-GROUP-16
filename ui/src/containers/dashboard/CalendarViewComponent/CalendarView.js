@@ -78,8 +78,10 @@ const TaskCard = ({ title, content, session }) => {
 // COLUMN FOR EACH DAY OF CALENDAR
 const DayColumn = ({ day, date, month, isToday, dayData, events }) => {
     const meals = dayData?.meals;
-    const exercises = dayData?.exercises?.[0]?.exercises;
+    const exercises = dayData?.exercises;
     const sleep = dayData?.sleep;
+
+    console.log("YOYOYOOYOYOOYOOYOYO ", dayData.exercises.length);
 
 
     return (

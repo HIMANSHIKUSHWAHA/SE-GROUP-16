@@ -2,12 +2,12 @@ require('dotenv').config({ path: '../.env' });
 const mongoose = require('mongoose');
 // Import the models
 const ExercisePlan = require('../models/ExercisePlan');
-// const SleepPlan = require('../models/SleepPlan');
+const SleepPlan = require('../models/SleepPlan');
 const MealPlan = require('../models/MealPlan');
 const AsyncVideo = require('../models/AsyncVideo');
 const Professional = require("../models/Professional");
 const User = require("../models/User");
-// const LiveSession = require('../models/LiveSession');
+const LiveSession = require('../models/LiveSession');
 const Ratings = require('../models/Ratings');
 // MongoDB connection URI
 // const mongoURI = 'mongodb://localhost:27017'
@@ -94,15 +94,15 @@ const createExercisePlan = async (title, description, cost, difficulty_level, ex
 const createDefaultExercisePlan = async (professionalId) => {
 
     await ExercisePlan.deleteMany({});
-    
+
     const mp = data["exercise-plans"];
     let ids = [];
-    for(let i=0;i<mp.length;i++){
+    for (let i = 0; i < mp.length; i++) {
         let mealDays = {};
         for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
             mealDays[day] = mp[i][day];
         }
-        const tmp_id = await createExercisePlan(mp[i]["title"],mp[i]["description"],mp[i]["cost"],mp[i]["difficulty_level"],mealDays,professionalId,mp[i]["tags"]);
+        const tmp_id = await createExercisePlan(mp[i]["title"], mp[i]["description"], mp[i]["cost"], mp[i]["difficulty_level"], mealDays, professionalId, mp[i]["tags"]);
         ids.push(tmp_id);
     }
 
@@ -192,28 +192,22 @@ const createMealPlan = async (title, description, cost, mealsForDay, professiona
 };
 
 const createDefaultMealPlan = async (professionalId) => {
-    
+
     await MealPlan.deleteMany({});
 
     const mp = data["meal-plans"];
     let ids = [];
-    for(let i=0;i<mp.length;i++){
+    for (let i = 0; i < mp.length; i++) {
         let mealDays = {};
         for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
             mealDays[day] = mp[i][day];
         }
-        const tmp_id = await createMealPlan(mp[i]["title"],mp[i]["description"],mp[i]["cost"],mealDays,professionalId,mp[i]["tags"]);
+        const tmp_id = await createMealPlan(mp[i]["title"], mp[i]["description"], mp[i]["cost"], mealDays, professionalId, mp[i]["tags"]);
         ids.push(tmp_id);
     }
 
     return ids;
 };
-
-
-
-
-
-
 
 const createDefaultSleepPlan = async () => {
     // Check for an existing default SleepPlan
@@ -271,18 +265,18 @@ const setupDefaultPlans = async () => {
     try {
         const [defaultProfessionalId, professional2Id, professional3Id] = await createDefaultProfessional();
         const userId = await createDefaultUser();
-        // const sleepPlanId = await createDefaultSleepPlan();
+        const sleepPlanId = await createDefaultSleepPlan();
         const exercisePlanId = await createDefaultExercisePlan(defaultProfessionalId);
         const mealPlanId = await createDefaultMealPlan(defaultProfessionalId);
         const asyncVideoId = await createDefaultAsyncVideo(defaultProfessionalId);
-        // const liveSessionId = await createDefaultLiveSession(defaultProfessionalId);
+        const liveSessionId = await createDefaultLiveSession(defaultProfessionalId);
         console.log(`Default Professional ID: ${defaultProfessionalId}`);
-        // console.log(`Default User ID: ${userId}`);
-        // console.log(`Default MealPlan ID: ${mealPlanId}`);
+        console.log(`Default User ID: ${userId}`);
+        console.log(`Default MealPlan ID: ${mealPlanId}`);
         console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
         console.log(`Default SleepPlan ID: ${sleepPlanId}`);
         console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
-        // console.log(`Default LiveSession ID: ${liveSessionId}`);
+        console.log(`Default LiveSession ID: ${liveSessionId}`);
     } catch (err) {
         console.error('Error setting up default plans:', err);
     } finally {
