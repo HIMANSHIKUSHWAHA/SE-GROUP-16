@@ -2,9 +2,9 @@
 // Create a script to just populate the database
 
 import React, { useEffect, useState } from "react";
-import { ExercisePlanSearch, ExerciseCard } from "../ExerciseTab/ExercisePlanSearch"
+import { ExercisePlanSearch, ExpandableExerciseCard } from "../ExerciseTab/ExercisePlanSearch"
 import {VideoSearch, VideoCard} from "../VideoTab/videoSearchTab" 
-import { MealPlansSearch, MealCard } from "../MealPlansTab/MealPlansTab"
+import { MealPlansSearch, ExpandableMealCard } from "../MealPlansTab/MealPlansTab"
 
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -21,6 +21,8 @@ export default function Recommendaton (props){
     });
 
     const [videos, setVideos] = useState([]);
+    const [mealPlans, setMealPlans] = useState([]);
+    const [exercisePlans, setExercisePlans] = useState([]);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -33,6 +35,12 @@ export default function Recommendaton (props){
     const loadRecs = () => {
         let vids = data['videos'];
         setVideos([...vids]);
+
+        let mp = data['meal-plans'];
+        setMealPlans([...mp]);
+
+        let ep = data['exercise-plans'];
+        setExercisePlans([...ep]);
     }
 
     useEffect(() => {
@@ -42,15 +50,25 @@ export default function Recommendaton (props){
     const handleSubmit = (event) => {
         event.preventDefault();
         let vids = [];
+        let mp = [];
+        let ep = [];
         if(formData.goal === "Get Healthy"){
-            vids = data['get-healthy'];
+            vids = data['get-healthy']['videos'];
+            mp = data['get-healthy']['meal-plans'];
+            ep = data['get-healthy']['exercise-plans'];
         }else if(formData.goal === "Loose Weight"){
-            vids = data['loose-weight'];
+            vids = data['loose-weight']['videos'];
+            mp = data['loose-weight']['meal-plans'];
+            ep = data['loose-weight']['exercise-plans'];
         }else if(formData.goal == "Gain Weight"){
-            vids = data['gain-weight'];
+            vids = data['gain-weight']['videos'];
+            mp = data['gain-weight']['meal-plans'];
+            ep = data['gain-weight']['exercise-plans'];
         }
 
         setVideos([...vids]);
+        setMealPlans([...mp]);
+        setExercisePlans([...ep]);
         console.log(formData);
     }
 
@@ -127,6 +145,12 @@ export default function Recommendaton (props){
             <Grid container spacing={2}>
                 {videos.map((item, idx) => {
                     return <VideoCard index={idx} result={item}/>
+                })}
+                {mealPlans.map((item,idx) => {
+                    return <ExpandableMealCard mealPlan={item} index={idx} />
+                })}
+                {exercisePlans.map((item,idx) => {
+                    return <ExpandableExerciseCard plan={item} key={idx} />
                 })}
             </Grid>
         </Box>

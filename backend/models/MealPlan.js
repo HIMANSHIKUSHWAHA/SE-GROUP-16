@@ -70,5 +70,4 @@ const mealPlanSchema = new mongoose.Schema({
 });
 
 // Create and export the MealPlan model
-const MealPlan = mongoose.model('MealPlan', mealPlanSchema);
-module.exports = MealPlan;
+module.exports = mongoose.model('MealPlan', mealPlanSchema); 

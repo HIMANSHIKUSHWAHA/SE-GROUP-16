@@ -1,9 +1,9 @@
 require('dotenv').config({ path: '../.env' });
 const mongoose = require('mongoose');
 // Import the models
-// const ExercisePlan = require('../models/ExercisePlan');
+const ExercisePlan = require('../models/ExercisePlan');
 // const SleepPlan = require('../models/SleepPlan');
-// const MealPlan = require('../models/Mealplan');
+const MealPlan = require('../models/MealPlan');
 const AsyncVideo = require('../models/AsyncVideo');
 const Professional = require("../models/Professional");
 const User = require("../models/User");
@@ -65,7 +65,7 @@ const createDefaultAsyncVideo = async (professionalId) => {
     return ids;
 };
 
-const createExercisePlan = async (title, description, cost, exerciseDays, professionalId, tags = [], isDefault = false) => {
+const createExercisePlan = async (title, description, cost, difficulty_level, exerciseDays, professionalId, tags = [], isDefault = false) => {
     let exercisePlan = await ExercisePlan.findOne({ title: title });
 
     if (!exercisePlan) {
@@ -75,6 +75,7 @@ const createExercisePlan = async (title, description, cost, exerciseDays, profes
             title: title,
             ratings: newRatings._id,
             description: description,
+            difficulty_level: difficulty_level,
             cost: cost,
             ...exerciseDays,
             tags: tags, // Add tags here
@@ -92,29 +93,20 @@ const createExercisePlan = async (title, description, cost, exerciseDays, profes
 };
 const createDefaultExercisePlan = async (professionalId) => {
 
-    // Define a default exercise
-    const defaultExercise = {
-        title: 'Push-ups',
-        description: 'Standard push-ups.',
-        referenceVideo: 'http://example.com/push-up-video',
-        creator: professionalId,
-        reps: 10,
-        sets: 3
-    };
-
-    // Create a default ExerciseDay for each day of the week with the same exercise
-    const exerciseDay = { exercises: [defaultExercise] };
-    const exerciseDays = {};
-    for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
-        exerciseDays[day] = exerciseDay;
+    await ExercisePlan.deleteMany({});
+    
+    const mp = data["exercise-plans"];
+    let ids = [];
+    for(let i=0;i<mp.length;i++){
+        let mealDays = {};
+        for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
+            mealDays[day] = mp[i][day];
+        }
+        const tmp_id = await createExercisePlan(mp[i]["title"],mp[i]["description"],mp[i]["cost"],mp[i]["difficulty_level"],mealDays,professionalId,mp[i]["tags"]);
+        ids.push(tmp_id);
     }
 
-    // Create different exercise plans
-    const defaultExercisePlanId = await createExercisePlan('PUSH UPS ALWAYS!', 'Push ups now and forever!', 600, exerciseDays, professionalId, ['default', 'pushups'], true)
-    const cardioPlanId = await createExercisePlan('Cardio Burn', 'Intense cardio workouts', 30, exerciseDays, professionalId);
-    const yogaPlanId = await createExercisePlan('Yoga Zen', 'Peaceful and strengthening yoga sessions', 25, exerciseDays, professionalId);
-
-    return { defaultExercisePlanId, cardioPlanId, yogaPlanId };
+    return ids;
 };
 
 const createDefaultUser = async () => {
@@ -200,35 +192,21 @@ const createMealPlan = async (title, description, cost, mealsForDay, professiona
 };
 
 const createDefaultMealPlan = async (professionalId) => {
-    // Define a default meal to be used for each day
-    const defaultMeal = {
-        mealItems: ['Brown Rice', 'Grilled Chicken Breast', 'Steamed Broccoli'],
-        calories: 600,
-        carbs: 45,
-        fats: 10,
-        proteins: 40
-    };
+    
+    await MealPlan.deleteMany({});
 
-    // Create a default meal for each mealtime
-    const defaultMealsForDay = {
-        breakfast: defaultMeal,
-        lunch: defaultMeal,
-        dinner: defaultMeal,
-        // Add any additional meals/snacks if necessary
-    };
-
-    // Create a default MealPlan for each day of the week with the same meals
-    const mealDays = {};
-    for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
-        mealDays[day] = defaultMealsForDay;
+    const mp = data["meal-plans"];
+    let ids = [];
+    for(let i=0;i<mp.length;i++){
+        let mealDays = {};
+        for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
+            mealDays[day] = mp[i][day];
+        }
+        const tmp_id = await createMealPlan(mp[i]["title"],mp[i]["description"],mp[i]["cost"],mealDays,professionalId,mp[i]["tags"]);
+        ids.push(tmp_id);
     }
 
-    // Create different meal plans
-    const defaultMealPlanId = await createMealPlan('Default Meal Plan', 'Standard healthy diet', 50, mealDays, professionalId, ['default', 'healthy'], true);
-    const ketoMealPlanId = await createMealPlan('Keto King, Big Butter', 'I hope you like butter, cause this diet is full of it.', 75, mealDays, professionalId);
-    const veganMealPlanId = await createMealPlan('Vegan Delight', 'A plant-based diet full of variety and taste.', 65, mealDays, professionalId);
-
-    return { defaultMealPlanId, ketoMealPlanId, veganMealPlanId };
+    return ids;
 };
 
 
@@ -294,15 +272,15 @@ const setupDefaultPlans = async () => {
         const [defaultProfessionalId, professional2Id, professional3Id] = await createDefaultProfessional();
         const userId = await createDefaultUser();
         // const sleepPlanId = await createDefaultSleepPlan();
-        // const exercisePlanId = await createDefaultExercisePlan(defaultProfessionalId);
-        // const mealPlanId = await createDefaultMealPlan(defaultProfessionalId);
+        const exercisePlanId = await createDefaultExercisePlan(defaultProfessionalId);
+        const mealPlanId = await createDefaultMealPlan(defaultProfessionalId);
         const asyncVideoId = await createDefaultAsyncVideo(defaultProfessionalId);
         // const liveSessionId = await createDefaultLiveSession(defaultProfessionalId);
         console.log(`Default Professional ID: ${defaultProfessionalId}`);
         // console.log(`Default User ID: ${userId}`);
         // console.log(`Default MealPlan ID: ${mealPlanId}`);
-        // console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
-        // console.log(`Default SleepPlan ID: ${sleepPlanId}`);
+        console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
+        console.log(`Default SleepPlan ID: ${sleepPlanId}`);
         console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
         // console.log(`Default LiveSession ID: ${liveSessionId}`);
     } catch (err) {

@@ -90,35 +90,6 @@ const ExpandableMealCard = (props) => {
     );
 };
 
-const MealCard = (props) => {
-    return (
-        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
-            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                <CardContent>
-                    <Typography variant="h5" component="h2">
-                        {props.mealPlan.title}
-                    </Typography>
-                    <Typography color="textSecondary">
-                        {props.mealPlan.description}
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                        {props.mealPlan.cost}
-                    </Typography>
-                    <Typography color="textSecondary">
-                        {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */}
-                    </Typography>
-                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                        Tags: {props.mealPlan.tags.join(', ')}
-                    </Typography>
-                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                        <RatingsComponent ratings={props.mealPlan.ratings} />
-                    </Typography>
-                </CardContent>
-            </Card>
-        </Grid>
-    )
-};
-
 const MealPlansSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [mealPlans, setMealPlans] = useState([]);
@@ -235,4 +206,4 @@ const MealPlansSearch = () => {
         </div>
     );
 };
-export { MealPlansSearch, MealCard, ExpandableMealCard };
+export { MealPlansSearch, ExpandableMealCard };

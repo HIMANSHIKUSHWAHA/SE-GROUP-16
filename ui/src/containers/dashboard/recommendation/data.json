@@ -49,54 +49,3648 @@
             "tags": ["workout", "get-healthy"]
         }
     ],
-    "loose-weight": [
-    {
-        "title": "Fat loss food recipies",
-        "description": "Follow these and loose fat quick",
-        "link": "https://www.youtube.com/embed/LCyECbA3pUw?si=bgReQX232Ze3kBIt",
-        "tags": ["Food", "weight-lose"]
+    "meal-plans": [
+        {
+            "title": "Weight loss diet",
+            "description": "Follow this diet and get that fat burning",
+            "cost": 10,
+            "tags": ["weight-lose"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["eggs", "bread"]
+                }
+            }
+        },
+        {
+            "title": "Keto diet",
+            "description": "Best Keto diet you can find out there, easy weight loss",
+            "cost": 10,
+            "tags": ["weight-lose"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Avocado", "Bacon"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Nuts"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Omelette"]
+                }
+            }
+        },
+        {
+            "title": "Gain Muscle quick",
+            "description": "Follow this and let the bulk kick in",
+            "cost": 10,
+            "tags": ["gain-muscle"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            }
+        },
+        {
+            "title": "Healthy eating for prolonged life",
+            "description": "Follow this and live a long life",
+            "cost": 10,
+            "tags": ["get-healthy"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            }
+        },
+        {
+            "title": "Bulk Diet",
+            "description": "Gain muscle fast!",
+            "cost": 10,
+            "tags": ["gain-muscle"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Grilled chicken", "Rice"]
+                }
+            }
+        },
+        {
+            "title": "Lean Up",
+            "description": "Only Diet involving intermittent fasting you need",
+            "cost": 10,
+            "tags": ["get-healthy"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 0,
+                    "proteins": 0,
+                    "carbs": 0,
+                    "fats": 0,
+                    "mealItems": []
+                },
+                "lunch": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 750,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            }
+        },
+        {
+            "title": "Eat well diet",
+            "description": "For a regular healty eating habbits",
+            "cost": 10,
+            "tags": ["get-healthy"],
+            "Monday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                } 
+            },
+            "Tuesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Wednesday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Thursday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Friday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Saturday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            },
+            "Sunday": {
+                "waterIntake": 1,
+                "calories": 1500,
+                "proteins": 20,
+                "carbs": 30,
+                "fats": 5,
+                "breakfast": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                },
+                "lunch": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                },
+                "dinner": {
+                    "calories": 500,
+                    "proteins": 2,
+                    "carbs": 3,
+                    "fats": 5,
+                    "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                }
+            }
+        }
+    ],
+    "exercise-plans": [
+        {
+            "title": "Perfect Split",
+            "description": "Do this split and get the perfect body",
+            "cost": 10,
+            "difficulty_level": "Begineer",
+            "tags": ["build-muscle", "weight-lose", "workout"],
+            "Monday": [
+                {
+                    "title": "Push ups",
+                    "description": "Just the basic pushups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Bench Press",
+                    "description": "hit the bench",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Tuesday": [
+                {
+                    "title": "Pull ups",
+                    "description": "Just the basic pullups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Cable pulls",
+                    "description": "Basic exercise",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Wednesday": [
+                {
+                    "title": "Sqauts",
+                    "description": "Just the basic sqauts",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "leg press",
+                    "description": "Get on the leg press machine",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Thursday": [
+                {
+                    "title": "Push ups",
+                    "description": "Just the basic pushups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Bench Press",
+                    "description": "hit the bench",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Friday": [
+                {
+                    "title": "Pull ups",
+                    "description": "Just the basic pullups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Cable pulls",
+                    "description": "Basic exercise",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Saturday": [
+                {
+                    "title": "Sqauts",
+                    "description": "Just the basic sqauts",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "leg press",
+                    "description": "Get on the leg press machine",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Sunday": [
+                {
+                    "title": "Rest",
+                    "description": "Do nothing rest",
+                    "referenceVideo": "video url",
+                    "reps": 0,
+                    "sets": 0
+                }
+            ]
+        },
+        {
+            "title": "Cardio crash",
+            "description": "Do this loose weight",
+            "cost": 10,
+            "difficulty_level": "Begineer",
+            "tags": ["weight-lose", "workout", "cardio"],
+            "Monday": [
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Tuesday": [
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Wednesday": [
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Thursday": [
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Friday": [
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Saturday": [
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Sunday": [
+                {
+                    "title": "Rest",
+                    "description": "Do nothing rest",
+                    "referenceVideo": "video url",
+                    "reps": 0,
+                    "sets": 0
+                }
+            ]
+        },
+        {
+            "title": "Change your body",
+            "description": "Mix of both cardio and wights",
+            "cost": 10,
+            "difficulty_level": "Advanced",
+            "tags": ["build-muscle", "weight-lose", "workout", "cardio"],
+            "Monday": [
+                {
+                    "title": "Push ups",
+                    "description": "Just the basic pushups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Bench Press",
+                    "description": "hit the bench",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Tuesday": [
+                {
+                    "title": "Pull ups",
+                    "description": "Just the basic pullups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Cable pulls",
+                    "description": "Basic exercise",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Wednesday": [
+                {
+                    "title": "Sqauts",
+                    "description": "Just the basic sqauts",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "leg press",
+                    "description": "Get on the leg press machine",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Thursday": [
+                {
+                    "title": "Push ups",
+                    "description": "Just the basic pushups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Bench Press",
+                    "description": "hit the bench",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Friday": [
+                {
+                    "title": "Pull ups",
+                    "description": "Just the basic pullups",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Cable pulls",
+                    "description": "Basic exercise",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Treadmill",
+                    "description": "Run Run Run",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Saturday": [
+                {
+                    "title": "Sqauts",
+                    "description": "Just the basic sqauts",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "leg press",
+                    "description": "Get on the leg press machine",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                },
+                {
+                    "title": "Swim",
+                    "description": "Do your fav stroke",
+                    "referenceVideo": "video url",
+                    "reps": 10,
+                    "sets": 3
+                }
+            ],
+            "Sunday": [
+                {
+                    "title": "Rest",
+                    "description": "Do nothing rest",
+                    "referenceVideo": "video url",
+                    "reps": 0,
+                    "sets": 0
+                }
+            ]
+        }
+    ],
+    "loose-weight": {
+        "videos": [
+            {
+                "title": "Fat loss food recipies",
+                "description": "Follow these and loose fat quick",
+                "link": "https://www.youtube.com/embed/LCyECbA3pUw?si=bgReQX232Ze3kBIt",
+                "tags": ["Food", "weight-lose"]
+            },
+            {
+                "title": "HIIT",
+                "description": "high intensity training",
+                "link": "https://www.youtube.com/embed/J212vz33gU4?si=NaM3mI_dewET5AO5",
+                "tags": ["workout", "weight-lose"]
+            }
+        ],
+        "meal-plans": [
+            {
+                "title": "Weight loss diet",
+                "description": "Follow this diet and get that fat burning",
+                "cost": 10,
+                "tags": ["weight-lose"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["eggs", "bread"]
+                    }
+                }
+            },
+            {
+                "title": "Keto diet",
+                "description": "Best Keto diet you can find out there, easy weight loss",
+                "cost": 10,
+                "tags": ["weight-lose"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Avocado", "Bacon"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Nuts"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Omelette"]
+                    }
+                }
+            },
+            {
+                "title": "Lean Up",
+                "description": "Only Diet involving intermittent fasting you need",
+                "cost": 10,
+                "tags": ["get-healthy"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 0,
+                        "proteins": 0,
+                        "carbs": 0,
+                        "fats": 0,
+                        "mealItems": []
+                    },
+                    "lunch": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 750,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                }
+            }
+        ],
+        "exercise-plans": [
+            {
+                "title": "Cardio crash",
+                "description": "Do this loose weight",
+                "cost": 10,
+                "difficulty_level": "Begineer",
+                "tags": ["weight-lose", "workout", "cardio"],
+                "Monday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Tuesday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Wednesday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Thursday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Friday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Saturday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Sunday": [
+                    {
+                        "title": "Rest",
+                        "description": "Do nothing rest",
+                        "referenceVideo": "video url",
+                        "reps": 0,
+                        "sets": 0
+                    }
+                ]
+            }
+        ]
     },
-    {
-        "title": "HIIT",
-        "description": "high intensity training",
-        "link": "https://www.youtube.com/embed/J212vz33gU4?si=NaM3mI_dewET5AO5",
-        "tags": ["workout", "weight-lose"]
-    }],
-    "gain-weight": [
-    {
-        "title": "Muscle building smoothies",
-        "description": "Recipies for building muscles",
-        "link": "https://www.youtube.com/embed/2_MMdqqgqSs?si=o28oSR9ULjJW5GW-",
-        "tags": ["Food", "build-muscle"]
+    "gain-weight": {
+        "videos": [
+            {
+                "title": "Muscle building smoothies",
+                "description": "Recipies for building muscles",
+                "link": "https://www.youtube.com/embed/2_MMdqqgqSs?si=o28oSR9ULjJW5GW-",
+                "tags": ["Food", "build-muscle"]
+            },
+            {
+                "title": "How to do push-ups",
+                "description": "The correct way to do push ups",
+                "link": "https://www.youtube.com/embed/IODxDxX7oi4?si=tmEZbNQSGXV3NqZt",
+                "tags": ["workout", "build-muscle"]
+            },
+            {
+                "title": "How to do pull-ups",
+                "description": "The correct way to do pull ups",
+                "link": "https://www.youtube.com/embed/syS4M1G-rII?si=wqJcZAsvK5Kiv0JN",
+                "tags": ["workout", "build-muscle"]
+            },{
+                "title": "How to do sqauts",
+                "description": "The correct way to do squats",
+                "link": "https://www.youtube.com/embed/YaXPRqUwItQ?si=t8jHmxNC_01KRIB9",
+                "tags": ["workout", "build-muscle"]
+            }
+        ],
+        "meal-plans": [
+            {
+                "title": "Gain Muscle quick",
+                "description": "Follow this and let the bulk kick in",
+                "cost": 10,
+                "tags": ["gain-muscle"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                }
+            },
+            {
+                "title": "Bulk Diet",
+                "description": "Gain muscle fast!",
+                "cost": 10,
+                "tags": ["gain-muscle"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Grilled chicken", "Rice"]
+                    }
+                }
+            }
+        ],
+        "exercise-plans": [
+            {
+                "title": "Perfect Split",
+                "description": "Do this split and get the perfect body",
+                "cost": 10,
+                "difficulty_level": "Begineer",
+                "tags": ["build-muscle", "weight-lose", "workout"],
+                "Monday": [
+                    {
+                        "title": "Push ups",
+                        "description": "Just the basic pushups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Bench Press",
+                        "description": "hit the bench",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Tuesday": [
+                    {
+                        "title": "Pull ups",
+                        "description": "Just the basic pullups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Cable pulls",
+                        "description": "Basic exercise",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Wednesday": [
+                    {
+                        "title": "Sqauts",
+                        "description": "Just the basic sqauts",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "leg press",
+                        "description": "Get on the leg press machine",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Thursday": [
+                    {
+                        "title": "Push ups",
+                        "description": "Just the basic pushups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Bench Press",
+                        "description": "hit the bench",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Friday": [
+                    {
+                        "title": "Pull ups",
+                        "description": "Just the basic pullups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Cable pulls",
+                        "description": "Basic exercise",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Saturday": [
+                    {
+                        "title": "Sqauts",
+                        "description": "Just the basic sqauts",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "leg press",
+                        "description": "Get on the leg press machine",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Sunday": [
+                    {
+                        "title": "Rest",
+                        "description": "Do nothing rest",
+                        "referenceVideo": "video url",
+                        "reps": 0,
+                        "sets": 0
+                    }
+                ]
+            }
+        ]
     },
-    {
-        "title": "How to do push-ups",
-        "description": "The correct way to do push ups",
-        "link": "https://www.youtube.com/embed/IODxDxX7oi4?si=tmEZbNQSGXV3NqZt",
-        "tags": ["workout", "build-muscle"]
-    },
-    {
-        "title": "How to do pull-ups",
-        "description": "The correct way to do pull ups",
-        "link": "https://www.youtube.com/embed/syS4M1G-rII?si=wqJcZAsvK5Kiv0JN",
-        "tags": ["workout", "build-muscle"]
-    },{
-        "title": "How to do sqauts",
-        "description": "The correct way to do squats",
-        "link": "https://www.youtube.com/embed/YaXPRqUwItQ?si=t8jHmxNC_01KRIB9",
-        "tags": ["workout", "build-muscle"]
-    }],
-    "get-healthy": [
-    {
-        "title": "Low budget meal prep",
-        "description": "Best meal prep out there",
-        "link": "https://www.youtube.com/embed/PXub4lr-9J8?si=q2x1oyFUt0Bq5hUz",
-        "tags": ["meal-prep", "Food"]
-    },{
-        "title": "What to do?",
-        "description": "Best solutions",
-        "link": "https://www.youtube.com/embed/YvrKIQ_Tbsk?si=GcBgzIFtBNUnkObu",
-        "tags": ["workout", "get-healthy"]
+    "get-healthy": {
+        "videos" : [
+            {
+                "title": "Low budget meal prep",
+                "description": "Best meal prep out there",
+                "link": "https://www.youtube.com/embed/PXub4lr-9J8?si=q2x1oyFUt0Bq5hUz",
+                "tags": ["meal-prep", "Food"]
+            },{
+                "title": "What to do?",
+                "description": "Best solutions",
+                "link": "https://www.youtube.com/embed/YvrKIQ_Tbsk?si=GcBgzIFtBNUnkObu",
+                "tags": ["workout", "get-healthy"]
+            }
+        ],
+        "meal-plans": [
+            {
+                "title": "Healthy eating for prolonged life",
+                "description": "Follow this and live a long life",
+                "cost": 10,
+                "tags": ["get-healthy"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                }
+            },
+            {
+                "title": "Eat well diet",
+                "description": "For a regular healty eating habbits",
+                "cost": 10,
+                "tags": ["get-healthy"],
+                "Monday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    } 
+                },
+                "Tuesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Wednesday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Thursday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Friday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Saturday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                },
+                "Sunday": {
+                    "waterIntake": 1,
+                    "calories": 1500,
+                    "proteins": 20,
+                    "carbs": 30,
+                    "fats": 5,
+                    "breakfast": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Oats", "fruits", "Nuts"]
+                    },
+                    "lunch": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Grilled chicken"]
+                    },
+                    "dinner": {
+                        "calories": 500,
+                        "proteins": 2,
+                        "carbs": 3,
+                        "fats": 5,
+                        "mealItems": ["Mixed veggies", "Rice", "fruits", "Nuts", "Salmon"]
+                    }
+                }
+            }
+        ],
+        "exercise-plans": [
+            {
+                "title": "Change your body",
+                "description": "Mix of both cardio and wights",
+                "cost": 10,
+                "difficulty_level": "Advanced",
+                "tags": ["build-muscle", "weight-lose", "workout", "cardio"],
+                "Monday": [
+                    {
+                        "title": "Push ups",
+                        "description": "Just the basic pushups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Bench Press",
+                        "description": "hit the bench",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Tuesday": [
+                    {
+                        "title": "Pull ups",
+                        "description": "Just the basic pullups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Cable pulls",
+                        "description": "Basic exercise",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Wednesday": [
+                    {
+                        "title": "Sqauts",
+                        "description": "Just the basic sqauts",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "leg press",
+                        "description": "Get on the leg press machine",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Thursday": [
+                    {
+                        "title": "Push ups",
+                        "description": "Just the basic pushups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Bench Press",
+                        "description": "hit the bench",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Friday": [
+                    {
+                        "title": "Pull ups",
+                        "description": "Just the basic pullups",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Cable pulls",
+                        "description": "Basic exercise",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Saturday": [
+                    {
+                        "title": "Sqauts",
+                        "description": "Just the basic sqauts",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "leg press",
+                        "description": "Get on the leg press machine",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    },
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Sunday": [
+                    {
+                        "title": "Rest",
+                        "description": "Do nothing rest",
+                        "referenceVideo": "video url",
+                        "reps": 0,
+                        "sets": 0
+                    }
+                ]
+            },
+            {
+                "title": "Cardio crash",
+                "description": "Do this loose weight",
+                "cost": 10,
+                "difficulty_level": "Begineer",
+                "tags": ["weight-lose", "workout", "cardio"],
+                "Monday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Tuesday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Wednesday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Thursday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Friday": [
+                    {
+                        "title": "Treadmill",
+                        "description": "Run Run Run",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Saturday": [
+                    {
+                        "title": "Swim",
+                        "description": "Do your fav stroke",
+                        "referenceVideo": "video url",
+                        "reps": 10,
+                        "sets": 3
+                    }
+                ],
+                "Sunday": [
+                    {
+                        "title": "Rest",
+                        "description": "Do nothing rest",
+                        "referenceVideo": "video url",
+                        "reps": 0,
+                        "sets": 0
+                    }
+                ]
+            }
+        ]
     }
-    ]
 }

@@ -43,6 +43,4 @@ const exercisePlanSchema = new mongoose.Schema({
 });
 
 // Create and export the ExercisePlan model
-const ExercisePlan = mongoose.model('ExercisePlan', exercisePlanSchema);
-module.exports = ExercisePlan;
-
+module.exports = mongoose.model('ExercisePlan', exercisePlanSchema);
