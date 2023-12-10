@@ -10,7 +10,8 @@ const User = require("../models/User");
 const LiveSession = require('../models/LiveSession');
 const Ratings = require('../models/Ratings');
 // MongoDB connection URI
-const mongoURI = 'mongodb://localhost:27017'
+// const mongoURI = 'mongodb://localhost:27017'
+const mongoURI = 'mongodb+srv://rahul:rahul@p465.4cmbcpe.mongodb.net/';
 console.log('Database URI:', process.env.DB_STRING);
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
