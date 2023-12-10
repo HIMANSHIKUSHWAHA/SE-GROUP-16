@@ -16,6 +16,7 @@ import LiveSessionForm from "./livestream/liveStream.js";
 import JitsiMeetComponent from "./livestream/meetComponent.js";
 import { UserContext } from "../context.js";
 import AdminPage from './admin.js';
+import AdminLogin from "./auth/AdminLogin.js";
 
 // user profile 
 export default function Router() {
@@ -28,6 +29,7 @@ export default function Router() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
+                <Route path='/admin-login' element={<AdminLogin />} />  
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
