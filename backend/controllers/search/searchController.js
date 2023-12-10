@@ -129,6 +129,7 @@ const searchLiveSessions = async (req, res, next) => {
 };
 
 const searchProfessionals = async (req, res, next) => {
+    console.log("SEARCH PROF CALLED ");
     const { searchTerm } = req.query;
     let queryObject = {};
 
@@ -148,6 +149,7 @@ const searchProfessionals = async (req, res, next) => {
         console.error(error);
         res.status(500).json({ message: 'Internal server error' });
     }
+    console.log("SEARCH PROF DONE ");
 };
 
 const searchExercisePlans = async (req, res, next) => {

@@ -14,6 +14,9 @@ import SettingsPage from "./dashboard/settingsTab/accountSettingsPage";
 import PDashboard from "./dashboard/pDashboard/pDashboard.js";
 import LiveSessionForm from "./livestream/liveStream.js";
 import JitsiMeetComponent from "./livestream/meetComponent.js";
+import Recommendaton from "./dashboard/recommendation/Recommendation.js";
+import VideoSearch from "./dashboard/VideoTab/videoSearchTab.js"
+
 import { UserContext } from "../context.js";
 
 // user profile 
@@ -34,7 +37,7 @@ export default function Router() {
                 <Route path="/2fa-setup" element={<TwoFactorAuthSetup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/update-password" element={<UpdatePassword />} />  {/* This will change */}
-                <Route path="test" element={<PDashboard />} />
+                <Route path="test" element={<Recommendaton />} />
                 <Route path="/pdashboard" element={
                     <PrivateRoute>
                         <PDashboard />

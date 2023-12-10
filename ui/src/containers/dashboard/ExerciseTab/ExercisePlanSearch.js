@@ -1,8 +1,105 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './ExercisePlan.css';
-import { Paper, Box, TextField, Button, List, ListItem, Typography, Grid, Card, CardContent } from '@mui/material';
+import { Paper, Box, TextField, Button, List, ListItem, Typography, Collapse, Grid, Card, CardContent, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import TodayIcon from '@mui/icons-material/Today';
+
+
+const ExpandableExerciseCard = (props) => {
+    const [expanded, setExpanded] = useState(false);
+    const [openDay, setOpenDay] = useState(null);
+    const { plan } = props;
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
+    const handleDayClick = (day) => {
+        setOpenDay(openDay === day ? null : day);
+    };
+
+    const renderExerciseSummary = (exercises) => (
+        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
+            Total Exercises: {exercises.length}
+        </Typography>
+    );
+
+    return (
+        <Grid item xs={12} sm={6} md={4} lg={3}>
+            <Accordion expanded={expanded} onChange={handleExpandClick} sx={{ border: '1px solid #ddd', borderRadius: '4px', width: '100%' }}>
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel-content"
+                    id="panel-header"
+                >
+                    <CardContent sx={{ height: '150px', overflow: 'hidden' }}> {/* Fixed height and overflow handling */}
+                        <Typography variant="h5" component="h2" noWrap>
+                            {props.plan.title}
+                        </Typography>
+                        <Typography color="textSecondary" sx={{ overflow: 'auto' }}>
+                            {props.plan.description}
+                        </Typography>
+                        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                            {plan.ratings && <RatingsComponent ratings={plan.ratings} />}
+                        </Typography>
+                    </CardContent>
+                </AccordionSummary>
+                <AccordionDetails sx={{ pt: 0 }}>
+                    <Typography variant="body1">Difficulty Level: {plan.difficulty_level}</Typography>
+                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                        Tags: {plan.tags.join(', ')}
+                    </Typography>
+                    {Object.entries(plan).filter(([key, _]) => key.includes('day')).map(([day, data]) => (
+                        <div key={day}>
+                            <Button
+                                startIcon={<TodayIcon />}
+                                onClick={() => handleDayClick(day)}
+                                sx={{ mt: 2, mb: 1, justifyContent: 'flex-start', textTransform: 'none' }}
+                                fullWidth
+                            >
+                                <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
+                                    {day}
+                                </Typography>
+                            </Button>
+                            {renderExerciseSummary(data.exercises)}
+                            <Collapse in={openDay === day}>
+                                {data.exercises.map((exercise, index) => (
+                                    <div key={index}>
+                                        <Typography variant="body2">Title: {exercise.title}</Typography>
+                                        <Typography variant="body2">Reps: {exercise.reps}</Typography>
+                                        <Typography variant="body2">Sets: {exercise.sets}</Typography>
+                                        {/* Add more details as needed */}
+                                    </div>
+                                ))}
+                            </Collapse>
+                        </div>
+                    ))}
+                </AccordionDetails>
+            </Accordion>
+        </Grid>
+    );
+};
+
+
+const ExerciseCard = (props) => {
+    return (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
+            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                <CardContent>
+                    <Typography variant="h5" component="h2">
+                        {props.plan.title}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.plan.description}
+                    </Typography>
+                    {/* Add other details here if necessary */}
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+};
 
 const ExercisePlanSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -114,25 +211,13 @@ const ExercisePlanSearch = () => {
                 )}
             </Box>
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-            <Grid container spacing={2}>
+            <Grid container spacing={2} alignItems="stretch"> {/* This will ensure that all items stretch to fill the container */}
                 {results.map((plan, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="h2">
-                                    {plan.title}
-                                </Typography>
-                                <Typography color="textSecondary">
-                                    {plan.description}
-                                </Typography>
-                                {/* Add other details here if necessary */}
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <ExpandableExerciseCard plan={plan} key={index} />
                 ))}
             </Grid>
         </div>
     );
 };
 
-export default ExercisePlanSearch;
+export { ExercisePlanSearch, ExerciseCard, ExpandableExerciseCard };

@@ -1,17 +1,20 @@
 require('dotenv').config({ path: '../.env' });
 const mongoose = require('mongoose');
 // Import the models
-const ExercisePlan = require('../models/ExercisePlan');
-const SleepPlan = require('../models/SleepPlan');
-const MealPlan = require('../models/Mealplan');
+// const ExercisePlan = require('../models/ExercisePlan');
+// const SleepPlan = require('../models/SleepPlan');
+// const MealPlan = require('../models/Mealplan');
 const AsyncVideo = require('../models/AsyncVideo');
 const Professional = require("../models/Professional");
 const User = require("../models/User");
-const LiveSession = require('../models/LiveSession');
+// const LiveSession = require('../models/LiveSession');
 const Ratings = require('../models/Ratings');
 // MongoDB connection URI
 // const mongoURI = 'mongodb://localhost:27017'
-const mongoURI = 'mongodb+srv://rahul:rahul@p465.4cmbcpe.mongodb.net/';
+// const mongoURI = 'mongodb+srv://rahul:rahul@p465.4cmbcpe.mongodb.net/';
+const mongoURI = process.env.DB_STRING;
+const data = require("./data.json");
+
 console.log('Database URI:', process.env.DB_STRING);
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
@@ -47,11 +50,16 @@ const createAsyncVideo = async (title, description, link, tags, professionalId, 
 };
 
 const createDefaultAsyncVideo = async (professionalId) => {
-    const defaultVideoId = await createAsyncVideo("Default Video", "This is a default video.", "https://www.youtube.com/watch?v=cIwTYL1fwJk&ab_channel=freshvids123", ["default", "video"], professionalId, true);
-    const fitnessVideoId = await createAsyncVideo("Fitness Masterclass", "High-intensity fitness routines.", "https://www.youtube.com/watch?v=0EqSXDwTq6U", ["fitness", "health"], professionalId);
-    const cookingVideoId = await createAsyncVideo("Cooking with Chefs", "Learn to cook delicious meals.", "https://www.youtube.com/watch?v=FeJ1UqnHsvU", ["cooking", "gourmet"], professionalId);
 
-    return { defaultVideoId, fitnessVideoId, cookingVideoId };
+    AsyncVideo.deleteMany({});
+    const videos = data["videos"];
+    let ids = [];
+    videos.map(async (item, idx) => {
+        const tmp_id = await createAsyncVideo(item.title, item.description, item.link, item.tags, professionalId);
+        ids.push(tmp_id);
+    })
+
+    return ids;
 };
 
 const createExercisePlan = async (title, description, cost, exerciseDays, professionalId, tags = [], isDefault = false) => {
@@ -282,18 +290,18 @@ const setupDefaultPlans = async () => {
     try {
         const [defaultProfessionalId, professional2Id, professional3Id] = await createDefaultProfessional();
         const userId = await createDefaultUser();
-        const sleepPlanId = await createDefaultSleepPlan();
-        const exercisePlanId = await createDefaultExercisePlan(defaultProfessionalId);
-        const mealPlanId = await createDefaultMealPlan(defaultProfessionalId);
+        // const sleepPlanId = await createDefaultSleepPlan();
+        // const exercisePlanId = await createDefaultExercisePlan(defaultProfessionalId);
+        // const mealPlanId = await createDefaultMealPlan(defaultProfessionalId);
         const asyncVideoId = await createDefaultAsyncVideo(defaultProfessionalId);
-        const liveSessionId = await createDefaultLiveSession(defaultProfessionalId);
+        // const liveSessionId = await createDefaultLiveSession(defaultProfessionalId);
         console.log(`Default Professional ID: ${defaultProfessionalId}`);
-        console.log(`Default User ID: ${userId}`);
-        console.log(`Default MealPlan ID: ${mealPlanId}`);
-        console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
-        console.log(`Default SleepPlan ID: ${sleepPlanId}`);
+        // console.log(`Default User ID: ${userId}`);
+        // console.log(`Default MealPlan ID: ${mealPlanId}`);
+        // console.log(`Default ExercisePlan ID: ${exercisePlanId}`);
+        // console.log(`Default SleepPlan ID: ${sleepPlanId}`);
         console.log(`Default AsyncVideo ID: ${asyncVideoId}`);
-        console.log(`Default LiveSession ID: ${liveSessionId}`);
+        // console.log(`Default LiveSession ID: ${liveSessionId}`);
     } catch (err) {
         console.error('Error setting up default plans:', err);
     } finally {

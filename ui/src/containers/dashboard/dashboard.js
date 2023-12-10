@@ -1,32 +1,40 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Header from "../header";
 import { faVideo, faRunning, faUtensils, faDumbbell, faCalendarCheck, faCamera, faUser } from '@fortawesome/free-solid-svg-icons';
 import CalendarView from "./CalendarViewComponent/CalendarView";
-import VideoSearch from "./VideoTab/videoSearchTab";
-import ExercisePlanSearch from "./ExerciseTab/ExercisePlanSearch";
+import {VideoSearch, VideoCard} from "./VideoTab/videoSearchTab";
+import { ExercisePlanSearch, ExerciseCard } from "./ExerciseTab/ExercisePlanSearch";
 import ProfessionalSearch from "./ProfessionalsTab/professionalSearchTab";
 import MessagingWindow from "./MessagingWindow/MessagingWindow";
 import LiveSessions from "./LiveSessionsTab/LiveSessions";
-import MealPlansTab from "./MealPlansTab/MealPlansTab";
+import { MealPlansSearch, MealCard } from "./MealPlansTab/MealPlansTab";
+import Recommendaton from "./recommendation/Recommendation";
 import { UserContext } from "../../context";
 
 
 // Content Area Component
-const ContentArea = ({ activeContent }) => (
-  <div className="ContentArea">
-    {activeContent === 'videos' && <VideoSearch />}
-    {activeContent === 'routines' && <CalendarView />}
-    {activeContent === 'professionals' && <ProfessionalSearch />}
-    {activeContent === 'workout-programs' && <ExercisePlanSearch />}
-    {activeContent === 'meal-plans' && <MealPlansTab />}
-    {activeContent === 'livesessions' && <LiveSessions />}
-  </div>
-);
+const ContentArea = ({ activeContent }) => {
+  return (
+    <div className="ContentArea">
+      {activeContent === 'videos' && <VideoSearch />}
+      {activeContent === 'routines' && <CalendarView />}
+      {activeContent === 'professionals' && <ProfessionalSearch />}
+      {activeContent === 'workout-programs' && <ExercisePlanSearch />}
+      {activeContent === 'meal-plans' && <MealPlansSearch />}
+      {activeContent === 'livesessions' && <LiveSessions />}
+      {activeContent === 'recommendation' && <Recommendaton />}
+    </div>
+  )
+};
 
 // Dashboard Component
 const Dashboard = () => {
-  const [activeContent, setActiveContent] = useState('videos'); // Default content
+  const [activeContent, setActiveContent] = useState("videos");
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    console.log("-----", activeContent);
+  }, []);
 
   const navbarData = [
     {
@@ -43,6 +51,11 @@ const Dashboard = () => {
       name: "Meal Plans",
       icon: faUtensils,
       content: 'meal-plans'
+    },
+    {
+      name: "Recommendations",
+      icon: faDumbbell,
+      content: 'recommendation'
     },
     {
       name: "Routines",
