@@ -3,6 +3,37 @@ import axios from 'axios';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import { Grid, Paper, Box, TextField, Button, List, ListItem, Card, CardContent, Typography } from '@mui/material';
 // import './MealPlansSearch.css';
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
+
+const MealCard = (props) => {
+    return (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
+            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                <CardContent>
+                    <Typography variant="h5" component="h2">
+                        {props.mealPlan.title}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.mealPlan.description}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                        {props.mealPlan.cost}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */}
+                    </Typography>
+                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                        Tags: {props.mealPlan.tags.join(', ')}
+                    </Typography>
+                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                        <RatingsComponent ratings={props.mealPlan.ratings} />
+                    </Typography>
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+};
+
 const MealPlansSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [mealPlans, setMealPlans] = useState([]);
@@ -113,27 +144,10 @@ const MealPlansSearch = () => {
             {error && <Typography color="error">{error}</Typography>}
             <Grid container spacing={2}>
                 {mealPlans.map((mealPlan, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="h2">
-                                    {mealPlan.title}
-                                </Typography>
-                                <Typography color="textSecondary">
-                                    {mealPlan.description}
-                                </Typography>
-                                <Typography variant="body2" component="p">
-                                    {mealPlan.cost}
-                                </Typography>
-                                <Typography color="textSecondary">
-                                    {/* By: {mealPlan.creator.firstName} {mealPlan.creator.lastName} */}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <MealCard mealPlan={mealPlan} index={index} />
                 ))}
             </Grid>
         </div>
     );
 };
-export default MealPlansSearch;
+export { MealPlansSearch, MealCard };

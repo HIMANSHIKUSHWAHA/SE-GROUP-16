@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Header({ auth = false, navbarData, setActiveContent, activeContent }) {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [menuAnchorEl, setMenuAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [menuAnchorEl, setMenuAnchorEl] = useState(null);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);

@@ -1,8 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import './ExercisePlan.css';
 import { Paper, Box, TextField, Button, List, ListItem, Typography, Grid, Card, CardContent } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
+import RatingsComponent from "../RatingsButtons/RatingsComponent";
+
+const ExerciseCard = (props) => {
+    return (
+        <Grid item xs={12} sm={6} md={4} lg={3} key={props.index}>
+            <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
+                <CardContent>
+                    <Typography variant="h5" component="h2">
+                        {props.plan.title}
+                    </Typography>
+                    <Typography color="textSecondary">
+                        {props.plan.description}
+                    </Typography>
+                    {/* Add other details here if necessary */}
+                </CardContent>
+            </Card>
+        </Grid>
+    )
+};
 
 const ExercisePlanSearch = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -116,23 +134,11 @@ const ExercisePlanSearch = () => {
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
             <Grid container spacing={2}>
                 {results.map((plan, index) => (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                        <Card sx={{ border: '1px solid #ddd', borderRadius: '4px', height: '100%' }}>
-                            <CardContent>
-                                <Typography variant="h5" component="h2">
-                                    {plan.title}
-                                </Typography>
-                                <Typography color="textSecondary">
-                                    {plan.description}
-                                </Typography>
-                                {/* Add other details here if necessary */}
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <ExerciseCard plan={plan} index={index} />
                 ))}
             </Grid>
         </div>
     );
 };
 
-export default ExercisePlanSearch;
+export { ExercisePlanSearch, ExerciseCard };
