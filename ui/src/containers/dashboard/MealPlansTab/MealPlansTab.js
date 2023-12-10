@@ -31,11 +31,13 @@ const ExpandableMealCard = (props) => {
         </div>
     );
 
-    const renderDaySummary = (dayData) => (
-        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
-            Total Calories: {dayData.calories} kcal, Proteins: {dayData.proteins}g, Carbs: {dayData.carbs}g, Fats: {dayData.fats}g
-        </Typography>
-    );
+    const renderDaySummary = (dayData) => {
+        return (
+            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
+                Total Calories: {dayData.calories} kcal, Proteins: {dayData.proteins}g, Carbs: {dayData.carbs}g, Fats: {dayData.fats}g
+            </Typography>
+        );
+    };
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -76,11 +78,6 @@ const ExpandableMealCard = (props) => {
                             </Button>
                             {renderDaySummary(data)}
                             <Collapse in={openDay === day}>
-                                <Typography variant="body2">Water Intake: {data.waterIntake}L</Typography>
-                                <Typography variant="body2">Total Calories: {data.calories}</Typography>
-                                <Typography variant="body2">Total Proteins: {data.proteins}g</Typography>
-                                <Typography variant="body2">Total Carbs: {data.carbs}g</Typography>
-                                <Typography variant="body2">Total Fats: {data.fats}g</Typography>
                                 {renderMeal(data.breakfast, 'Breakfast')}
                                 {renderMeal(data.lunch, 'Lunch')}
                                 {renderMeal(data.dinner, 'Dinner')}

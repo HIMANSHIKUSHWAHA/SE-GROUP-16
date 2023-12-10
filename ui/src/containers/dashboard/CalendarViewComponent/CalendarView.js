@@ -78,8 +78,9 @@ const TaskCard = ({ title, content, session }) => {
 // COLUMN FOR EACH DAY OF CALENDAR
 const DayColumn = ({ day, date, month, isToday, dayData, events }) => {
     const meals = dayData?.meals;
-    const exercises = dayData?.exercises?.exercises;
+    const exercises = dayData?.exercises?.[0]?.exercises;
     const sleep = dayData?.sleep;
+
 
     return (
         <Grid

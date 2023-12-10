@@ -1,57 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Paper, Box, TextField, Button, List, ListItem, Typography, Collapse, Grid, Card, CardContent, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Paper, Box, TextField, Button, IconButton, List, ListItem, Typography, Collapse, Grid, Card, CardContent, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import RatingsComponent from "../RatingsButtons/RatingsComponent";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TodayIcon from '@mui/icons-material/Today';
 
 
-const ExpandableExerciseCard = (props) => {
-    const [expanded, setExpanded] = useState(false);
+const ExpandableExerciseCard = ({ plan }) => {
     const [openDay, setOpenDay] = useState(null);
-    const { plan } = props;
-
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    };
+    console.log("PLAN RECIEVED IS ", plan);
 
     const handleDayClick = (day) => {
         setOpenDay(openDay === day ? null : day);
     };
 
-    const renderExerciseSummary = (exercises) => (
-        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
-            Total Exercises: {exercises.length}
-        </Typography>
-    );
+    const renderExercisesForDay = (dayExercisesArray) => {
+        // It seems each day is an array of objects that have an `exercises` array
+        // We need to flatten this into a single array of all exercises for the day
+        const allExercises = dayExercisesArray.flatMap(dayExercise => dayExercise.exercises);
+        return allExercises.map((exercise, idx) => (
+            <div key={exercise._id || idx}>
+                <Typography variant="subtitle2">Exercise {idx + 1}: {exercise.title}</Typography>
+                <Typography variant="body2">Description: {exercise.description}</Typography>
+                <Typography variant="body2">Reps: {exercise.reps}</Typography>
+                <Typography variant="body2">Sets: {exercise.sets}</Typography>
+                {/* You can add referenceVideo and other details here */}
+            </div>
+        ));
+    };
 
     return (
         <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Accordion expanded={expanded} onChange={handleExpandClick} sx={{ border: '1px solid #ddd', borderRadius: '4px', width: '100%' }}>
-                <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel-content"
-                    id="panel-header"
-                >
-                    <CardContent sx={{ height: '150px', overflow: 'hidden' }}> {/* Fixed height and overflow handling */}
-                        <Typography variant="h5" component="h2" noWrap>
-                            {props.plan.title}
+            <Accordion sx={{ border: '1px solid #ddd', borderRadius: '4px', width: '100%' }}>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel-content" id="panel-header">
+                    <CardContent>
+                        <Typography variant="h5" component="h2">
+                            {plan.title}
                         </Typography>
-                        <Typography color="textSecondary" sx={{ overflow: 'auto' }}>
-                            {props.plan.description}
-                        </Typography>
-                        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                            {plan.ratings && <RatingsComponent ratings={plan.ratings} />}
-                        </Typography>
+                        <Typography color="textSecondary">Difficulty: {plan.difficulty_level}</Typography>
+                        <Typography color="textSecondary">Cost: {plan.cost}</Typography>
+                        {plan.ratings && <RatingsComponent ratings={plan.ratings} />}
                     </CardContent>
                 </AccordionSummary>
                 <AccordionDetails sx={{ pt: 0 }}>
-                    <Typography variant="body1">Difficulty Level: {plan.difficulty_level}</Typography>
-                    <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                        Tags: {plan.tags.join(', ')}
-                    </Typography>
-                    {Object.entries(plan).filter(([key, _]) => key.includes('day')).map(([day, data]) => (
+                    {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => (
                         <div key={day}>
                             <Button
                                 startIcon={<TodayIcon />}
@@ -59,20 +52,10 @@ const ExpandableExerciseCard = (props) => {
                                 sx={{ mt: 2, mb: 1, justifyContent: 'flex-start', textTransform: 'none' }}
                                 fullWidth
                             >
-                                <Typography variant="subtitle1" sx={{ flexGrow: 1 }}>
-                                    {day}
-                                </Typography>
+                                <Typography variant="subtitle1">{day}</Typography>
                             </Button>
-                            {renderExerciseSummary(data.exercises)}
                             <Collapse in={openDay === day}>
-                                {data.exercises.map((exercise, index) => (
-                                    <div key={index}>
-                                        <Typography variant="body2">Title: {exercise.title}</Typography>
-                                        <Typography variant="body2">Reps: {exercise.reps}</Typography>
-                                        <Typography variant="body2">Sets: {exercise.sets}</Typography>
-                                        {/* Add more details as needed */}
-                                    </div>
-                                ))}
+                                {plan[day] && renderExercisesForDay(plan[day])}
                             </Collapse>
                         </div>
                     ))}
@@ -141,6 +124,7 @@ const ExercisePlanSearch = () => {
         try {
             const response = await axios.get('/api/v1/search/allExercisePlans');
             setResults(response.data);
+
         } catch (error) {
             setErrorMessage('An error occurred while fetching exercise plans.');
             console.error('Fetch all exercise plans error', error);
@@ -211,7 +195,7 @@ const ExercisePlanSearch = () => {
                 )}
             </Box>
             {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-            <Grid container spacing={2} alignItems="stretch"> {/* This will ensure that all items stretch to fill the container */}
+            <Grid container spacing={2} alignItems="stretch">
                 {results.map((plan, index) => (
                     <ExpandableExerciseCard plan={plan} key={index} />
                 ))}
