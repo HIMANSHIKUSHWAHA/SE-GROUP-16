@@ -21,7 +21,7 @@ const asyncVideoSchema = new Schema({
         default: 0
     },
     tags: {
-        type: [String],
+        type: Array,
         required: true,
     },
     description: {
