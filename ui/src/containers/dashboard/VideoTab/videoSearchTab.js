@@ -79,6 +79,7 @@ const VideoSearch = () => {
         try {
             const response = await axios.get('/api/v1/search/allvideos');
             setResults(response.data);
+            console.log("/api/v1/search/allvideos Results: ", response.data);
         } catch (error) {
             setErrorMessage('An error occurred while fetching videos.');
             console.error('Fetch all videos error', error);

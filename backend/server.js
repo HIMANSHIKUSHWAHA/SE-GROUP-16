@@ -15,7 +15,8 @@ const session = require('express-session');
 const passport = require('./config/passport');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
+const profileRoutes = require('./routes/profileRoutes');
+const subscribeRoutes = require('./routes/subscribeRoutes');
 
 console.log('Started backend server');
 
@@ -49,6 +50,8 @@ app.use('/api/v1/auth/2fa', twoFARoutes);
 app.use('/api/v1/dashboard', dashboardRoutes)
 app.use('/api/v1/search', searchRoutes);
 app.use('/api/v1/settings', settingsRoutes);
+app.use('/api/v1/profile', profileRoutes);
+app.use('/api/v1/subscribe', subscribeRoutes);
 app.use('/api/v1/live-session', liveSessionRoutes);
 app.use('/api/v1/messages', messagingRoutes);
 app.use('/api/v1/ratings', ratingsRoutes);

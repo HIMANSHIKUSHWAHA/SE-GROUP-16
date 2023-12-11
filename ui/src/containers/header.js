@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppBar, Box, Toolbar, Typography, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context";
 
 export default function Header({ auth = false, navbarData, setActiveContent, activeContent }) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuAnchorEl, setMenuAnchorEl] = useState(null);
-
+    const { user } = useContext(UserContext)
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -33,8 +34,9 @@ export default function Header({ auth = false, navbarData, setActiveContent, act
         localStorage.removeItem('token');
         window.location.reload();
     };
-
-
+    const handleProfile = () => {
+        navigate(`/profile/${user.id}`);
+    };
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -89,7 +91,7 @@ export default function Header({ auth = false, navbarData, setActiveContent, act
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={handleProfile}>Profile</MenuItem>
                                 <MenuItem onClick={handleClose}>My account</MenuItem>
                                 <MenuItem onClick={handleSettings}>Settings</MenuItem>
                                 <MenuItem onClick={handleLogout}>Logout</MenuItem>

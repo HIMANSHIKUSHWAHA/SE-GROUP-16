@@ -168,7 +168,7 @@ const calendarData = async (req, res, next) => {
                 ...planData,
             };
 
-            const liveSessions = user.LiveSessionEnrolled.map(session => ({
+            const liveSessions = user.LiveSessionEnrolled?.map(session => ({
                 title: session.title,
                 description: session.description,
                 tags: session.tags,

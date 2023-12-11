@@ -57,8 +57,13 @@ const professionalSchema = new Schema({
     },
     Subscribers: [{
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        select: false
+        select: true,
+        ref: 'User'
+    }],
+    Subscribing: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Professional',
+        select: true
     }],
     asyncVideosAssociated: [{
         type: Schema.Types.ObjectId,
@@ -76,6 +81,36 @@ const professionalSchema = new Schema({
         select: false
     }],
     LiveSessionCreated: [{
+        type: Schema.Types.ObjectId,
+        ref: 'LiveSession',
+        select: false
+    }],
+    mealPlansOwned: [{
+        type: Schema.Types.ObjectId,
+        ref: 'MealPlan', // Linking to the MealPlan model
+        select: false
+    }],
+    exercisePlansOwned: [{
+        type: Schema.Types.ObjectId,
+        ref: 'ExercisePlan', // Linking to the ExercisePlan model
+        select: false
+    }],
+    currentMealPlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'MealPlan',
+        select: false,
+    },
+    currentExercisePlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'ExercisePlan',
+        required: false
+    },
+    currentSleepPlan: {
+        type: Schema.Types.ObjectId,
+        ref: 'SleepPlan',
+        required: false
+    },
+    LiveSessionEnrolled: [{
         type: Schema.Types.ObjectId,
         ref: 'LiveSession',
         select: false
