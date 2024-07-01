@@ -1,0 +1,44 @@
+.calendar-view {
+    height: 100%;
+    background-color: #f5f5f5; /* Background color from App.css */
+}
+
+/* Styles for the calendar */
+.rbc-calendar {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Styles for the header of the calendar */
+.rbc-toolbar {
+    background-color: #4CAF50; /* Color from App.css */
+    color: white;
+}
+
+/* Styles for the days of the week */
+.rbc-header {
+    background-color: #81C784; /* Color from App.css */
+    color: white;
+    padding: 10px;
+    border-bottom: 2px solid white;
+}
+
+/* Styles for the date cells */
+.rbc-day-bg {
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Styles for the events (cards) in the calendar */
+.rbc-event {
+    background-color: #FFC107; /* Color from App.css */
+    color: black;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.rbc-event .rbc-event-content {
+    color: inherit;
+}

@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "axios": "^1.6.2",
+    "@material-ui/icons": "^4.11.3",
+    "concurrently": "^8.2.1",
+    "nodemon": "^3.0.1",
+    "react-scripts": "^5.0.1"
+  },
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "start:ui": "cd ui && npm start",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:ui\"",
+    "build:ui": "cd ui && npm install",
+    "build:backend": "cd backend && npm install"
+  }
+}

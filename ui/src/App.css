@@ -1,0 +1,125 @@
+.App {
+  background-color: rgb(196, 215, 231);
+}
+
+.Auth-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(210, 226, 239);
+}
+
+.Auth-form {
+  width: 420px;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  border-radius: 8px;
+  background-color: whitesmoke;
+  margin-top: 12rem;
+}
+
+.Auth-form-content {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.Auth-form-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 800;
+}
+
+.message-title {
+  text-align: center;
+  margin-bottom: 1em;
+  font-size: 24px;
+  color: rgb(34, 34, 34);
+  font-weight: 300;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(34, 34, 34);
+}
+
+.header {
+  background-color: whitesmoke;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  color:  rgb(34, 34, 34);
+  font-size: 24px;
+  font-weight: 800;
+  box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
+}
+
+
+/* Secondary Navbar */
+.SecondaryNavbar {
+  padding: 0.5rem;
+  height: auto;
+  background-color: #ffffff; /* White background */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .SecondaryNavbar button {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #e8f4fd; /* Light blue for button background */
+  color: #007bb5; /* Dark blue for text and icon */
+  border: 1px solid #cbe2f8; /* Light blue border */
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  height: 100%;
+  }
+  
+  .SecondaryNavbar button:hover {
+  background-color: #d4e8fa; /* Slightly darker on hover */
+  }
+  
+  /* Filter & Search Section */
+  .FilterSearchSection {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-bottom: 1px solid #cbe2f8; /* Light border for separation */
+  }
+  
+  .FilterSearchSection button {
+  padding: 5px 10px;
+  margin-right: 10px;
+  background-color: #e8f4fd;
+  color: #007bb5;
+  border: 1px solid #cbe2f8;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  }
+  
+  .FilterSearchSection input {
+  padding: 5px;
+  border: 1px solid #cbe2f8;
+  border-radius: 4px;
+  outline: none;
+  }
+  
+  /* Content Area */
+  .ContentArea {
+  padding: 20px;
+  }
+  

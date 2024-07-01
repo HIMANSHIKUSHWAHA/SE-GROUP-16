@@ -1,0 +1,32 @@
+.results-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
+}
+
+.session-result-container {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+/* Add media query for responsiveness */
+@media (max-width: 768px) {
+    .session-result-container {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .session-result-container {
+        flex: 1 1 calc(100% - 20px);
+    }
+}

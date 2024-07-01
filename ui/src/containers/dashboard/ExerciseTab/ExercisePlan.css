@@ -1,0 +1,57 @@
+.exercise-plan-results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.exercise-plan-result-container {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+    .exercise-plan-result-container {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .exercise-plan-result-container {
+        flex-basis: calc(100% - 20px);
+    }
+}
+
+.exerciseplan-title {
+    font-size: 20px;
+    color: #1976d2;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.exerciseplan-description {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+    .mealPlan-card {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .mealPlan-card {
+        flex-basis: calc(100% - 20px);
+    }
+}

@@ -1,0 +1,112 @@
+.searchInput {
+    border: 2px solid #1976d2;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    width: 600px;
+}
+
+.searchInput:focus {
+    border-color: #115293;
+}
+
+.searchButton {
+    border: 2px solid #1976d2;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 16px;
+    outline: none;
+    background-color: lightsteelblue;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.searchButton:hover {
+    background-color: #115293;
+}
+
+.suggestions-container {
+    position: absolute;
+    z-index: 1000;
+    outline: 2px solid #1976d2;
+    background-color: white;
+    width: auto;
+    max-width: 600px;
+    border-radius: 4px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+    padding: 0;
+    margin-top: 2px;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #cbe2f8;
+}
+
+.professional-result-container {
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.professional-firstname, .professional-lastname, .professional-specialization {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #ff6b6b;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.professional-results-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.professional-result-container {
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+    .professional-result-container {
+        flex-basis: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .professional-result-container {
+        flex-basis: calc(100% - 20px);
+    }
+}
